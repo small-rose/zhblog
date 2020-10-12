@@ -1,0 +1,591 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>Z-BLOG</title>
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-siteapp"/>
+  <link rel="icon" type="image/png" href="scmte/assets/i/favicon.jpg">
+  <meta name="mobile-web-app-capable" content="yes">
+  <link rel="icon" sizes="192x192" th:href="@{${basePath}+'scmte/assets/i/favicon.jpg'}" href="scmte/assets/i/favicon.jpg">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="Amaze UI"/>
+  <link rel="apple-touch-icon-precomposed" th:href="@{${basePath}+'scmte/assets/i/favicon.jpg'}" href="scmte/assets/i/favicon.jpg">
+  <meta name="msapplication-TileImage" th:content="@{${basePath}+'scmte/assets/i/favicon.jpg'}" content="scmte/assets/i/favicon.jpg">
+  <meta name="msapplication-TileColor" content="#0e90d2">
+  <link rel="stylesheet" th:href="@{${basePath}+'scmte/assets/css/amazeui.min.css'}" href="scmte/assets/css/amazeui.min.css">
+  <link rel="stylesheet" th:href="@{${basePath}+'scmte/assets/css/app.css'}" href="scmte/assets/css/app.css">
+  <link rel="stylesheet" th:href="@{${basePath}+'plug-in/bootstrap3.3.7/fonts/glyphicons-halflings-regular.woff'}" href="plug-in/bootstrap3.3.7/fonts/glyphicons-halflings-regular.woff" />
+  <link rel="stylesheet" th:href="@{${basePath}+'plug-in/bootstrap3.3.7/css/bootstrap.min.css'}" href="plug-in/bootstrap3.3.7/css/bootstrap.min.css" />
+  <link rel="stylesheet" th:href="@{${basePath}+'plug-in/bootstrap3.3.7/css/bootstrap-theme.min.css'}" href="plug-in/bootstrap3.3.7/css/bootstrap-theme.min.css" />
+  <link rel="stylesheet" th:href="@{${basePath}+'plug-in/editor.md-master/css/editormd.min.css'}" href="plug-in/editor.md-master/css/editormd.min.css" />
+  <link rel="stylesheet" th:href="@{${basePath}+'plug-in/bootstrap3.3.7/buttons.css'}" href="plug-in/bootstrap3.3.7/buttons.css">
+  <link rel="stylesheet" th:href="@{${basePath}+'moudle/admin.css'}" href="moudle/admin.css">
+<style type="text/css">
+.parent-td{
+	position: absolute;
+}
+
+.yuLan{
+	position: absolute;
+	z-index: 9999;
+	top: 0;
+	left:200px;
+	margin: 0 auto;
+}
+</style>
+</head>
+<body id="blog" style="height: 100%; color: rgb(0, 0, 0); ">
+<!-- <header class="am-g am-g-fixed blog-fixed blog-text-center blog-header">
+	
+    <div class="am-u-sm-8 am-u-sm-centered">
+        <img width="200" src="https://www.aroad.xyz/source/img/favicon.png" alt="Amaze UI Logo"/>
+        <h2 class="am-hide-sm-only">我似江潮来又去，君如鸥鹭逐波还</h2>
+    </div>
+</header>
+<hr> -->
+<!-- <div th:include="common/admin :: daoTop"></div> -->
+<!-- <hr> -->
+<div class="am-g am-g-fixed blog-fixed blog-content">
+<div class="container">
+		<!-- 标题 -->
+		<div class="row">
+		  <div class="col-md-12" style="height: 25px;margin-top: 10px;">
+		  	<strong>评论管理 </strong>&nbsp; / &nbsp; <span > 评论 审核/删除</span>
+		  </div>
+		</div>
+		<!-- 按钮 -->
+		<div  class="panel panel-default  panel-info " style="margin-top: 5px">
+			<div class="panel-heading ">
+				<h5 class="panel-title"><span class=" glyphicon glyphicon-link"></span> 评论列表
+           		 </h5>
+			</div>
+			<div id="collapseOne" class="panel-collapse collapse in">
+  			<div class="panel-body">
+		<div class="row">
+			<div class="col-md-12">
+				<form class="form-inline" id="queryForm">
+					  <div class="form-group input-group-sm">
+					    <label for="queryTagName">文章名称</label>
+					    <input type="text" name="queryTagName" class="form-control" id="queryTagName" placeholder="">
+					  </div>
+					  <!-- <div class="form-group input-group-sm">
+					    <label for="queryTagCode">友链代码</label>
+					    <input type="text" name="queryTagCode"  class="form-control" id="queryTagCode" placeholder="">
+					  </div> -->
+					  <div class="form-group " >
+					    <label class="control-label">审核状态</label>
+						    <select class="form-control" name="queryisShow" id="queryisShow">
+						    	<option value="">请选择</option>
+						    	<option value="1">审核通过</option>
+						    	<option value="0">审核驳回</option>
+						    	<option value="0">待审核</option>
+							</select>
+					  </div>
+					   <button type="button" class="btn btn-primary btn-sm" id="query_handle"><span class="glyphicon glyphicon-search"></span> 查询</button>
+						 <button type="button" class="btn btn-primary btn-sm" id="query_delete_all"><span class="glyphicon glyphicon-remove"></span> 清空条件</button>
+					</form>
+					
+			</div>
+		     <div class="col-md-3 col-md-offset-9" style="padding-top: 4px; padding-bottom: 4px">
+		     	<button type="button" class="btn btn-primary btn-sm" id="appr_model_btn"><span class=" glyphicon glyphicon-envelope"></span> 审核</button>
+		    	<button type="button" class="btn btn-danger btn-sm" id="cmt_delete_all"><span class="glyphicon glyphicon-trash"></span> 批量删除</button>
+				<button type="button" class="btn btn-success btn-sm" id="cmt_refresh"><span class="glyphicon glyphicon-refresh"></span> 刷新</button>
+				 
+		    </div>
+		</div>
+		
+		<!-- 表格数据 -->
+		<div class="row  ">
+			    <div class="col-md-12">
+			    	<div class="yuLan"><img /></div>
+			    	<table id="data_table" class="table table-bordered table-hover" >
+			    		<thead>
+			    		<tr>
+			    			<th><input type="checkbox" id="check_all"/></th>
+			    			<th>编号</th>
+			    			<th width="100px">文章名称</th>
+			    			<th>评论头像</th>
+			    			<th>评论昵称</th>
+			    			<th>评论WebUrl</th>
+			    			<th align="center">审核状态</th>
+			    			<th>评论时间</th>
+			    			<th>赞</th>
+			    			<th>踩</th>
+			    			<th>操作</th>
+			    		</tr>
+			    		</thead>
+			    		<tbody>
+			    		</tbody>
+			    	</table>
+			    	
+			    </div>
+		</div>
+		<!-- 分页 -->
+		<div class="row">
+			    <div class="col-md-6" id="page_info">
+			    </div>
+			    <div class="col-md-6" id="page_navi">
+			    </div>
+		</div>
+			</div></div>
+		</div>
+	</div>
+</div>
+<hr>
+<footer class="blog-footer">
+     <!-- <div th:include="common/footer :: copy"></div> -->
+    <!-- <div class="blog-text-center">© 2015 AllMobilize, Inc. Licensed under MIT license. Made with love By LWXYFER</div>     -->
+</footer>
+<script  th:src="@{${basePath}+'plug-in/fileinput/js/jquery-2.0.3.min.js'}" src="plug-in/fileinput/js/jquery-2.0.3.min.js"></script>
+  
+<script th:src="@{${basePath}+'scmte/assets/js/amazeui.min.js'}"  src="/scmte/assets/js/amazeui.min.js"></script> 
+<script th:src="@{${basePath}+'plug-in/bootstrap3.3.7/js/bootstrap.min.js'}"  src="plug-in/bootstrap3.3.7/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+	var totalPage ;//总页数，也可以使用总记录数
+	var currPageNum ;//总页数，也可以使用总记录数
+	//1页面加载完成后发ajax
+	$(function(){
+		to_page(1);
+
+	});
+	
+	function to_page(pn){
+		//var query = $("#queryForm").serializeArray();
+		var query = getQueryForm();
+		var pageNum = $(".page_size_change").children('option:selected').val();
+		if(undefined==pageNum){
+			pageNum = 5;
+		}
+		$.ajax({
+			url:"commentAjax",
+			data:"pn="+pn+"&pageNum="+pageNum+query,
+			type:"POST",
+			success:function(result){
+				//清空数据
+				clear_table();
+				//1解析并显示数据
+				build_data_table(result);
+				//2解析并显示分页
+				build_page_info(result);
+				//2解析并显示分页导航
+				build_page_navi(result);
+			}
+		});
+	}
+	//解析显示数据
+	function build_data_table(result){
+		
+		var data = result.extend.pageInfo.list;
+		//console.log(data);
+		$.each(data,function(index,item){
+			//alert(" item"+item.empName);
+			var checkBox = $("<td></td>").append($("<input type=\"checkbox\"/>").addClass("check_item"));
+			var IdTD = $("<td></td>").append(item.id);
+			
+			var img = $("<img />").addClass("org").attr("src",item.linkTx).attr("width","25").attr("height","25");
+
+			var div = $("<div ></div>").append(img);
+			/* var divYuLan = $("<div ></div>").addClass("yuLan").append($("<img />"));
+			div.append(divYuLan); */
+			var titleTD = $("<td></td>").append(item.articleTitle);
+			var nameTD = $("<td></td>").append(item.cmtUname);
+			var emailTD = $("<td></td>").append(item.cmtUemail);
+			var aDom = $("<a></a>").append(item.cmtWebUrl).attr("href",item.cmtWebUrl).attr("target","_blank");
+			var linkUrlTD = $("<td></td>").append(item.cmtWebUrl);
+			var apprFlag ;
+			if(item.cmtAppr==2){
+				apprFlag = "待审批"; 
+			}else if(item.cmtAppr==1){
+				apprFlag = "审批通过";
+			}else{
+				apprFlag = "审批驳回";
+			}
+			var apprFlagTD = $("<td ></td>").append(apprFlag);
+
+			var addTimeTD = $("<td></td>").append(item.cmtDate);
+			var likeYesTD = $("<td></td>").append(item.likeYes);
+			var likeNoTD = $("<td></td>").append(item.likeNo);
+			
+			var viewBtn = $("<button></button>").addClass("btn btn-info btn-xs view_btn")
+					.append($("<span></span>").addClass("glyphicon glyphicon-eye-open")).append("查看");
+			viewBtn.attr("view-id",item.id);
+			
+			var delBtn = $("<button></button>").addClass("btn btn-danger btn-xs del_btn")
+						.append($("<span></span>").addClass("glyphicon glyphicon-remove")).append("删除");
+			delBtn.attr("del-id",item.id);
+			
+			var opt = $("<td></td>").append(" ").append(viewBtn).append(" ").append(delBtn);
+			var trObj =  $("<tr></tr>").append(checkBox).append(IdTD).append(titleTD).append(nameTD).append(emailTD)
+						.append(linkUrlTD).append(apprFlagTD).append(addTimeTD).append(likeYesTD).append(likeNoTD)
+						.append(opt);
+			trObj.appendTo("#data_table tbody");
+		});
+		
+		$(".org").mouseover(function(){
+			var src = $(this).attr("src");
+			
+			//$(".org").next().children(0).attr("src",src);
+			//$(".org").next().css({"display": "block"});
+			
+			$(".yuLan").children(0).attr("src",src);
+			$(".yuLan").css({"display": "block"});
+		});
+
+		$(".org").mouseout(function(){
+			//$(".org").next().css({"display":"none"});
+			$(".yuLan").css({"display": "none"});
+		});
+	}
+	
+
+	function clear_table(){
+		$("#data_table tbody").empty();
+		$("#page_info").empty();
+		$("#page_navi").empty();
+	}
+	
+	//解析显示分页信息
+	function build_page_info(result){
+		var pageInfo = result.extend.pageInfo;
+		totalPage = pageInfo.pages;
+		currPageNum = pageInfo.pageNum;
+		var pageSize = pageInfo.navigatePages;
+		var select = $("<select></select>");//.addClass("form-control");
+		for(var i = 1 ;i<5 ;i ++){
+			if( (i*5) == pageSize){
+				select.append($("<option selected=\"selected\">"+(i*5)+"</option>"));
+			}else{
+				select.append($("<option>"+(i*10)+"</option>"));
+			}
+		}
+		select.addClass("page_size_change");
+		$("#page_info").append("当前第 "+pageInfo.pageNum +" 页，总 "+pageInfo.pages+"页，总 "+pageInfo.total+"条记录");
+		$("#page_info").append(",每页显示").append(select).append("条");
+	}
+	
+	//解析显示分页条
+	function build_page_navi(result){
+		var pageInfo = result.extend.pageInfo
+		var ulObj = $("<ul></ul>").addClass("pagination pagination-sm");
+		//首页
+		var firstli = $("<li></li>").append($("<a></a>").append("首页").attr("href","#"));
+		//前一页
+		var preli = $("<li></li>").append($("<a></a>").append("&laquo;").attr("href","#"));
+		if(!pageInfo.hasPreviousPage){
+			firstli.addClass("disabled");
+			preli.addClass("disabled");
+		}else{
+			firstli.click(function(){
+				to_page(1);
+			});
+			preli.click(function(){
+				to_page(pageInfo.pageNum-1);
+			});
+		}
+		//后一页
+		var nextli = $("<li></li>").append($("<a></a>").append("&raquo;").attr("href","#"));
+		//末页
+		var lastli = $("<li></li>").append($("<a></a>").append("末页").attr("href","#"));
+		if(!pageInfo.hasNextPage){
+			nextli.addClass("disabled");
+			lastli.addClass("disabled");
+		}else{
+			nextli.click(function(){
+				to_page(pageInfo.pageNum+1);
+			});
+			lastli.click(function(){
+				to_page(pageInfo.pages);
+			});
+		}
+		
+		//组装
+		ulObj.append(firstli).append(preli);
+		var pages = result.extend.pageInfo.navigatepageNums;
+		$.each(pages,function(index,item){
+			var numli = $("<li></li>").append($("<a></a>").append(item).attr("href","#"));
+			if(item==pageInfo.pageNum){
+				numli.addClass("active");
+			}
+			numli.click(function(){
+				to_page(item);
+			});
+			ulObj.append(numli);
+		});
+		ulObj.append(nextli).append(lastli);
+		//把ul放入nav元素
+		var navEle = $("<nav></nav>").append(ulObj);
+		//把nav元素放入$("#page_navi")
+		navEle.appendTo("#page_navi");
+	}
+	
+	
+	
+	//查看
+	$(document).on("click",".view_btn",function (){
+		
+		var id = $(this).attr("view-id");
+		$.ajax({
+			url:"editComment/"+id,
+			/* data:"id="+id, */
+			type:"POST",
+			success:function(result){
+				console.log(result);
+				//清空数据
+				clear_model();
+				init_appr_model(result,"view");
+				
+				$("#addModal").modal({
+					backdrop:"static"
+				});
+			}
+		});
+	});
+	
+	
+	$(document).on("click","#appr_model_btn",function(){
+		
+		var chcks = $(".check_item:checked");
+		if(chcks!=null && chcks.length != 1){
+			AlertModal("warning","请选择一条要审核的记录");
+			return false;
+		}
+		var linkName, id;
+		$.each(chcks ,function(){
+			//找第三个
+			linkName = $(this).parents("tr").find("td:eq(3)").text() ;
+			id = $(this).parents("tr").find("td:eq(1)").text() ;
+		});
+		//console.log( "linkName:"+linkName+"id:"+id);
+		if(id==""){
+			AlertModal("warning","请选择一条要审核的记录");
+			return false;
+		}
+		appr_handle(id);
+	});
+	
+	function appr_handle(id){
+		var param = {};
+		$.ajax({
+			url:"editComment/"+id,
+			type:"POST",
+			contentType:'application/json;charset=utf-8',
+			data:JSON.stringify(param),
+			cache : false,
+			success:function(result){
+				//console.log(result);
+				//清空数据
+				clear_model();
+				init_appr_model(result,"appr");
+				
+				$("#addModal").modal({
+					backdrop:"static"
+				});
+			}
+		});
+	}
+
+	function init_appr_model(result, type){
+		var data = result.extend.object ;
+		$("#input_Commenttx").val(data.linkTx);
+		$("#input_CommentName").val(data.linkName);
+		$("#input_CommentUrl").val(data.linkUrl);
+		$("#linkTx").attr("src",data.linkTx);
+		$("#input_CommentId").val(data.id);
+		
+		if(type=='view'){
+			$("#appr_no_btn").hide();
+			$("#appr_yes_btn").hide();
+		}else{
+			$("#appr_no_btn").show();
+			$("#appr_yes_btn").show();
+		}
+	}
+	
+	$(document).on("click", ".del_btn",function(){
+		//弹出确认框
+		var picName = $(this).parents("tr").find("td:eq(3)").text();
+		var  picId = $(this).attr("del-id");
+		if(confirm("确认删除【"+picName+" 】吗?")){
+			del_handle(picId);
+		}
+	});
+	
+	
+	function del_handle(ids){
+		$.ajax({
+			url:"delComment/"+ids,
+			//data:"ids="+ids,
+			type:"DELETE",
+			success:function(result){
+				if(result.success){
+					AlertModal("success",result.msg);
+				}else{
+					AlertModal("error",result.msg);
+				}
+				to_page(currPageNum);
+				$("#check_all").prop("checked",false);
+			}
+		});
+	}
+	$("#check_all").click(function(){
+		//atrr获取checked是undefined
+		//attr读取自定义属性的值
+		//prop修改读取DOM原生属性的值
+		//$(this).prop("checked");
+		$(".check_item").prop("checked",$(this).prop("checked"));
+	});
+	
+	$(document).on("click",".check_item",function(){
+		//alert($(".check_item:checked").length +" ---"+$(".check_item").length);
+		var flag =$(".check_item:checked").length == $(".check_item").length ;
+		$("#check_all").prop("checked",flag);
+	});
+	
+	$("#cmt_delete_all").click(function(){
+		var cmtNames = "";
+		var ids = "";
+		$.each($(".check_item:checked"),function(){
+			//找第三个
+			cmtNames += $(this).parents("tr").find("td:eq(3)").text()+",";
+			ids += $(this).parents("tr").find("td:eq(1)").text()+",";
+		});
+		cmtNames = cmtNames.length>1 ? cmtNames.substring(0,cmtNames.length-1) :cmtNames ;
+		if(ids==""){
+			AlertModal("warning","请选择要删除的记录");
+			return false;
+		}
+		if(confirm("确认批量删除【"+cmtNames+" 】吗?")){
+			del_handle(ids);
+		}
+	});
+	
+	$("#cmt_refresh").click(function(){
+		window.location.reload(true);
+	});
+	
+	$("#query_handle").click(function(){
+		to_page(1);
+	});
+	
+	$("#query_delete_all").click(function(){
+		$("#queryForm")[0].reset();
+		$("#queryTagName").val("");
+		$("#queryisShow").val("");
+	});
+
+	
+	var tmpSize = 5 ;
+	$(document).on("change",".page_size_change",function(){
+		var p1 =$(this).children('option:selected').val();//这就是selected的值 
+		if(p1!=tmpSize){
+			tmpSize = p1;
+			to_page(1);
+		}
+	});
+	
+	function getQueryForm(){
+		var query = "";
+		var cmtName = $("#queryTagName").val();
+		var isShow = $("#queryisShow option:selected").val();
+		if(cmtName!=null && cmtName!=""){
+			query += "&cmtName="+cmtName ;
+		}
+		if(isShow!=null && isShow!=""){
+			query += "&isShow="+isShow ;
+		}
+		return query ;
+	}
+	
+	$(document).on("click","#appr_no_btn", function(){
+		apprSubmit(0);
+	});
+	
+	
+	$(document).on("click","#appr_yes_btn", function(){
+		apprSubmit(1);
+	});
+	
+	function apprSubmit(flag){
+		var id = $("#input_CommentId").val();
+		var param = {'id':id, 'apprFlag':flag};
+		$.ajax({
+			url:"apprFlag",
+			type:"POST",
+			contentType:'application/json;charset=utf-8',
+			data:JSON.stringify(param),
+			cache : false,
+			success:function(result){
+				if(result.success){
+					AlertModal("success",result.msg);
+					$('#addModal').modal('hide');
+				}else{
+					AlertModal("error",result.msg);
+				}
+				
+				to_page(currPageNum);
+				$("#check_all").prop("checked",false);
+			}
+		});
+	}
+	var localSrc = 'moudle/mood/images/tx_zxc.png';
+	function clear_model(){
+		$("#input_Commenttx").val();
+		$("#input_CommentName").val();
+		$("#input_CommentUrl").val();
+		$("#linkTx").attr("src",localSrc);
+	}
+</script>
+<!-- 新增模态框 -->
+<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+  <div class="modal-dialog " role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="addModalLabel">审核博友链接</h4>
+      </div>
+      <div class="modal-body">
+       <form class="form-horizontal" onsubmit="return false">
+       	  <input type="hidden"   id="input_CommentId" >
+		  <div class="form-group input-group-sm">
+		    <label for="input_Commenttx" class="col-sm-2 control-label">网站头像</label>
+		    <div class="col-sm-7"><!-- http://qzapp.qlogo.cn/qzapp/100402580/336E60D0BFB2900298742F6BF1033CA2/100 -->
+		      <input type="text" name="input_Commenttx" class="form-control" id="input_Commenttx" placeholder="输入头像链接，右侧自动预览" data-toggle="tooltip" title="头像示例：http://qzapp.qlogo.cn/qzapp/100402580/336E60D0BFB2900298742F6BF1033CA2/100" >
+		      <span id="input_Commenttx" class="help-block"></span>
+		    </div>
+		  </div>
+		  <div class="form-group input-group-sm">
+		    <label for="input_CommentName" class="col-sm-2 control-label">网站名称</label>
+		    <div class="col-sm-7">
+		      <input type="text"name="input_CommentName" class="form-control" id="input_CommentName" placeholder="网站名称" data-toggle="tooltip" title="网站名称" >
+		      <span id="input_CommentName" class="help-block"></span>
+		    </div>
+		  </div>
+		  <div class="form-group input-group-sm">
+		    <label for="input_CommentUrl" class="col-sm-2 control-label">网站URL</label>
+		    <div class="col-sm-8">
+		      <input type="text" name="input_CommentUrl" class="form-control" id="input_CommentUrl" placeholder="网站URL" data-toggle="tooltip" title="网站URL" value="">
+		      <span id="input_CommentUrl" class="help-block"></span>
+		    </div>
+		  </div>
+		  <div class="col-sm-3" style="position: absolute;right: 10px;top: 10px;">
+		    <img id="linkTx" class="img-rounded" src="moudle/mood/images/tx_zxc.png" style="width: 100px;height: 100px;" alt="img">
+		    </div>
+		</form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+        <button type="button" class="btn btn-primary" id="appr_no_btn">审核驳回</button>
+        <button type="button" class="btn btn-primary" id="appr_yes_btn">审核通过</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div th:include="common/message :: msg"></div> 
+</body>
+</html>

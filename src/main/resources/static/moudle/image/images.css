@@ -1,0 +1,49 @@
+/**
+Ç°¶ËÍ¼Æ¬¿âÑùÊ½
+*/
+li{ 
+	list-style:none;
+}
+
+.box {
+	margin-top: -10px;
+	text-align: center;
+}
+.box ul,li{ 
+	padding:0; margin:0; 
+	text-align: center;
+}
+
+.box li{ 
+	float:left; 
+	width:200px; 
+	height:210px; 
+	/* margin-right:10px; */
+	text-align:center;
+	vertical-align:middle;
+	padding-bottom:10px;
+	padding-top:10px;
+	padding-left:10px;
+}
+
+.box li h4{
+	margin-top:1px;
+}	
+
+ 
+#myTab  li{
+	padding: 0;
+	float: left;
+}
+#myTabContent .box  .show-img{
+	display: inline-block;
+    max-width: 100%;
+
+    padding: 3px;
+    line-height: 1.6;
+    background-color: #ffffff;
+    border: 1px solid #dddddd;
+    border-radius: 0;
+    -webkit-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
+}

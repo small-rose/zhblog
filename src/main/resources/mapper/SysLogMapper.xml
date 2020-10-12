@@ -1,0 +1,531 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zzy.blog.web.mapper.SysLogMapper">
+  <resultMap id="BaseResultMap" type="com.zzy.blog.web.pojo.SysLog">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="log_url" jdbcType="VARCHAR" property="logUrl" />
+    <result column="log_Remote_Device" jdbcType="VARCHAR" property="logRemoteDevice" />
+    <result column="log_osinfo" jdbcType="VARCHAR" property="logOsinfo" />
+    <result column="log_broswer" jdbcType="VARCHAR" property="logBroswer" />
+    <result column="log_Method" jdbcType="VARCHAR" property="logMethod" />
+    <result column="log_optNote" jdbcType="VARCHAR" property="logOptnote" />
+    <result column="log_Protocol" jdbcType="VARCHAR" property="logProtocol" />
+    <result column="log_remote_ip" jdbcType="VARCHAR" property="logRemoteIp" />
+    <result column="log_remote_port" jdbcType="VARCHAR" property="logRemotePort" />
+    <result column="log_remote_RemoteUser" jdbcType="VARCHAR" property="logRemoteRemoteuser" />
+    <result column="log_star_time" jdbcType="VARCHAR" property="logStarTime" />
+    <result column="log_end_time" jdbcType="VARCHAR" property="logEndTime" />
+    <result column="log_resp_header" jdbcType="VARCHAR" property="logRespHeader" />
+    <result column="msg_rsv1" jdbcType="VARCHAR" property="msgRsv1" />
+    <result column="msg_rsv2" jdbcType="VARCHAR" property="msgRsv2" />
+    <result column="msg_rsv3" jdbcType="VARCHAR" property="msgRsv3" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.zzy.blog.web.pojo.SysLog">
+    <result column="log_req_header" jdbcType="LONGVARCHAR" property="logReqHeader" />
+    <result column="log_param_org" jdbcType="LONGVARCHAR" property="logParamOrg" />
+    <result column="log_param" jdbcType="LONGVARCHAR" property="logParam" />
+    <result column="log_resp_body" jdbcType="LONGVARCHAR" property="logRespBody" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, log_url, log_Remote_Device, log_osinfo, log_broswer, log_Method, log_optNote, 
+    log_Protocol, log_remote_ip, log_remote_port, log_remote_RemoteUser, log_star_time, 
+    log_end_time, log_resp_header, msg_rsv1, msg_rsv2, msg_rsv3
+  </sql>
+  <sql id="Blob_Column_List">
+    log_req_header, log_param_org, log_param, log_resp_body
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.zzy.blog.web.pojo.SysLogQuery" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from bk_sys_log
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.zzy.blog.web.pojo.SysLogQuery" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from bk_sys_log
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from bk_sys_log
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from bk_sys_log
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.zzy.blog.web.pojo.SysLogQuery">
+    delete from bk_sys_log
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.zzy.blog.web.pojo.SysLog">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into bk_sys_log (log_url, log_Remote_Device, log_osinfo, 
+      log_broswer, log_Method, log_optNote, 
+      log_Protocol, log_remote_ip, log_remote_port, 
+      log_remote_RemoteUser, log_star_time, log_end_time, 
+      log_resp_header, msg_rsv1, msg_rsv2, 
+      msg_rsv3, log_req_header, log_param_org, 
+      log_param, log_resp_body)
+    values (#{logUrl,jdbcType=VARCHAR}, #{logRemoteDevice,jdbcType=VARCHAR}, #{logOsinfo,jdbcType=VARCHAR}, 
+      #{logBroswer,jdbcType=VARCHAR}, #{logMethod,jdbcType=VARCHAR}, #{logOptnote,jdbcType=VARCHAR}, 
+      #{logProtocol,jdbcType=VARCHAR}, #{logRemoteIp,jdbcType=VARCHAR}, #{logRemotePort,jdbcType=VARCHAR}, 
+      #{logRemoteRemoteuser,jdbcType=VARCHAR}, #{logStarTime,jdbcType=VARCHAR}, #{logEndTime,jdbcType=VARCHAR}, 
+      #{logRespHeader,jdbcType=VARCHAR}, #{msgRsv1,jdbcType=VARCHAR}, #{msgRsv2,jdbcType=VARCHAR}, 
+      #{msgRsv3,jdbcType=VARCHAR}, #{logReqHeader,jdbcType=LONGVARCHAR}, #{logParamOrg,jdbcType=LONGVARCHAR}, 
+      #{logParam,jdbcType=LONGVARCHAR}, #{logRespBody,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zzy.blog.web.pojo.SysLog">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into bk_sys_log
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="logUrl != null">
+        log_url,
+      </if>
+      <if test="logRemoteDevice != null">
+        log_Remote_Device,
+      </if>
+      <if test="logOsinfo != null">
+        log_osinfo,
+      </if>
+      <if test="logBroswer != null">
+        log_broswer,
+      </if>
+      <if test="logMethod != null">
+        log_Method,
+      </if>
+      <if test="logOptnote != null">
+        log_optNote,
+      </if>
+      <if test="logProtocol != null">
+        log_Protocol,
+      </if>
+      <if test="logRemoteIp != null">
+        log_remote_ip,
+      </if>
+      <if test="logRemotePort != null">
+        log_remote_port,
+      </if>
+      <if test="logRemoteRemoteuser != null">
+        log_remote_RemoteUser,
+      </if>
+      <if test="logStarTime != null">
+        log_star_time,
+      </if>
+      <if test="logEndTime != null">
+        log_end_time,
+      </if>
+      <if test="logRespHeader != null">
+        log_resp_header,
+      </if>
+      <if test="msgRsv1 != null">
+        msg_rsv1,
+      </if>
+      <if test="msgRsv2 != null">
+        msg_rsv2,
+      </if>
+      <if test="msgRsv3 != null">
+        msg_rsv3,
+      </if>
+      <if test="logReqHeader != null">
+        log_req_header,
+      </if>
+      <if test="logParamOrg != null">
+        log_param_org,
+      </if>
+      <if test="logParam != null">
+        log_param,
+      </if>
+      <if test="logRespBody != null">
+        log_resp_body,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="logUrl != null">
+        #{logUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="logRemoteDevice != null">
+        #{logRemoteDevice,jdbcType=VARCHAR},
+      </if>
+      <if test="logOsinfo != null">
+        #{logOsinfo,jdbcType=VARCHAR},
+      </if>
+      <if test="logBroswer != null">
+        #{logBroswer,jdbcType=VARCHAR},
+      </if>
+      <if test="logMethod != null">
+        #{logMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="logOptnote != null">
+        #{logOptnote,jdbcType=VARCHAR},
+      </if>
+      <if test="logProtocol != null">
+        #{logProtocol,jdbcType=VARCHAR},
+      </if>
+      <if test="logRemoteIp != null">
+        #{logRemoteIp,jdbcType=VARCHAR},
+      </if>
+      <if test="logRemotePort != null">
+        #{logRemotePort,jdbcType=VARCHAR},
+      </if>
+      <if test="logRemoteRemoteuser != null">
+        #{logRemoteRemoteuser,jdbcType=VARCHAR},
+      </if>
+      <if test="logStarTime != null">
+        #{logStarTime,jdbcType=VARCHAR},
+      </if>
+      <if test="logEndTime != null">
+        #{logEndTime,jdbcType=VARCHAR},
+      </if>
+      <if test="logRespHeader != null">
+        #{logRespHeader,jdbcType=VARCHAR},
+      </if>
+      <if test="msgRsv1 != null">
+        #{msgRsv1,jdbcType=VARCHAR},
+      </if>
+      <if test="msgRsv2 != null">
+        #{msgRsv2,jdbcType=VARCHAR},
+      </if>
+      <if test="msgRsv3 != null">
+        #{msgRsv3,jdbcType=VARCHAR},
+      </if>
+      <if test="logReqHeader != null">
+        #{logReqHeader,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="logParamOrg != null">
+        #{logParamOrg,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="logParam != null">
+        #{logParam,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="logRespBody != null">
+        #{logRespBody,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.zzy.blog.web.pojo.SysLogQuery" resultType="java.lang.Long">
+    select count(*) from bk_sys_log
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update bk_sys_log
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.logUrl != null">
+        log_url = #{record.logUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.logRemoteDevice != null">
+        log_Remote_Device = #{record.logRemoteDevice,jdbcType=VARCHAR},
+      </if>
+      <if test="record.logOsinfo != null">
+        log_osinfo = #{record.logOsinfo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.logBroswer != null">
+        log_broswer = #{record.logBroswer,jdbcType=VARCHAR},
+      </if>
+      <if test="record.logMethod != null">
+        log_Method = #{record.logMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.logOptnote != null">
+        log_optNote = #{record.logOptnote,jdbcType=VARCHAR},
+      </if>
+      <if test="record.logProtocol != null">
+        log_Protocol = #{record.logProtocol,jdbcType=VARCHAR},
+      </if>
+      <if test="record.logRemoteIp != null">
+        log_remote_ip = #{record.logRemoteIp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.logRemotePort != null">
+        log_remote_port = #{record.logRemotePort,jdbcType=VARCHAR},
+      </if>
+      <if test="record.logRemoteRemoteuser != null">
+        log_remote_RemoteUser = #{record.logRemoteRemoteuser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.logStarTime != null">
+        log_star_time = #{record.logStarTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.logEndTime != null">
+        log_end_time = #{record.logEndTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.logRespHeader != null">
+        log_resp_header = #{record.logRespHeader,jdbcType=VARCHAR},
+      </if>
+      <if test="record.msgRsv1 != null">
+        msg_rsv1 = #{record.msgRsv1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.msgRsv2 != null">
+        msg_rsv2 = #{record.msgRsv2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.msgRsv3 != null">
+        msg_rsv3 = #{record.msgRsv3,jdbcType=VARCHAR},
+      </if>
+      <if test="record.logReqHeader != null">
+        log_req_header = #{record.logReqHeader,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.logParamOrg != null">
+        log_param_org = #{record.logParamOrg,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.logParam != null">
+        log_param = #{record.logParam,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.logRespBody != null">
+        log_resp_body = #{record.logRespBody,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update bk_sys_log
+    set id = #{record.id,jdbcType=BIGINT},
+      log_url = #{record.logUrl,jdbcType=VARCHAR},
+      log_Remote_Device = #{record.logRemoteDevice,jdbcType=VARCHAR},
+      log_osinfo = #{record.logOsinfo,jdbcType=VARCHAR},
+      log_broswer = #{record.logBroswer,jdbcType=VARCHAR},
+      log_Method = #{record.logMethod,jdbcType=VARCHAR},
+      log_optNote = #{record.logOptnote,jdbcType=VARCHAR},
+      log_Protocol = #{record.logProtocol,jdbcType=VARCHAR},
+      log_remote_ip = #{record.logRemoteIp,jdbcType=VARCHAR},
+      log_remote_port = #{record.logRemotePort,jdbcType=VARCHAR},
+      log_remote_RemoteUser = #{record.logRemoteRemoteuser,jdbcType=VARCHAR},
+      log_star_time = #{record.logStarTime,jdbcType=VARCHAR},
+      log_end_time = #{record.logEndTime,jdbcType=VARCHAR},
+      log_resp_header = #{record.logRespHeader,jdbcType=VARCHAR},
+      msg_rsv1 = #{record.msgRsv1,jdbcType=VARCHAR},
+      msg_rsv2 = #{record.msgRsv2,jdbcType=VARCHAR},
+      msg_rsv3 = #{record.msgRsv3,jdbcType=VARCHAR},
+      log_req_header = #{record.logReqHeader,jdbcType=LONGVARCHAR},
+      log_param_org = #{record.logParamOrg,jdbcType=LONGVARCHAR},
+      log_param = #{record.logParam,jdbcType=LONGVARCHAR},
+      log_resp_body = #{record.logRespBody,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update bk_sys_log
+    set id = #{record.id,jdbcType=BIGINT},
+      log_url = #{record.logUrl,jdbcType=VARCHAR},
+      log_Remote_Device = #{record.logRemoteDevice,jdbcType=VARCHAR},
+      log_osinfo = #{record.logOsinfo,jdbcType=VARCHAR},
+      log_broswer = #{record.logBroswer,jdbcType=VARCHAR},
+      log_Method = #{record.logMethod,jdbcType=VARCHAR},
+      log_optNote = #{record.logOptnote,jdbcType=VARCHAR},
+      log_Protocol = #{record.logProtocol,jdbcType=VARCHAR},
+      log_remote_ip = #{record.logRemoteIp,jdbcType=VARCHAR},
+      log_remote_port = #{record.logRemotePort,jdbcType=VARCHAR},
+      log_remote_RemoteUser = #{record.logRemoteRemoteuser,jdbcType=VARCHAR},
+      log_star_time = #{record.logStarTime,jdbcType=VARCHAR},
+      log_end_time = #{record.logEndTime,jdbcType=VARCHAR},
+      log_resp_header = #{record.logRespHeader,jdbcType=VARCHAR},
+      msg_rsv1 = #{record.msgRsv1,jdbcType=VARCHAR},
+      msg_rsv2 = #{record.msgRsv2,jdbcType=VARCHAR},
+      msg_rsv3 = #{record.msgRsv3,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zzy.blog.web.pojo.SysLog">
+    update bk_sys_log
+    <set>
+      <if test="logUrl != null">
+        log_url = #{logUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="logRemoteDevice != null">
+        log_Remote_Device = #{logRemoteDevice,jdbcType=VARCHAR},
+      </if>
+      <if test="logOsinfo != null">
+        log_osinfo = #{logOsinfo,jdbcType=VARCHAR},
+      </if>
+      <if test="logBroswer != null">
+        log_broswer = #{logBroswer,jdbcType=VARCHAR},
+      </if>
+      <if test="logMethod != null">
+        log_Method = #{logMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="logOptnote != null">
+        log_optNote = #{logOptnote,jdbcType=VARCHAR},
+      </if>
+      <if test="logProtocol != null">
+        log_Protocol = #{logProtocol,jdbcType=VARCHAR},
+      </if>
+      <if test="logRemoteIp != null">
+        log_remote_ip = #{logRemoteIp,jdbcType=VARCHAR},
+      </if>
+      <if test="logRemotePort != null">
+        log_remote_port = #{logRemotePort,jdbcType=VARCHAR},
+      </if>
+      <if test="logRemoteRemoteuser != null">
+        log_remote_RemoteUser = #{logRemoteRemoteuser,jdbcType=VARCHAR},
+      </if>
+      <if test="logStarTime != null">
+        log_star_time = #{logStarTime,jdbcType=VARCHAR},
+      </if>
+      <if test="logEndTime != null">
+        log_end_time = #{logEndTime,jdbcType=VARCHAR},
+      </if>
+      <if test="logRespHeader != null">
+        log_resp_header = #{logRespHeader,jdbcType=VARCHAR},
+      </if>
+      <if test="msgRsv1 != null">
+        msg_rsv1 = #{msgRsv1,jdbcType=VARCHAR},
+      </if>
+      <if test="msgRsv2 != null">
+        msg_rsv2 = #{msgRsv2,jdbcType=VARCHAR},
+      </if>
+      <if test="msgRsv3 != null">
+        msg_rsv3 = #{msgRsv3,jdbcType=VARCHAR},
+      </if>
+      <if test="logReqHeader != null">
+        log_req_header = #{logReqHeader,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="logParamOrg != null">
+        log_param_org = #{logParamOrg,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="logParam != null">
+        log_param = #{logParam,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="logRespBody != null">
+        log_resp_body = #{logRespBody,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.zzy.blog.web.pojo.SysLog">
+    update bk_sys_log
+    set log_url = #{logUrl,jdbcType=VARCHAR},
+      log_Remote_Device = #{logRemoteDevice,jdbcType=VARCHAR},
+      log_osinfo = #{logOsinfo,jdbcType=VARCHAR},
+      log_broswer = #{logBroswer,jdbcType=VARCHAR},
+      log_Method = #{logMethod,jdbcType=VARCHAR},
+      log_optNote = #{logOptnote,jdbcType=VARCHAR},
+      log_Protocol = #{logProtocol,jdbcType=VARCHAR},
+      log_remote_ip = #{logRemoteIp,jdbcType=VARCHAR},
+      log_remote_port = #{logRemotePort,jdbcType=VARCHAR},
+      log_remote_RemoteUser = #{logRemoteRemoteuser,jdbcType=VARCHAR},
+      log_star_time = #{logStarTime,jdbcType=VARCHAR},
+      log_end_time = #{logEndTime,jdbcType=VARCHAR},
+      log_resp_header = #{logRespHeader,jdbcType=VARCHAR},
+      msg_rsv1 = #{msgRsv1,jdbcType=VARCHAR},
+      msg_rsv2 = #{msgRsv2,jdbcType=VARCHAR},
+      msg_rsv3 = #{msgRsv3,jdbcType=VARCHAR},
+      log_req_header = #{logReqHeader,jdbcType=LONGVARCHAR},
+      log_param_org = #{logParamOrg,jdbcType=LONGVARCHAR},
+      log_param = #{logParam,jdbcType=LONGVARCHAR},
+      log_resp_body = #{logRespBody,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zzy.blog.web.pojo.SysLog">
+    update bk_sys_log
+    set log_url = #{logUrl,jdbcType=VARCHAR},
+      log_Remote_Device = #{logRemoteDevice,jdbcType=VARCHAR},
+      log_osinfo = #{logOsinfo,jdbcType=VARCHAR},
+      log_broswer = #{logBroswer,jdbcType=VARCHAR},
+      log_Method = #{logMethod,jdbcType=VARCHAR},
+      log_optNote = #{logOptnote,jdbcType=VARCHAR},
+      log_Protocol = #{logProtocol,jdbcType=VARCHAR},
+      log_remote_ip = #{logRemoteIp,jdbcType=VARCHAR},
+      log_remote_port = #{logRemotePort,jdbcType=VARCHAR},
+      log_remote_RemoteUser = #{logRemoteRemoteuser,jdbcType=VARCHAR},
+      log_star_time = #{logStarTime,jdbcType=VARCHAR},
+      log_end_time = #{logEndTime,jdbcType=VARCHAR},
+      log_resp_header = #{logRespHeader,jdbcType=VARCHAR},
+      msg_rsv1 = #{msgRsv1,jdbcType=VARCHAR},
+      msg_rsv2 = #{msgRsv2,jdbcType=VARCHAR},
+      msg_rsv3 = #{msgRsv3,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

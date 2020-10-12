@@ -1,0 +1,417 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>Zh-BLOG</title>
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-siteapp"/>
+  <link rel="icon" type="image/png" th:href="@{${basePath}+'stage/assets/i/favicon.jpg'}" href="stage/assets/i/favicon.jpg">
+  <meta name="mobile-web-app-capable" content="yes">
+  <link rel="icon" sizes="192x192" th:href="@{${basePath}+'stage/assets/i/favicon.jpg'}" href="stage/assets/i/favicon.jpg">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="Amaze UI"/>
+  <link rel="apple-touch-icon-precomposed" th:href="@{${basePath}+'stage/assets/i/favicon.jpg'}" href="stage/assets/i/favicon.jpg">
+  <meta name="msapplication-TileImage" content="stage/assets/i/favicon.jpg">
+  <meta name="msapplication-TileColor" content="#0e90d2">
+  <link rel="stylesheet" th:href="@{${basePath}+'stage/assets/css/amazeui.css'}" href="stage/assets/css/amazeui.min.css">
+  <link rel="stylesheet" th:href="@{${basePath}+'stage/assets/css/app.css'}" href="stage/assets/css/app.css">
+  <link rel="stylesheet" th:href="@{${basePath}+'plug-in/bootstrap3.3.7/fonts/glyphicons-halflings-regular.woff'}" href="plug-in/bootstrap3.3.7/fonts/glyphicons-halflings-regular.woff" />
+  <link rel="stylesheet" th:href="@{${basePath}+'plug-in/bootstrap3.3.7/css/bootstrap.css'}" href="plug-in/bootstrap3.3.7/css/bootstrap.min.css" />
+  <link rel="stylesheet" th:href="@{${basePath}+'plug-in/bootstrap3.3.7/buttons.css'}" href="plug-in/bootstrap3.3.7/buttons.css">
+  <link rel="stylesheet" th:href="@{${basePath}+'moudle/admin.css'}" href="moudle/admin.css">
+</head>
+<body id="blog" style="height: 100%; color: rgb(0, 0, 0); ">
+<!-- <header class="am-g am-g-fixed blog-fixed blog-text-center blog-header">
+	
+    <div class="am-u-sm-8 am-u-sm-centered">
+        <img width="200" src="https://www.aroad.xyz/source/img/favicon.png" alt="Amaze UI Logo"/>
+        <h2 class="am-hide-sm-only">我似江潮来又去，君如鸥鹭逐波还</h2>
+    </div>
+</header>
+<hr> -->
+<!-- <div th:include="common/admin :: daoTop"></div> -->
+<!-- <hr> -->
+<div class="am-g am-g-fixed blog-fixed blog-content">
+<div class="container" >
+		
+		<!-- 标题 -->
+		<div class="row">
+		  <div class="col-md-12" style="height: 25px;margin-top: 10px;">
+		  	<strong>统计相关 </strong>&nbsp; / &nbsp; <span >文章列表 </span><span th:text="${basePath}"></span>${basePath}
+		  </div>
+		</div>
+		<!-- 按钮 -->
+		<div  class="panel panel-default  panel-info " style="margin-top: 5px">
+		<div class="panel-heading ">
+				<h5 class="panel-title">文章数据统计
+                <a  data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+	           		 </a>
+           		 </h5>
+			</div>
+			<div id="collapseOne" class="panel-collapse collapse in">
+			<div class="panel-body"> 
+		<!-- 按钮 -->
+		<div class="row">
+			<div class="col-md-12">
+				<form class="form-inline" id="queryForm">
+					  <div class="form-group input-group-sm">
+					    <label for="queryTitle ">标题名称</label>
+					    <input type="text" name="queryTitle" class="form-control" id="queryTitle" placeholder="">
+					  </div>
+					  <div class="form-group input-group-sm">
+					    <label for="queryTagName">标签名称</label>
+					    <input type="text" name="queryTagName"  class="form-control" id="queryTagName" placeholder="">
+					  </div>
+					  <div class="form-group input-group-sm">
+					    <label class="control-label">分类</label>
+						    <select class="form-control" name="queryTypeId" id="queryTypeId">
+						    	<option value="">请选择</option>
+							</select>
+					  </div>
+					  <div class="form-group input-group-sm">
+					    <label class="control-label">是否发布</label>
+						    <select class="form-control" name="isDraft" id="isDraft">
+						    	<option value="">请选择</option>
+						    	<option value="1">已发布</option>
+						    	<option value="0">未发布</option>
+							</select>
+					  </div>
+					</form>
+					
+			</div>
+		    <div class="col-md-5 col-md-offset-7" style="padding-top: 4px; padding-bottom: 4px">
+		    	<button type="button" class="btn btn-primary btn-ms" id="query_handle"><span class="glyphicon glyphicon-search"></span>查询</button>
+			    <button type="button" class="btn btn-primary btn-ms" id="query_delete_all"><span class="glyphicon glyphicon-remove"></span>清空条件</button>
+		    	<button type="button" class="btn btn-success" id="art_url_refresh"><span class="glyphicon glyphicon-refresh"></span> 刷新</button>
+		    </div>
+		</div>
+		<!-- 表格数据 -->
+		<div class="row">
+		    <div class="col-md-12">
+		    	<table id="data_table" class="table table-bordered table-hover"  style="table-layout：fixed;word-break;nomal">
+		    		<thead>
+		    		<tr>
+		    			<th class="">序号</th>
+		    			<th class=".col-md-2">文章标题</th>
+		    			<th>总浏览量</th>
+		    			<th>今日浏览量</th>
+		    			<th>总评论</th>
+		    			<th>今日评论</th>
+		    			<th>累计赞</th>
+		    			<th>今日赞</th>
+		    		</tr>
+		    		</thead>
+		    		<tbody>
+		    		
+		    		</tbody>
+		    	</table>
+		    </div>
+		</div>
+		<!-- 分页 -->
+		<div class="row">
+		    <div class="col-md-6" id="page_info">
+		    </div>
+		    <div class="col-md-6" id="page_navi">
+		    </div>
+		</div>
+		</div>
+		</div>
+		</div>
+	</div>
+</div>
+<!-- content end-->
+        
+
+<footer class="blog-footer">
+     <!-- <div th:include="common/footer :: copy"></div> -->
+    <!-- <div class="blog-text-center">© 2015 AllMobilize, Inc. Licensed under MIT license. Made with love By LWXYFER</div>     -->
+</footer>
+<script th:src="@{${basePath}+'plug-in/fileinput/js/jquery-2.0.3.min.js'}" src="plug-in/fileinput/js/jquery-2.0.3.min.js"></script>
+  <script th:src="@{${basePath}+'stage/assets/js/amazeui.min.js'}"></script>
+<script th:src="@{${basePath}+'plug-in/bootstrap3.3.7/js/bootstrap.min.js'}" src="plug-in/bootstrap3.3.7/js/bootstrap.min.js" type="text/javascript"></script> 	
+
+</body>	
+<script type="text/javascript">
+	var totalPage ;//总页数，也可以使用总记录数
+	var currPageNum ;
+	//1页面加载完成后发ajax
+	$(function(){
+		to_page(1);
+		
+		getArticleTypes();
+	});
+	
+	function to_page(pn){
+		var query = getQueryForm();
+		console.log(query);
+		var pageNum = $(".page_size_change").children('option:selected').val();
+		if(undefined==pageNum){
+			pageNum = 5;
+		}
+		$.ajax({
+			url:"blogAjax",
+			data:"&isDraft=1&pn="+pn+"&pageNum="+pageNum+query,
+			type:"GET",
+			success:function(result){
+				console.log(result);
+				//清空数据
+				clear_table();
+				//1解析并显示数据
+				build_data_table(result);
+				//2解析并显示分页
+				build_page_info(result);
+				//2解析并显示分页导航
+				build_page_navi(result);
+			}
+		});
+	}
+	//解析显示数据
+	function build_data_table(result){
+		
+		var data = result.extend.pageInfo.list;
+		$.each(data,function(index,item){
+			var checkBox = $("<td></td>").append($("<input type=\"checkbox\"/>").addClass("check_item"));
+			var articleIdTD = $("<td ></td>").append(item.id);
+			
+			var articleTitleTD = $("<td ></td>").append(item.articleTitle).attr("data-toggle","tooltip").attr("title",item.articleTitle);
+			var articleTypeTD = $("<td></td>").append(item.typeName);
+			var atagNamesTD = $("<td></td>").append(item.tagNames);
+			var likeYesTD = $("<td></td>").append(item.likeYes);
+			var likeNoTD = $("<td></td>").append(item.likeNo);
+			var bestTD = $("<td></td>").append(item.best);
+			var publishDateTD = $("<td></td>").append(item.publishDate);
+			var updateDateTD = $("<td></td>").append(item.updateDate);
+			
+
+			$("<tr></tr>").append(checkBox).append(articleIdTD).append(articleTitleTD).append(articleTypeTD).append(atagNamesTD)
+						.append(likeYesTD).append(likeNoTD).append(bestTD).append(publishDateTD).append(updateDateTD)
+						.appendTo("#data_table tbody");
+		});
+	}
+	
+	function clear_table(){
+		$("#data_table tbody").empty();
+		$("#page_info").empty();
+		$("#page_navi").empty();
+	}
+	
+	//解析显示分页信息
+	function build_page_info(result){
+		var pageInfo = result.extend.pageInfo;
+		totalPage = pageInfo.pages;
+		currPageNum = pageInfo.pageNum;
+		var pageSize = pageInfo.navigatePages;
+		var select = $("<select></select>");//.addClass("form-control");
+		for(var i = 1 ;i<5 ;i ++){
+			if( (i*5) == pageSize){
+				select.append($("<option selected=\"selected\">"+(i*5)+"</option>"));
+			}else{
+				select.append($("<option>"+(i*5)+"</option>"));
+			}
+		}
+		select.addClass("page_size_change");
+		$("#page_info").append("当前第 "+pageInfo.pageNum +" 页，总 "+pageInfo.pages+"页，总 "+pageInfo.total+"条记录");
+		$("#page_info").append(",每页显示").append(select).append("条");
+	}
+	
+	//解析显示分页条
+	function build_page_navi(result){
+		var pageInfo = result.extend.pageInfo ;
+		var ulObj = $("<ul></ul>").addClass("pagination");
+		//首页
+		var firstli = $("<li></li>").append($("<a></a>").append("首页").attr("href","#"));
+		//前一页
+		var preli = $("<li></li>").append($("<a></a>").append("&laquo;").attr("href","#"));
+		if(!pageInfo.hasPreviousPage){
+			firstli.addClass("disabled");
+			preli.addClass("disabled");
+		}else{
+			firstli.click(function(){
+				to_page(1);
+			});
+			preli.click(function(){
+				to_page(pageInfo.pageNum-1);
+			});
+		}
+		//后一页
+		var nextli = $("<li></li>").append($("<a></a>").append("&raquo;").attr("href","#"));
+		//末页
+		var lastli = $("<li></li>").append($("<a></a>").append("末页").attr("href","#"));
+		if(!pageInfo.hasNextPage){
+			nextli.addClass("disabled");
+			lastli.addClass("disabled");
+		}else{
+			nextli.click(function(){
+				to_page(pageInfo.pageNum+1);
+			});
+			lastli.click(function(){
+				to_page(pageInfo.pages);
+			});
+		}
+		//组装
+		ulObj.append(firstli).append(preli);
+		var pages = result.extend.pageInfo.navigatepageNums;
+		$.each(pages,function(index,item){
+			var numli = $("<li></li>").append($("<a></a>").append(item).attr("href","#"));
+			if(item==pageInfo.pageNum){
+				numli.addClass("active");
+			}
+			numli.click(function(){
+				to_page(item);
+			});
+			ulObj.append(numli);
+		});
+		ulObj.append(nextli).append(lastli);
+		//把ul放入nav元素
+		var navEle = $("<nav></nav>").append(ulObj);
+		//把nav元素放入$("#page_navi")
+		navEle.appendTo("#page_navi");
+	}
+	
+	
+
+	
+	$(document).on("click","#add_model_btn", function(){
+		window.open("write", "写文章");
+	});
+	
+	$(document).on("click","#add_model_btn", function(){
+		
+	});
+	//绑定编辑
+	$(document).on("click",".edit_btn", function(){
+		var Id = $(this).attr("edit-id");
+		var name = "编辑文章";
+		var url = 'edit?id='+Id;
+		window.open(url, "编辑文章");
+		
+		/* var tempForm = document.createElement("form");     
+	     tempForm.id="tempForm1";     
+	     tempForm.method="post";     
+	  	 //url
+	     tempForm.action=url;     
+	     //open方法不能设置请求方式，一般网页的post都是通过form来实现的。
+	     //如果仅仅模拟form的提交方式，那么open方法里那种可设置窗体属性的参数又不能用。
+	     //最后想办法整了这么一个两者结合的方式，将form的target设置成和open的name参数一样的值，通过浏览器自动识别实现了将内容post到新窗口中
+	     tempForm.target= name;     
+	  
+	     var hideInput = document.createElement("input");     
+	     hideInput.type="hidden";     
+	     //传入参数名,相当于get请求中的content=
+	     hideInput.name= "id";
+	     //传入传入数据，只传递了一个参数内容，实际可传递多个。
+	     hideInput.value= Id;   
+	  
+	     tempForm.appendChild(hideInput);      
+	     //IE  tempForm.attachEvent("onsubmit",function(){ openWindow('write'); }); 
+	     tempForm.addEventListener("onsubmit",function(){ openWindow(name); },); 
+	     
+	     document.body.appendChild(tempForm);  
+	     
+	     //tempForm.fireEvent("onsubmit"); //IE  
+	     //tempForm.dispatchEvent("onsubmit");  
+	     //必须手动的触发，否则只能看到页面刷新而没有打开新窗口
+	     tempForm.submit();   
+	     document.body.removeChild(tempForm);   
+ */
+		
+	});
+	
+	//绑定删除
+	$(document).on("click",".delete_btn", function(){
+		var webId = $(this).attr("delete-id");
+		$.ajax({
+			url:"delArt/"+webId,
+			//data:"id="+webId,
+			type:"DELETE",
+			success:function(result){
+				if(result.code==200){
+					alert(result.message);
+				}else{
+					alert(result.message);
+				}
+				to_page(currPageNum);
+			}
+		});
+	});
+	
+	
+	
+	
+	//绑定预览页面
+	$(document).on("click",".view_btn", function(){
+		var webId = $(this).attr("view-id");
+		window.open("viewArticle/"+webId, "预览");
+	});
+	
+	$("#art_url_refresh").click(function(){
+		window.location.reload(true);
+	});
+	
+	var tmpSize = 5 ;
+	$(document).on("change",".page_size_change",function(){
+		var p1 =$(this).children('option:selected').val();//这就是selected的值 
+		if(p1!=tmpSize){
+			tmpSize = p1;
+			to_page(1);
+		}
+	});
+	
+	$("#query_handle").click(function(){
+		to_page(1);
+	});
+	
+	function getQueryForm(){
+		var query = "";
+		var queryTitle = $("#queryTitle").val();
+		var queryTagName = $("#queryTagName").val();
+		var queryTypeId = $("#queryTypeId option:selected").val();
+		var isDraft = $("#isDraft option:selected").val();
+		if(queryTitle!=null && queryTitle!=""){
+			query += "&articleTitle="+queryTitle ;
+		}
+		if(queryTagName!=null && queryTagName!=""){
+			query += "&tagNames="+queryTagName ;
+		}
+		if(queryTypeId!=null && queryTypeId!=""){
+			query += "&articleType="+queryTypeId ;
+		}
+		if(isDraft!=null && queryTypeId!=""){
+			query += "&isDraft="+isDraft ;
+		}		
+		return query ;
+	}
+	
+	function getArticleTypes(){
+		$.ajax({
+			url:"typeList",
+			data:JSON.stringify({}),
+			type:"post",
+			contentType: "application/json;charset=UTF-8",
+			success:function(result){
+				//console.log(result);
+				
+				$("#queryTypeId").empty();
+				$("#queryTypeId").append($("<option value=\"\">请选择文章类型</option>)"));
+				$.each(result.extend.list,function(){
+
+					var optionEl = $("<option ></option>").append(this.typeName+" - ").attr("value",this.id);
+					$("#queryTypeId").append(optionEl);
+				});
+				 //$("#input_type_id option[value="+typeId+"]").attr("selected", true); 
+			},
+			error:function(responseText,status,error){
+				console.log(status);
+				console.log(responseText);
+				console.log(error);
+				alert("失败！");
+			}
+		});
+	}
+</script>
+</html>

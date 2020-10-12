@@ -1,0 +1,193 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>文章图片</title>
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-siteapp"/>
+  <link rel="icon" type="image/png" th:href="@{${basePath}+'stage/assets/i/favicon.jpg'}" href="stage/assets/i/favicon.jpg">
+  <meta name="mobile-web-app-capable" content="yes">
+  <link rel="icon" sizes="192x192" th:href="@{${basePath}+'stage/assets/i/favicon.jpg'}" href="stage/assets/i/favicon.jpg">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="Amaze UI"/>
+  <link rel="apple-touch-icon-precomposed" th:href="@{${basePath}+'stage/assets/i/favicon.jpg'}" href="stage/assets/i/favicon.jpg">
+  <meta name="msapplication-TileImage" th:content="@{${basePath}+'stage/assets/i/favicon.jpg'}" content="stage/assets/i/favicon.jpg">
+  <meta name="msapplication-TileColor" content="#0e90d2">
+  <link rel="stylesheet" th:href="@{${basePath}+'stage/assets/css/amazeui.min.css'}" href="stage/assets/css/amazeui.min.css">
+  <link rel="stylesheet" th:href="@{${basePath}+'stage/assets/css/app.css'}" href="stage/assets/css/app.css">
+  <link rel="stylesheet" th:href="@{${basePath}+'plug-in/bootstrap3.3.7/fonts/glyphicons-halflings-regular.woff'}" href="plug-in/bootstrap3.3.7/fonts/glyphicons-halflings-regular.woff" />
+  <link rel="stylesheet" th:href="@{${basePath}+'plug-in/bootstrap3.3.7/css/bootstrap.min.css'}" href="plug-in/bootstrap3.3.7/css/bootstrap.min.css" />
+ <!--  <link rel="stylesheet" th:href="@{${basePath}+'plug-in/bootstrap3.3.7/css/bootstrap-theme.min.css'}" href="plug-in/bootstrap3.3.7/css/bootstrap-theme.min.css" /> -->
+  <link rel="stylesheet" th:href="@{${basePath}+'plug-in/bootstrap3.3.7/buttons.css'}" href="plug-in/bootstrap3.3.7/buttons.css">
+  <link rel="stylesheet" th:href="@{${basePath}+'plug-in/editor.md-master/css/editormd.min.css'}" href="plug-in/editor.md-master/css/editormd.min.css" />
+  
+  <link rel="stylesheet"  th:href="@{${basePath}+'moudle/admin.css'}" href="moudle/admin.css">  
+  <link th:href="@{${basePath}+'plug-in/fileinput/css/fileinput.css'}"  href="plug-in/fileinput/css/fileinput.css" media="all" rel="stylesheet"  /> 
+  <link rel="stylesheet" th:href="@{${basePath}+'moudle/images.css'}" href="moudle/images.css">  
+  <link rel="stylesheet" type="text/css" th:href="@{${basePath}+'plug-in/viewerjs-master/dist/viewer.min.css'}" href="plug-in/viewerjs-master/dist/viewer.min.css" />
+  <style type="text/css">
+  	ul{
+  		
+  		padding-top: 5px;
+  	}
+  	ul li{
+  		width:  180px;
+  	}
+  	.anniu{
+  		padding-left: 10px;
+  	}
+  </style>
+</head>
+
+<body style="height: 100%; color: rgb(0, 0, 0);  ">
+<!-- header start -->
+<!-- <header class="am-g am-g-fixed blog-fixed blog-text-center blog-header">
+    <div class="am-u-sm-8 am-u-sm-centered">
+        <img width="200" src="http://s.amazeui.org/media/i/brand/amazeui-b.png" alt="Amaze UI Logo"/>
+        <h2 class="am-hide-sm-only">中国首个开源 HTML5 跨屏前端框架</h2>
+    </div>
+</header> 
+<hr>-->
+<!-- header end -->
+<!-- <div th:include="common/admin :: daoTop"></div> -->
+<!-- <hr> -->
+<!-- content srart -->
+<div class="am-g am-g-fixed blog-fixed blog-content">
+	<div class="container" style="padding: 10px;">
+	<!-- <h1 class="blog-text-center">-- 图片库 --</h1> -->
+		<div class="row">
+			<div class=" col-md-12 " style="height: 25px">
+		  		<strong>文章相关 </strong>&nbsp; / &nbsp; <span >文章图片 </span>
+		  </div>
+		</div>
+		
+		<div class="row">
+		<div class="col-md-12">
+		<!-- 按钮 -->
+		<div  class="panel panel-default  panel-info " style="margin-top: 5px">
+		<div class="panel-heading ">
+				<h5 class="panel-title">图片列表
+                <a  data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+	                <button type="button" class="btn btn-primary btn-sm ">
+	            	<span class="glyphicon glyphicon-chevron-down"></span>展开/收起
+	           		 </button></a>
+           		 </h5>
+			</div>
+			<div id="collapseOne" class="panel-collapse collapse in">
+				<div class="panel-body">
+					<div class="row">
+					
+					<div class="row col-sm-2">
+					<div class="anniu">
+						 <button type="button" id="img_refresh" class="btn btn-success btn-sm ">
+		            	<span class="glyphicon glyphicon-refresh"></span>刷新
+		           		 </button>
+		           		 <button type="button" id="img_upload" class="btn btn-primary btn-sm ">
+		            	<span class="glyphicon glyphicon-upload"></span>上传
+		           		 </button>
+		           		 <button type="button" id="img_remove" class="btn btn-danger btn-sm ">
+		            	<span class="glyphicon glyphicon-remove"></span>删除
+		           		 </button>
+					</div>
+					<ul id="myTab" class="nav nav-pills nav-stacked">
+						<!-- <li th:each="picate, pcStat : ${picalist}" th:class="${pcStat.index==0} ? active: ''">
+							<a th:id="${picate.id}" th:href="${'#' + picate.picCateCode}" data-toggle="tab" th:text="${picate.picCateName}"> 博客信息</a>
+						</li> -->
+					
+					</ul>
+					</div>
+					<div class="row col-sm-10">
+					<div id="myTabContent" class="tab-content">
+							<!-- <div th:each="picate, pcStat : ${picalist}" th:class="${pcStat.index==0} ? 'tab-pane fade in active': 'tab-pane fade in'" th:id="${picate.picCateCode}">
+						    	<div class="row col-sm-12 modal-body" style="padding-top: 15px">
+						        <form th:id="${picate.picCateCode} + ${pcStat.index}" class="form-horizontal" onsubmit="return false">
+									 <div class="container" th:text="${picate.picCateName}">
+									 	<ul id="image" class="box" th:if="${pcStat.index==0}">
+									  		<li th:each="picate, pcStat : ${picalist}">
+									  		<input  type="checkbox" class="checkbox"/>
+									  		<img class="s1" src="img/1.png" width="200" height="160" alt="" />
+									  		<h4>pic1.png</h4>
+									  		</li>
+									  	</ul>
+									 </div>
+								</form>
+								</div>
+						    </div> -->
+						    
+						</div>
+					</div>
+				</div>
+			</div>
+			</div>
+		</div>
+	</div>
+	</div>
+	</div>
+</div>
+<!-- content end -->
+<hr/>
+  <footer class="blog-footer">
+     <!-- <div th:include="common/footer :: copy"></div> -->
+    <!-- <div class="blog-text-center">© 2015 AllMobilize, Inc. Licensed under MIT license. Made with love By LWXYFER</div>     -->
+ </footer>
+<!-- 新增模态框 -->
+<div class="modal fade " id="upModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="addModalLabel">上传图片</h4>
+      </div>
+      <div class="modal-body">
+      		
+       <form class="form-horizontal" onsubmit="return false">
+       		<div class="form-group">
+				<label for="input_picate_id" class="col-sm-2 control-label">图片类型</label>
+				<div class="col-sm-8">
+						<!-- <input type="text" class="form-control" id="articleType" value="文章类型111" placeholder="请选择文章类型"> -->
+						<!-- 文章类型ID -->
+					    <select class="form-control" name="input_picate_id" id="input_picate_id">
+					    	<option value="">请选择图片类型</option>
+						</select>
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="img" class="col-sm-2 control-label">图片</label>
+	       		<div class="col-sm-10">
+					<input name="img" id="img" type="file" class="file" multiple="multiple" data-show-upload="false" data-show-preview="true">
+				</div> 
+			</div>
+		</form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+        <button type="button" class="btn btn-primary" id="save_btn">保存</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!--[if (gte IE 9)|!(IE)]><!-->
+<script th:src="@{${basePath}+'stage/assets/js/jquery.min.js'}" src="stage/assets/js/jquery.min.js"></script>
+<!--<![endif]-->
+<!--[if lte IE 8 ]>
+<script src="http://libs.baidu.com/jquery/1.11.3/jquery.min.js"></script>
+<script src="http://cdn.staticfile.org/modernizr/2.8.3/modernizr.js"></script>
+<script src="assets/js/amazeui.ie8polyfill.min.js"></script>
+<![endif]-->
+<!-- <script src="stage/assets/js/amazeui.min.js"></script> -->
+<!-- <script src="stage/assets/js/pinto.min.js"></script> -->
+<<!-- script src="stage/assets/js/img.js"></script> -->
+<script th:src="@{${basePath}+'plug-in/viewerjs-master/dist/viewer.js'}" src="plug-in/viewerjs-master/dist/viewer.js"  charset="utf-8"></script>
+
+<script th:src="@{${basePath}+'plug-in/bootstrap3.3.7/js/bootstrap.min.js'}" src="plug-in/bootstrap3.3.7/js/bootstrap.min.js" type="text/javascript"></script>
+<script th:src="@{${basePath}+'plug-in/fileinput/js/fileinput.js'}" src="plug-in/fileinput/js/fileinput.js" type="text/javascript"></script>
+<script th:src="@{${basePath}+'plug-in/fileinput/js/fileinput_locale_zh.js'}" src="plug-in/fileinput/js/fileinput_locale_zh.js" type="text/javascript"></script>  
+<script th:src="@{${basePath}+'moudle/js/images_box.js'}" src="moudle/js/images_box.js" type="text/javascript"></script>
+<div th:include="common/message :: msg"></div> 
+</body>
+</html>

@@ -1,0 +1,362 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zzy.blog.web.mapper.MessageMapper">
+  <resultMap id="BaseResultMap" type="com.zzy.blog.web.pojo.Message">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="parent_id" jdbcType="VARCHAR" property="parentId" />
+    <result column="msg_utx" jdbcType="VARCHAR" property="msgUtx" />
+    <result column="msg_uname" jdbcType="VARCHAR" property="msgUname" />
+    <result column="msg_uemail" jdbcType="VARCHAR" property="msgUemail" />
+    <result column="msg_content" jdbcType="VARCHAR" property="msgContent" />
+    <result column="msg_time" jdbcType="VARCHAR" property="msgTime" />
+    <result column="msg_like" jdbcType="INTEGER" property="msgLike" />
+    <result column="msg_appr" jdbcType="INTEGER" property="msgAppr" />
+    <result column="appr_time" jdbcType="VARCHAR" property="apprTime" />
+    <result column="msg_rsv1" jdbcType="VARCHAR" property="msgRsv1" />
+    <result column="msg_rsv2" jdbcType="VARCHAR" property="msgRsv2" />
+    <result column="msg_rsv3" jdbcType="VARCHAR" property="msgRsv3" />
+  </resultMap>
+  
+  <resultMap id="ResultMapWithChildren" extends="BaseResultMap" type="com.zzy.blog.web.pojo.MessageCustom">
+    <collection property="children" select="com.zzy.blog.web.mapper.MessageMapper.selectChildrenById"
+    	column="id" >
+    </collection>
+  </resultMap>
+  
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, parent_id, msg_utx, msg_uname, msg_uemail, msg_content, msg_time, msg_like, msg_appr, 
+    appr_time, msg_rsv1, msg_rsv2, msg_rsv3
+  </sql>
+  <select id="selectByExample" parameterType="com.zzy.blog.web.pojo.MessageQuery" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from bk_message
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from bk_message
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from bk_message
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.zzy.blog.web.pojo.MessageQuery">
+    delete from bk_message
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.zzy.blog.web.pojo.Message">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into bk_message (parent_id, msg_utx, msg_uname, 
+      msg_uemail, msg_content, msg_time, 
+      msg_like, msg_appr, appr_time, 
+      msg_rsv1, msg_rsv2, msg_rsv3
+      )
+    values (#{parentId,jdbcType=VARCHAR}, #{msgUtx,jdbcType=VARCHAR}, #{msgUname,jdbcType=VARCHAR}, 
+      #{msgUemail,jdbcType=VARCHAR}, #{msgContent,jdbcType=VARCHAR}, #{msgTime,jdbcType=VARCHAR}, 
+      #{msgLike,jdbcType=INTEGER}, #{msgAppr,jdbcType=INTEGER}, #{apprTime,jdbcType=VARCHAR}, 
+      #{msgRsv1,jdbcType=VARCHAR}, #{msgRsv2,jdbcType=VARCHAR}, #{msgRsv3,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zzy.blog.web.pojo.Message">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into bk_message
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="parentId != null">
+        parent_id,
+      </if>
+      <if test="msgUtx != null">
+        msg_utx,
+      </if>
+      <if test="msgUname != null">
+        msg_uname,
+      </if>
+      <if test="msgUemail != null">
+        msg_uemail,
+      </if>
+      <if test="msgContent != null">
+        msg_content,
+      </if>
+      <if test="msgTime != null">
+        msg_time,
+      </if>
+      <if test="msgLike != null">
+        msg_like,
+      </if>
+      <if test="msgAppr != null">
+        msg_appr,
+      </if>
+      <if test="apprTime != null">
+        appr_time,
+      </if>
+      <if test="msgRsv1 != null">
+        msg_rsv1,
+      </if>
+      <if test="msgRsv2 != null">
+        msg_rsv2,
+      </if>
+      <if test="msgRsv3 != null">
+        msg_rsv3,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="parentId != null">
+        #{parentId,jdbcType=VARCHAR},
+      </if>
+      <if test="msgUtx != null">
+        #{msgUtx,jdbcType=VARCHAR},
+      </if>
+      <if test="msgUname != null">
+        #{msgUname,jdbcType=VARCHAR},
+      </if>
+      <if test="msgUemail != null">
+        #{msgUemail,jdbcType=VARCHAR},
+      </if>
+      <if test="msgContent != null">
+        #{msgContent,jdbcType=VARCHAR},
+      </if>
+      <if test="msgTime != null">
+        #{msgTime,jdbcType=VARCHAR},
+      </if>
+      <if test="msgLike != null">
+        #{msgLike,jdbcType=INTEGER},
+      </if>
+      <if test="msgAppr != null">
+        #{msgAppr,jdbcType=INTEGER},
+      </if>
+      <if test="apprTime != null">
+        #{apprTime,jdbcType=VARCHAR},
+      </if>
+      <if test="msgRsv1 != null">
+        #{msgRsv1,jdbcType=VARCHAR},
+      </if>
+      <if test="msgRsv2 != null">
+        #{msgRsv2,jdbcType=VARCHAR},
+      </if>
+      <if test="msgRsv3 != null">
+        #{msgRsv3,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.zzy.blog.web.pojo.MessageQuery" resultType="java.lang.Long">
+    select count(*) from bk_message
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update bk_message
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.parentId != null">
+        parent_id = #{record.parentId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.msgUtx != null">
+        msg_utx = #{record.msgUtx,jdbcType=VARCHAR},
+      </if>
+      <if test="record.msgUname != null">
+        msg_uname = #{record.msgUname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.msgUemail != null">
+        msg_uemail = #{record.msgUemail,jdbcType=VARCHAR},
+      </if>
+      <if test="record.msgContent != null">
+        msg_content = #{record.msgContent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.msgTime != null">
+        msg_time = #{record.msgTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.msgLike != null">
+        msg_like = #{record.msgLike,jdbcType=INTEGER},
+      </if>
+      <if test="record.msgAppr != null">
+        msg_appr = #{record.msgAppr,jdbcType=INTEGER},
+      </if>
+      <if test="record.apprTime != null">
+        appr_time = #{record.apprTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.msgRsv1 != null">
+        msg_rsv1 = #{record.msgRsv1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.msgRsv2 != null">
+        msg_rsv2 = #{record.msgRsv2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.msgRsv3 != null">
+        msg_rsv3 = #{record.msgRsv3,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update bk_message
+    set id = #{record.id,jdbcType=BIGINT},
+      parent_id = #{record.parentId,jdbcType=VARCHAR},
+      msg_utx = #{record.msgUtx,jdbcType=VARCHAR},
+      msg_uname = #{record.msgUname,jdbcType=VARCHAR},
+      msg_uemail = #{record.msgUemail,jdbcType=VARCHAR},
+      msg_content = #{record.msgContent,jdbcType=VARCHAR},
+      msg_time = #{record.msgTime,jdbcType=VARCHAR},
+      msg_like = #{record.msgLike,jdbcType=INTEGER},
+      msg_appr = #{record.msgAppr,jdbcType=INTEGER},
+      appr_time = #{record.apprTime,jdbcType=VARCHAR},
+      msg_rsv1 = #{record.msgRsv1,jdbcType=VARCHAR},
+      msg_rsv2 = #{record.msgRsv2,jdbcType=VARCHAR},
+      msg_rsv3 = #{record.msgRsv3,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zzy.blog.web.pojo.Message">
+    update bk_message
+    <set>
+      <if test="parentId != null">
+        parent_id = #{parentId,jdbcType=VARCHAR},
+      </if>
+      <if test="msgUtx != null">
+        msg_utx = #{msgUtx,jdbcType=VARCHAR},
+      </if>
+      <if test="msgUname != null">
+        msg_uname = #{msgUname,jdbcType=VARCHAR},
+      </if>
+      <if test="msgUemail != null">
+        msg_uemail = #{msgUemail,jdbcType=VARCHAR},
+      </if>
+      <if test="msgContent != null">
+        msg_content = #{msgContent,jdbcType=VARCHAR},
+      </if>
+      <if test="msgTime != null">
+        msg_time = #{msgTime,jdbcType=VARCHAR},
+      </if>
+      <if test="msgLike != null">
+        msg_like = #{msgLike,jdbcType=INTEGER},
+      </if>
+      <if test="msgAppr != null">
+        msg_appr = #{msgAppr,jdbcType=INTEGER},
+      </if>
+      <if test="apprTime != null">
+        appr_time = #{apprTime,jdbcType=VARCHAR},
+      </if>
+      <if test="msgRsv1 != null">
+        msg_rsv1 = #{msgRsv1,jdbcType=VARCHAR},
+      </if>
+      <if test="msgRsv2 != null">
+        msg_rsv2 = #{msgRsv2,jdbcType=VARCHAR},
+      </if>
+      <if test="msgRsv3 != null">
+        msg_rsv3 = #{msgRsv3,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zzy.blog.web.pojo.Message">
+    update bk_message
+    set parent_id = #{parentId,jdbcType=VARCHAR},
+      msg_utx = #{msgUtx,jdbcType=VARCHAR},
+      msg_uname = #{msgUname,jdbcType=VARCHAR},
+      msg_uemail = #{msgUemail,jdbcType=VARCHAR},
+      msg_content = #{msgContent,jdbcType=VARCHAR},
+      msg_time = #{msgTime,jdbcType=VARCHAR},
+      msg_like = #{msgLike,jdbcType=INTEGER},
+      msg_appr = #{msgAppr,jdbcType=INTEGER},
+      appr_time = #{apprTime,jdbcType=VARCHAR},
+      msg_rsv1 = #{msgRsv1,jdbcType=VARCHAR},
+      msg_rsv2 = #{msgRsv2,jdbcType=VARCHAR},
+      msg_rsv3 = #{msgRsv3,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  
+  <select id="selectMessageCustomList" resultMap="ResultMapWithChildren">
+  	select * from bk_message where msg_appr=1 and
+  	( parent_id is null or parent_id=0 or parent_id='' )
+  	order by msg_time desc
+  </select>
+  
+  <select id="selectChildrenById" parameterType="java.lang.Long" resultMap="ResultMapWithChildren">
+  	select * from bk_message where parent_id = #{id,jdbcType=VARCHAR}
+  	order by msg_time desc
+  </select>
+  
+  <select id="selectMessageCustomByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithChildren">
+  	select * from bk_message
+  	where id = #{id,jdbcType=BIGINT}
+  </select>
+</mapper>

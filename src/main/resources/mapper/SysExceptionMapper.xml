@@ -1,0 +1,433 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zzy.blog.web.mapper.SysExceptionMapper">
+  <resultMap id="BaseResultMap" type="com.zzy.blog.web.pojo.SysException">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="exception_url" jdbcType="VARCHAR" property="exceptionUrl" />
+    <result column="exception_Remote_Device" jdbcType="VARCHAR" property="exceptionRemoteDevice" />
+    <result column="exception_osinfo" jdbcType="VARCHAR" property="exceptionOsinfo" />
+    <result column="exception_broswer" jdbcType="VARCHAR" property="exceptionBroswer" />
+    <result column="exception_remote_ip" jdbcType="VARCHAR" property="exceptionRemoteIp" />
+    <result column="exception_Remote_User" jdbcType="VARCHAR" property="exceptionRemoteUser" />
+    <result column="exception_optNote" jdbcType="VARCHAR" property="exceptionOptnote" />
+    <result column="exception_msg" jdbcType="VARCHAR" property="exceptionMsg" />
+    <result column="exception_star_time" jdbcType="VARCHAR" property="exceptionStarTime" />
+    <result column="exception_end_time" jdbcType="VARCHAR" property="exceptionEndTime" />
+    <result column="msg_rsv1" jdbcType="VARCHAR" property="msgRsv1" />
+    <result column="msg_rsv2" jdbcType="VARCHAR" property="msgRsv2" />
+    <result column="msg_rsv3" jdbcType="VARCHAR" property="msgRsv3" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.zzy.blog.web.pojo.SysException">
+    <result column="exception_content" jdbcType="LONGVARCHAR" property="exceptionContent" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, exception_url, exception_Remote_Device, exception_osinfo, exception_broswer, 
+    exception_remote_ip, exception_Remote_User, exception_optNote, exception_msg, exception_star_time, 
+    exception_end_time, msg_rsv1, msg_rsv2, msg_rsv3
+  </sql>
+  <sql id="Blob_Column_List">
+    exception_content
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.zzy.blog.web.pojo.SysExceptionQuery" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from bk_sys_exception
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.zzy.blog.web.pojo.SysExceptionQuery" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from bk_sys_exception
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from bk_sys_exception
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from bk_sys_exception
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.zzy.blog.web.pojo.SysExceptionQuery">
+    delete from bk_sys_exception
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.zzy.blog.web.pojo.SysException">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into bk_sys_exception (exception_url, exception_Remote_Device, 
+      exception_osinfo, exception_broswer, exception_remote_ip, 
+      exception_Remote_User, exception_optNote, 
+      exception_msg, exception_star_time, exception_end_time, 
+      msg_rsv1, msg_rsv2, msg_rsv3, 
+      exception_content)
+    values (#{exceptionUrl,jdbcType=VARCHAR}, #{exceptionRemoteDevice,jdbcType=VARCHAR}, 
+      #{exceptionOsinfo,jdbcType=VARCHAR}, #{exceptionBroswer,jdbcType=VARCHAR}, #{exceptionRemoteIp,jdbcType=VARCHAR}, 
+      #{exceptionRemoteUser,jdbcType=VARCHAR}, #{exceptionOptnote,jdbcType=VARCHAR}, 
+      #{exceptionMsg,jdbcType=VARCHAR}, #{exceptionStarTime,jdbcType=VARCHAR}, #{exceptionEndTime,jdbcType=VARCHAR}, 
+      #{msgRsv1,jdbcType=VARCHAR}, #{msgRsv2,jdbcType=VARCHAR}, #{msgRsv3,jdbcType=VARCHAR}, 
+      #{exceptionContent,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zzy.blog.web.pojo.SysException">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into bk_sys_exception
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="exceptionUrl != null">
+        exception_url,
+      </if>
+      <if test="exceptionRemoteDevice != null">
+        exception_Remote_Device,
+      </if>
+      <if test="exceptionOsinfo != null">
+        exception_osinfo,
+      </if>
+      <if test="exceptionBroswer != null">
+        exception_broswer,
+      </if>
+      <if test="exceptionRemoteIp != null">
+        exception_remote_ip,
+      </if>
+      <if test="exceptionRemoteUser != null">
+        exception_Remote_User,
+      </if>
+      <if test="exceptionOptnote != null">
+        exception_optNote,
+      </if>
+      <if test="exceptionMsg != null">
+        exception_msg,
+      </if>
+      <if test="exceptionStarTime != null">
+        exception_star_time,
+      </if>
+      <if test="exceptionEndTime != null">
+        exception_end_time,
+      </if>
+      <if test="msgRsv1 != null">
+        msg_rsv1,
+      </if>
+      <if test="msgRsv2 != null">
+        msg_rsv2,
+      </if>
+      <if test="msgRsv3 != null">
+        msg_rsv3,
+      </if>
+      <if test="exceptionContent != null">
+        exception_content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="exceptionUrl != null">
+        #{exceptionUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="exceptionRemoteDevice != null">
+        #{exceptionRemoteDevice,jdbcType=VARCHAR},
+      </if>
+      <if test="exceptionOsinfo != null">
+        #{exceptionOsinfo,jdbcType=VARCHAR},
+      </if>
+      <if test="exceptionBroswer != null">
+        #{exceptionBroswer,jdbcType=VARCHAR},
+      </if>
+      <if test="exceptionRemoteIp != null">
+        #{exceptionRemoteIp,jdbcType=VARCHAR},
+      </if>
+      <if test="exceptionRemoteUser != null">
+        #{exceptionRemoteUser,jdbcType=VARCHAR},
+      </if>
+      <if test="exceptionOptnote != null">
+        #{exceptionOptnote,jdbcType=VARCHAR},
+      </if>
+      <if test="exceptionMsg != null">
+        #{exceptionMsg,jdbcType=VARCHAR},
+      </if>
+      <if test="exceptionStarTime != null">
+        #{exceptionStarTime,jdbcType=VARCHAR},
+      </if>
+      <if test="exceptionEndTime != null">
+        #{exceptionEndTime,jdbcType=VARCHAR},
+      </if>
+      <if test="msgRsv1 != null">
+        #{msgRsv1,jdbcType=VARCHAR},
+      </if>
+      <if test="msgRsv2 != null">
+        #{msgRsv2,jdbcType=VARCHAR},
+      </if>
+      <if test="msgRsv3 != null">
+        #{msgRsv3,jdbcType=VARCHAR},
+      </if>
+      <if test="exceptionContent != null">
+        #{exceptionContent,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.zzy.blog.web.pojo.SysExceptionQuery" resultType="java.lang.Long">
+    select count(*) from bk_sys_exception
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update bk_sys_exception
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.exceptionUrl != null">
+        exception_url = #{record.exceptionUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.exceptionRemoteDevice != null">
+        exception_Remote_Device = #{record.exceptionRemoteDevice,jdbcType=VARCHAR},
+      </if>
+      <if test="record.exceptionOsinfo != null">
+        exception_osinfo = #{record.exceptionOsinfo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.exceptionBroswer != null">
+        exception_broswer = #{record.exceptionBroswer,jdbcType=VARCHAR},
+      </if>
+      <if test="record.exceptionRemoteIp != null">
+        exception_remote_ip = #{record.exceptionRemoteIp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.exceptionRemoteUser != null">
+        exception_Remote_User = #{record.exceptionRemoteUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.exceptionOptnote != null">
+        exception_optNote = #{record.exceptionOptnote,jdbcType=VARCHAR},
+      </if>
+      <if test="record.exceptionMsg != null">
+        exception_msg = #{record.exceptionMsg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.exceptionStarTime != null">
+        exception_star_time = #{record.exceptionStarTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.exceptionEndTime != null">
+        exception_end_time = #{record.exceptionEndTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.msgRsv1 != null">
+        msg_rsv1 = #{record.msgRsv1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.msgRsv2 != null">
+        msg_rsv2 = #{record.msgRsv2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.msgRsv3 != null">
+        msg_rsv3 = #{record.msgRsv3,jdbcType=VARCHAR},
+      </if>
+      <if test="record.exceptionContent != null">
+        exception_content = #{record.exceptionContent,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update bk_sys_exception
+    set id = #{record.id,jdbcType=BIGINT},
+      exception_url = #{record.exceptionUrl,jdbcType=VARCHAR},
+      exception_Remote_Device = #{record.exceptionRemoteDevice,jdbcType=VARCHAR},
+      exception_osinfo = #{record.exceptionOsinfo,jdbcType=VARCHAR},
+      exception_broswer = #{record.exceptionBroswer,jdbcType=VARCHAR},
+      exception_remote_ip = #{record.exceptionRemoteIp,jdbcType=VARCHAR},
+      exception_Remote_User = #{record.exceptionRemoteUser,jdbcType=VARCHAR},
+      exception_optNote = #{record.exceptionOptnote,jdbcType=VARCHAR},
+      exception_msg = #{record.exceptionMsg,jdbcType=VARCHAR},
+      exception_star_time = #{record.exceptionStarTime,jdbcType=VARCHAR},
+      exception_end_time = #{record.exceptionEndTime,jdbcType=VARCHAR},
+      msg_rsv1 = #{record.msgRsv1,jdbcType=VARCHAR},
+      msg_rsv2 = #{record.msgRsv2,jdbcType=VARCHAR},
+      msg_rsv3 = #{record.msgRsv3,jdbcType=VARCHAR},
+      exception_content = #{record.exceptionContent,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update bk_sys_exception
+    set id = #{record.id,jdbcType=BIGINT},
+      exception_url = #{record.exceptionUrl,jdbcType=VARCHAR},
+      exception_Remote_Device = #{record.exceptionRemoteDevice,jdbcType=VARCHAR},
+      exception_osinfo = #{record.exceptionOsinfo,jdbcType=VARCHAR},
+      exception_broswer = #{record.exceptionBroswer,jdbcType=VARCHAR},
+      exception_remote_ip = #{record.exceptionRemoteIp,jdbcType=VARCHAR},
+      exception_Remote_User = #{record.exceptionRemoteUser,jdbcType=VARCHAR},
+      exception_optNote = #{record.exceptionOptnote,jdbcType=VARCHAR},
+      exception_msg = #{record.exceptionMsg,jdbcType=VARCHAR},
+      exception_star_time = #{record.exceptionStarTime,jdbcType=VARCHAR},
+      exception_end_time = #{record.exceptionEndTime,jdbcType=VARCHAR},
+      msg_rsv1 = #{record.msgRsv1,jdbcType=VARCHAR},
+      msg_rsv2 = #{record.msgRsv2,jdbcType=VARCHAR},
+      msg_rsv3 = #{record.msgRsv3,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zzy.blog.web.pojo.SysException">
+    update bk_sys_exception
+    <set>
+      <if test="exceptionUrl != null">
+        exception_url = #{exceptionUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="exceptionRemoteDevice != null">
+        exception_Remote_Device = #{exceptionRemoteDevice,jdbcType=VARCHAR},
+      </if>
+      <if test="exceptionOsinfo != null">
+        exception_osinfo = #{exceptionOsinfo,jdbcType=VARCHAR},
+      </if>
+      <if test="exceptionBroswer != null">
+        exception_broswer = #{exceptionBroswer,jdbcType=VARCHAR},
+      </if>
+      <if test="exceptionRemoteIp != null">
+        exception_remote_ip = #{exceptionRemoteIp,jdbcType=VARCHAR},
+      </if>
+      <if test="exceptionRemoteUser != null">
+        exception_Remote_User = #{exceptionRemoteUser,jdbcType=VARCHAR},
+      </if>
+      <if test="exceptionOptnote != null">
+        exception_optNote = #{exceptionOptnote,jdbcType=VARCHAR},
+      </if>
+      <if test="exceptionMsg != null">
+        exception_msg = #{exceptionMsg,jdbcType=VARCHAR},
+      </if>
+      <if test="exceptionStarTime != null">
+        exception_star_time = #{exceptionStarTime,jdbcType=VARCHAR},
+      </if>
+      <if test="exceptionEndTime != null">
+        exception_end_time = #{exceptionEndTime,jdbcType=VARCHAR},
+      </if>
+      <if test="msgRsv1 != null">
+        msg_rsv1 = #{msgRsv1,jdbcType=VARCHAR},
+      </if>
+      <if test="msgRsv2 != null">
+        msg_rsv2 = #{msgRsv2,jdbcType=VARCHAR},
+      </if>
+      <if test="msgRsv3 != null">
+        msg_rsv3 = #{msgRsv3,jdbcType=VARCHAR},
+      </if>
+      <if test="exceptionContent != null">
+        exception_content = #{exceptionContent,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.zzy.blog.web.pojo.SysException">
+    update bk_sys_exception
+    set exception_url = #{exceptionUrl,jdbcType=VARCHAR},
+      exception_Remote_Device = #{exceptionRemoteDevice,jdbcType=VARCHAR},
+      exception_osinfo = #{exceptionOsinfo,jdbcType=VARCHAR},
+      exception_broswer = #{exceptionBroswer,jdbcType=VARCHAR},
+      exception_remote_ip = #{exceptionRemoteIp,jdbcType=VARCHAR},
+      exception_Remote_User = #{exceptionRemoteUser,jdbcType=VARCHAR},
+      exception_optNote = #{exceptionOptnote,jdbcType=VARCHAR},
+      exception_msg = #{exceptionMsg,jdbcType=VARCHAR},
+      exception_star_time = #{exceptionStarTime,jdbcType=VARCHAR},
+      exception_end_time = #{exceptionEndTime,jdbcType=VARCHAR},
+      msg_rsv1 = #{msgRsv1,jdbcType=VARCHAR},
+      msg_rsv2 = #{msgRsv2,jdbcType=VARCHAR},
+      msg_rsv3 = #{msgRsv3,jdbcType=VARCHAR},
+      exception_content = #{exceptionContent,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zzy.blog.web.pojo.SysException">
+    update bk_sys_exception
+    set exception_url = #{exceptionUrl,jdbcType=VARCHAR},
+      exception_Remote_Device = #{exceptionRemoteDevice,jdbcType=VARCHAR},
+      exception_osinfo = #{exceptionOsinfo,jdbcType=VARCHAR},
+      exception_broswer = #{exceptionBroswer,jdbcType=VARCHAR},
+      exception_remote_ip = #{exceptionRemoteIp,jdbcType=VARCHAR},
+      exception_Remote_User = #{exceptionRemoteUser,jdbcType=VARCHAR},
+      exception_optNote = #{exceptionOptnote,jdbcType=VARCHAR},
+      exception_msg = #{exceptionMsg,jdbcType=VARCHAR},
+      exception_star_time = #{exceptionStarTime,jdbcType=VARCHAR},
+      exception_end_time = #{exceptionEndTime,jdbcType=VARCHAR},
+      msg_rsv1 = #{msgRsv1,jdbcType=VARCHAR},
+      msg_rsv2 = #{msgRsv2,jdbcType=VARCHAR},
+      msg_rsv3 = #{msgRsv3,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

@@ -1,0 +1,711 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zzy.blog.web.mapper.ArticleMapper">
+  <resultMap id="BaseResultMap" type="com.zzy.blog.web.pojo.Article">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="article_author" jdbcType="VARCHAR" property="articleAuthor" />
+    <result column="orig_user_id" jdbcType="BIGINT" property="origUserId" />
+    <result column="original_Author" jdbcType="VARCHAR" property="originalAuthor" />
+    <result column="article_Title" jdbcType="VARCHAR" property="articleTitle" />
+    <result column="article_Type" jdbcType="BIGINT" property="articleType" />
+    <result column="article_image" jdbcType="BIGINT" property="articleImage" />
+    <result column="article_Hits" jdbcType="VARCHAR" property="articleHits" />
+    <result column="save_Date" jdbcType="VARCHAR" property="saveDate" />
+    <result column="publish_Date" jdbcType="VARCHAR" property="publishDate" />
+    <result column="update_Date" jdbcType="VARCHAR" property="updateDate" />
+    <result column="article_Url" jdbcType="VARCHAR" property="articleUrl" />
+    <result column="article_Tabloid" jdbcType="VARCHAR" property="articleTabloid" />
+    <result column="like_yes" jdbcType="INTEGER" property="likeYes" />
+    <result column="like_no" jdbcType="INTEGER" property="likeNo" />
+    <result column="best" jdbcType="INTEGER" property="best" />
+    <result column="last_Article_Id" jdbcType="BIGINT" property="lastArticleId" />
+    <result column="next_Article_Id" jdbcType="BIGINT" property="nextArticleId" />
+    <result column="is_draft" jdbcType="INTEGER" property="isDraft" />
+  </resultMap>
+  
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.zzy.blog.web.pojo.Article">
+    <result column="article_Content" jdbcType="LONGVARCHAR" property="articleContent" />
+    <result column="article_Content_md" jdbcType="LONGVARCHAR" property="articleContentMd" />
+  </resultMap>
+  
+  <resultMap extends="BaseResultMap" id="ResultMapWithAll" type="com.zzy.blog.web.pojo.ArticleCustom">
+    	<association property="type" column="article_Type"                       
+            select="com.zzy.blog.web.mapper.TypeMapper.selectByPrimaryKey" />
+         <collection property="tagList" ofType="com.zzy.blog.web.pojo.Tag" javaType="java.util.ArrayList"
+         select="com.zzy.blog.web.mapper.TagMapper.selectTagListByArtId" column="id">
+		</collection>   
+  </resultMap>
+  
+   <resultMap extends="ResultMapWithAll" id="ResultMapWithBlobsAndAll" type="com.zzy.blog.web.pojo.ArticleCustom">
+    	<result column="article_Content" jdbcType="LONGVARCHAR" property="articleContent" />
+    	<result column="article_Content_md" jdbcType="LONGVARCHAR" property="articleContentMd" />
+    	<association property="image" column="article_image"                       
+            select="com.zzy.blog.web.mapper.PictureMapper.selectByPrimaryKey" />
+        <association property="type" column="article_Type"                       
+            select="com.zzy.blog.web.mapper.TypeMapper.selectByPrimaryKey" />
+        <collection property="tagList" ofType="com.zzy.blog.web.pojo.Tag" javaType="java.util.ArrayList"
+         	select="com.zzy.blog.web.mapper.TagMapper.selectTagListByArtId" column="id">
+        </collection>
+        <collection property="commentList" ofType="com.zzy.blog.web.pojo.Comment" javaType="java.util.ArrayList"
+         	select="com.zzy.blog.web.mapper.CommentMapper.selectCommentListByArtId" column="id">
+        </collection>
+  </resultMap>
+  
+  <resultMap extends="BaseResultMap" id="withPicResult" type="com.zzy.blog.web.pojo.ArticleCustom">
+    	 <association property="image" column="article_image"   javaType="com.zzy.blog.web.pojo.Picture"                    
+            select="com.zzy.blog.web.mapper.PictureMapper.selectByPrimaryKey" />
+         <association property="type" column="article_Type" javaType="com.zzy.blog.web.pojo.Type"                  
+            select="com.zzy.blog.web.mapper.TypeMapper.selectByPrimaryKey" />
+         <collection property="tagList" ofType="com.zzy.blog.web.pojo.Tag" javaType="java.util.ArrayList"
+         select="com.zzy.blog.web.mapper.TagMapper.selectTagListByArtId" column="id">
+		</collection> 
+		<collection property="commentList" ofType="com.zzy.blog.web.pojo.Comment" javaType="java.util.ArrayList"
+         select="com.zzy.blog.web.mapper.CommentMapper.selectCommentListByArticleId" column="id">
+		</collection>   
+  </resultMap>
+  
+    <resultMap  id="BaseMapWithFiles" type="com.zzy.blog.web.pojo.ArticleCustom">
+	    <result column="yr" jdbcType="VARCHAR" property="yearDate" />
+         <collection property="artList" ofType="com.zzy.blog.web.pojo.Article" javaType="java.util.ArrayList"
+         select="com.zzy.blog.web.mapper.ArticleMapper.selectArtListByYearDate" column="yr">
+		</collection>   
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, user_id, article_author, orig_user_id, original_Author, article_Title, article_Type, 
+    article_image, article_Hits, save_Date, publish_Date, update_Date, article_Url, 
+    article_Tabloid, like_yes, like_no, best, last_Article_Id, next_Article_Id,is_draft
+  </sql>
+  <sql id="Blob_Column_List">
+    article_Content,article_Content
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.zzy.blog.web.pojo.ArticleQuery" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from bk_article
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.zzy.blog.web.pojo.ArticleQuery" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from bk_article
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from bk_article
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from bk_article
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.zzy.blog.web.pojo.ArticleQuery">
+    delete from bk_article
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.zzy.blog.web.pojo.Article" useGeneratedKeys="true" keyProperty="id" >
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into bk_article (user_id, article_author, orig_user_id, 
+      original_Author, article_Title, article_Type, 
+      article_image, article_Hits, save_Date, 
+      publish_Date, update_Date, article_Url, 
+      article_Tabloid, like_yes, like_no, 
+      best, last_Article_Id, next_Article_Id,is_draft, 
+      article_Content,article_Content_md)
+    values (#{userId,jdbcType=BIGINT}, #{articleAuthor,jdbcType=VARCHAR}, #{origUserId,jdbcType=BIGINT}, 
+      #{originalAuthor,jdbcType=VARCHAR}, #{articleTitle,jdbcType=VARCHAR}, #{articleType,jdbcType=BIGINT}, 
+      #{articleImage,jdbcType=BIGINT}, #{articleHits,jdbcType=VARCHAR}, #{saveDate,jdbcType=VARCHAR}, 
+      #{publishDate,jdbcType=VARCHAR}, #{updateDate,jdbcType=VARCHAR}, #{articleUrl,jdbcType=VARCHAR}, 
+      #{articleTabloid,jdbcType=VARCHAR}, #{likeYes,jdbcType=INTEGER}, #{likeNo,jdbcType=INTEGER}, 
+      #{best,jdbcType=INTEGER}, #{lastArticleId,jdbcType=BIGINT}, #{nextArticleId,jdbcType=BIGINT}, 
+      #{isDraft,jdbcType=INTEGER}, #{articleContent,jdbcType=LONGVARCHAR}, #{articleContentMd,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zzy.blog.web.pojo.Article"  useGeneratedKeys="true" keyProperty="id">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into bk_article
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="record.userId != null">
+        user_id,
+      </if>
+      <if test="record.articleAuthor != null">
+        article_author,
+      </if>
+      <if test="record.origUserId != null">
+        orig_user_id,
+      </if>
+      <if test="record.originalAuthor != null">
+        original_Author,
+      </if>
+      <if test="record.articleTitle != null">
+        article_Title,
+      </if>
+      <if test="record.articleType != null">
+        article_Type,
+      </if>
+      <if test="record.articleImage != null">
+        article_image,
+      </if>
+      <if test="record.articleHits != null">
+        article_Hits,
+      </if>
+      <if test="record.saveDate != null">
+        save_Date,
+      </if>
+      <if test="record.publishDate != null">
+        publish_Date,
+      </if>
+      <if test="record.updateDate != null">
+        update_Date,
+      </if>
+      <if test="record.articleUrl != null">
+        article_Url,
+      </if>
+      <if test="record.articleTabloid != null">
+        article_Tabloid,
+      </if>
+      <if test="record.likeYes != null">
+        like_yes,
+      </if>
+      <if test="record.likeNo != null">
+        like_no,
+      </if>
+      <if test="record.best != null">
+        best,
+      </if>
+      <if test="record.lastArticleId != null">
+        last_Article_Id,
+      </if>
+      <if test="record.nextArticleId != null">
+        next_Article_Id,
+      </if>
+      <if test="record.isDraft != null">
+        is_draft,
+      </if>
+      <if test="record.articleContent != null">
+        article_Content,
+      </if>
+      <if test="record.articleContentMd != null">
+        article_Content_md,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="record.userId != null">
+        #{record.userId,jdbcType=BIGINT},
+      </if>
+      <if test="record.articleAuthor != null">
+        #{record.articleAuthor,jdbcType=VARCHAR},
+      </if>
+      <if test="record.origUserId != null">
+        #{record.origUserId,jdbcType=BIGINT},
+      </if>
+      <if test="record.originalAuthor != null">
+        #{record.originalAuthor,jdbcType=VARCHAR},
+      </if>
+      <if test="record.articleTitle != null">
+        #{record.articleTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.articleType != null">
+        #{record.articleType,jdbcType=BIGINT},
+      </if>
+      <if test="record.articleImage != null">
+        #{record.articleImage,jdbcType=BIGINT},
+      </if>
+      <if test="record.articleHits != null">
+        #{record.articleHits,jdbcType=VARCHAR},
+      </if>
+      <if test="record.saveDate != null">
+        #{record.saveDate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.publishDate != null">
+        #{record.publishDate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateDate != null">
+        #{record.updateDate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.articleUrl != null">
+        #{record.articleUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.articleTabloid != null">
+        #{record.articleTabloid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.likeYes != null">
+        #{record.likeYes,jdbcType=INTEGER},
+      </if>
+      <if test="record.likeNo != null">
+        #{record.likeNo,jdbcType=INTEGER},
+      </if>
+      <if test="record.best != null">
+        #{record.best,jdbcType=INTEGER},
+      </if>
+      <if test="record.lastArticleId != null">
+        #{record.lastArticleId,jdbcType=BIGINT},
+      </if>
+      <if test="record.nextArticleId != null">
+        #{record.nextArticleId,jdbcType=BIGINT},
+      </if>
+      <if test="record.isDraft != null">
+        #{record.isDraft,jdbcType=BIGINT},
+      </if>
+      <if test="record.articleContent != null">
+        #{record.articleContent,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.articleContentMd != null">
+        #{record.articleContentMd,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.zzy.blog.web.pojo.ArticleQuery" resultType="java.lang.Long">
+    select count(*) from bk_article
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update bk_article
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.userId != null">
+        user_id = #{record.userId,jdbcType=BIGINT},
+      </if>
+      <if test="record.articleAuthor != null">
+        article_author = #{record.articleAuthor,jdbcType=VARCHAR},
+      </if>
+      <if test="record.origUserId != null">
+        orig_user_id = #{record.origUserId,jdbcType=BIGINT},
+      </if>
+      <if test="record.originalAuthor != null">
+        original_Author = #{record.originalAuthor,jdbcType=VARCHAR},
+      </if>
+      <if test="record.articleTitle != null">
+        article_Title = #{record.articleTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.articleType != null">
+        article_Type = #{record.articleType,jdbcType=BIGINT},
+      </if>
+      <if test="record.articleImage != null">
+        article_image = #{record.articleImage,jdbcType=BIGINT},
+      </if>
+      <if test="record.articleHits != null">
+        article_Hits = #{record.articleHits,jdbcType=VARCHAR},
+      </if>
+      <if test="record.saveDate != null">
+        save_Date = #{record.saveDate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.publishDate != null">
+        publish_Date = #{record.publishDate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateDate != null">
+        update_Date = #{record.updateDate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.articleUrl != null">
+        article_Url = #{record.articleUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.articleTabloid != null">
+        article_Tabloid = #{record.articleTabloid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.likeYes != null">
+        like_yes = #{record.likeYes,jdbcType=INTEGER},
+      </if>
+      <if test="record.likeNo != null">
+        like_no = #{record.likeNo,jdbcType=INTEGER},
+      </if>
+      <if test="record.best != null">
+        best = #{record.best,jdbcType=INTEGER},
+      </if>
+      <if test="record.lastArticleId != null">
+        last_Article_Id = #{record.lastArticleId,jdbcType=BIGINT},
+      </if>
+      <if test="record.nextArticleId != null">
+        next_Article_Id = #{record.nextArticleId,jdbcType=BIGINT},
+      </if>
+       <if test="record.isDraft != null">
+        is_draft = #{record.isDraft,jdbcType=INTEGER},
+      </if>
+      <if test="record.articleContent != null">
+        article_Content = #{record.articleContent,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.articleContentMd != null">
+        article_Content_md = #{record.articleContentMd,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update bk_article
+    set id = #{record.id,jdbcType=BIGINT},
+      user_id = #{record.userId,jdbcType=BIGINT},
+      article_author = #{record.articleAuthor,jdbcType=VARCHAR},
+      orig_user_id = #{record.origUserId,jdbcType=BIGINT},
+      original_Author = #{record.originalAuthor,jdbcType=VARCHAR},
+      article_Title = #{record.articleTitle,jdbcType=VARCHAR},
+      article_Type = #{record.articleType,jdbcType=BIGINT},
+      article_image = #{record.articleImage,jdbcType=BIGINT},
+      article_Hits = #{record.articleHits,jdbcType=VARCHAR},
+      save_Date = #{record.saveDate,jdbcType=VARCHAR},
+      publish_Date = #{record.publishDate,jdbcType=VARCHAR},
+      update_Date = #{record.updateDate,jdbcType=VARCHAR},
+      article_Url = #{record.articleUrl,jdbcType=VARCHAR},
+      article_Tabloid = #{record.articleTabloid,jdbcType=VARCHAR},
+      like_yes = #{record.likeYes,jdbcType=INTEGER},
+      like_no = #{record.likeNo,jdbcType=INTEGER},
+      best = #{record.best,jdbcType=INTEGER},
+      last_Article_Id = #{record.lastArticleId,jdbcType=BIGINT},
+      next_Article_Id = #{record.nextArticleId,jdbcType=BIGINT},
+      is_draft = #{record.isDraft,jdbcType=INTEGER},
+      article_Content = #{record.articleContent,jdbcType=LONGVARCHAR},
+      article_Content_md = #{record.articleContentMd,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update bk_article
+    set id = #{record.id,jdbcType=BIGINT},
+      user_id = #{record.userId,jdbcType=BIGINT},
+      article_author = #{record.articleAuthor,jdbcType=VARCHAR},
+      orig_user_id = #{record.origUserId,jdbcType=BIGINT},
+      original_Author = #{record.originalAuthor,jdbcType=VARCHAR},
+      article_Title = #{record.articleTitle,jdbcType=VARCHAR},
+      article_Type = #{record.articleType,jdbcType=BIGINT},
+      article_image = #{record.articleImage,jdbcType=BIGINT},
+      article_Hits = #{record.articleHits,jdbcType=VARCHAR},
+      save_Date = #{record.saveDate,jdbcType=VARCHAR},
+      publish_Date = #{record.publishDate,jdbcType=VARCHAR},
+      update_Date = #{record.updateDate,jdbcType=VARCHAR},
+      article_Url = #{record.articleUrl,jdbcType=VARCHAR},
+      article_Tabloid = #{record.articleTabloid,jdbcType=VARCHAR},
+      like_yes = #{record.likeYes,jdbcType=INTEGER},
+      like_no = #{record.likeNo,jdbcType=INTEGER},
+      best = #{record.best,jdbcType=INTEGER},
+      last_Article_Id = #{record.lastArticleId,jdbcType=BIGINT},
+      next_Article_Id = #{record.nextArticleId,jdbcType=BIGINT},
+      is_draft = #{record.isDraft,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zzy.blog.web.pojo.Article">
+    update bk_article
+    <set>
+      <if test="record.userId != null">
+        user_id = #{record.userId,jdbcType=BIGINT},
+      </if>
+      <if test="record.articleAuthor != null">
+        article_author = #{record.articleAuthor,jdbcType=VARCHAR},
+      </if>
+      <if test="record.origUserId != null">
+        orig_user_id = #{record.origUserId,jdbcType=BIGINT},
+      </if> 
+      <if test="record.originalAuthor != null">
+        original_Author = #{record.originalAuthor,jdbcType=VARCHAR},
+      </if>
+      <if test="record.articleTitle != null">
+        article_Title = #{record.articleTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.articleType != null">
+        article_Type = #{record.articleType,jdbcType=BIGINT},
+      </if>
+      <if test="record.articleImage != null">
+        article_image = #{record.articleImage,jdbcType=BIGINT},
+      </if>
+      <if test="record.articleHits != null">
+        article_Hits = #{record.articleHits,jdbcType=VARCHAR},
+      </if>
+      <if test="record.saveDate != null">
+        save_Date = #{record.saveDate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.publishDate != null">
+        publish_Date = #{record.publishDate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateDate != null">
+        update_Date = #{record.updateDate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.articleUrl != null">
+        article_Url = #{record.articleUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.articleTabloid != null">
+        article_Tabloid = #{record.articleTabloid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.likeYes != null">
+        like_yes = #{record.likeYes,jdbcType=INTEGER},
+      </if>
+      <if test="record.likeNo != null">
+        like_no = #{record.likeNo,jdbcType=INTEGER},
+      </if>
+      <if test="record.best != null">
+        best = #{record.best,jdbcType=INTEGER},
+      </if>
+      <if test="record.lastArticleId != null">
+        last_Article_Id = #{record.lastArticleId,jdbcType=BIGINT},
+      </if>
+      <if test="record.nextArticleId != null">
+        next_Article_Id = #{record.nextArticleId,jdbcType=BIGINT},
+      </if>
+       <if test="record.isDraft != null">
+        is_draft = #{record.isDraft,jdbcType=INTEGER},
+      </if>
+      <if test="record.articleContent != null">
+        article_Content = #{record.articleContent,jdbcType=LONGVARCHAR},
+      </if>
+       <if test="record.articleContentMd != null">
+        article_Content_md = #{record.articleContentMd,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{record.id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.zzy.blog.web.pojo.Article">
+    update bk_article
+    set user_id = #{userId,jdbcType=BIGINT},
+      article_author = #{articleAuthor,jdbcType=VARCHAR},
+      orig_user_id = #{origUserId,jdbcType=BIGINT},
+      original_Author = #{originalAuthor,jdbcType=VARCHAR},
+      article_Title = #{articleTitle,jdbcType=VARCHAR},
+      article_Type = #{articleType,jdbcType=BIGINT},
+      article_image = #{articleImage,jdbcType=BIGINT},
+      article_Hits = #{articleHits,jdbcType=VARCHAR},
+      save_Date = #{saveDate,jdbcType=VARCHAR},
+      publish_Date = #{publishDate,jdbcType=VARCHAR},
+      update_Date = #{updateDate,jdbcType=VARCHAR},
+      article_Url = #{articleUrl,jdbcType=VARCHAR},
+      article_Tabloid = #{articleTabloid,jdbcType=VARCHAR},
+      like_yes = #{likeYes,jdbcType=INTEGER},
+      like_no = #{likeNo,jdbcType=INTEGER},
+      best = #{best,jdbcType=INTEGER},
+      last_Article_Id = #{lastArticleId,jdbcType=BIGINT},
+      next_Article_Id = #{nextArticleId,jdbcType=BIGINT},
+      is_draft = #{record.isDraft,jdbcType=INTEGER},
+      article_Content = #{articleContent,jdbcType=LONGVARCHAR},
+      article_Content_md = #{articleContentMd,jdbcType=LONGVARCHAR},
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zzy.blog.web.pojo.Article">
+    update bk_article
+    set user_id = #{userId,jdbcType=BIGINT},
+      article_author = #{articleAuthor,jdbcType=VARCHAR},
+      orig_user_id = #{origUserId,jdbcType=BIGINT},
+      original_Author = #{originalAuthor,jdbcType=VARCHAR},
+      article_Title = #{articleTitle,jdbcType=VARCHAR},
+      article_Type = #{articleType,jdbcType=BIGINT},
+      article_image = #{articleImage,jdbcType=BIGINT},
+      article_Hits = #{articleHits,jdbcType=VARCHAR},
+      save_Date = #{saveDate,jdbcType=VARCHAR},
+      publish_Date = #{publishDate,jdbcType=VARCHAR},
+      update_Date = #{updateDate,jdbcType=VARCHAR},
+      article_Url = #{articleUrl,jdbcType=VARCHAR},
+      article_Tabloid = #{articleTabloid,jdbcType=VARCHAR},
+      like_yes = #{likeYes,jdbcType=INTEGER},
+      like_no = #{likeNo,jdbcType=INTEGER},
+      best = #{best,jdbcType=INTEGER},
+      last_Article_Id = #{lastArticleId,jdbcType=BIGINT},
+      next_Article_Id = #{nextArticleId,jdbcType=BIGINT},
+      is_draft = #{record.isDraft,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="selectArticleCustom" parameterType="com.zzy.blog.web.pojo.ArticleCustom" resultMap="ResultMapWithAll">
+	  select  
+  	  A.id, A.user_id, A.article_author, A.orig_user_id, A.original_Author, A.article_Title, A.article_Type, 
+      A.article_image, A.article_Hits, A.save_Date, A.publish_Date, A.update_Date, A.article_Url, 
+      A.article_Tabloid, A.like_yes, A.like_no, A.best, A.last_Article_Id, A.next_Article_Id, A.is_draft,
+      <!-- A.article_Content, -->
+      T.id, T.type_code, T.type_name, T.type_note, T.is_show, T.add_Date, T.update_Date 
+      from bk_article A LEFT join bk_type T ON A.article_Type=T.id
+      where  1=1 
+      <!-- A.is_draft=1  -->
+	     <if test="record.id != null">
+	        AND A.id = #{record.id,jdbcType=BIGINT}
+	      </if>
+	      <if test="record.userId != null">
+	        AND A.user_id = #{record.userId,jdbcType=BIGINT}
+	      </if>
+	      <if test="record.articleAuthor != null">
+	        AND A.article_author = #{record.articleAuthor,jdbcType=VARCHAR}
+	      </if>
+	      <if test="record.origUserId != null">
+	        AND A.orig_user_id = #{record.origUserId,jdbcType=BIGINT}
+	      </if>
+
+	      <if test="record.articleTitle != null">
+	        AND A.article_Title like CONCAT(CONCAT('%',#{record.articleTitle,jdbcType=VARCHAR}),'%') 
+	      </if>
+	      <if test="record.articleType != null">
+	        AND A.article_Type = #{record.articleType,jdbcType=BIGINT}
+	      </if>
+
+	      <if test="record.articleTabloid != null">
+	         AND A.article_Tabloid = #{record.articleTabloid,jdbcType=VARCHAR}
+	      </if>
+	      <if test="record.likeYes != null">
+	         AND A.like_yes = #{record.likeYes,jdbcType=INTEGER}
+	      </if>
+	      <if test="record.likeNo != null">
+	         AND A.like_no = #{record.likeNo,jdbcType=INTEGER}
+	      </if>
+	      <if test="record.best != null">
+	         AND A.best = #{record.best,jdbcType=INTEGER}
+	      </if>
+	      <if test="record.isDraft != null">
+	         AND A.is_draft = #{record.isDraft,jdbcType=INTEGER}
+	      </if>
+	      
+	      order by A.id desc
+  </select>
+  <select id="selectArticleCustomByPrimaryKey" parameterType="com.zzy.blog.web.pojo.ArticleCustom" resultMap="ResultMapWithBlobsAndAll">
+  	  select  
+  	  A.id, A.user_id, A.article_author, A.orig_user_id, A.original_Author, A.article_Title, A.article_Type, 
+      A.article_image, A.article_Hits, A.save_Date, A.publish_Date, A.update_Date, A.article_Url, 
+      A.article_Tabloid, A.like_yes, A.like_no, A.best, A.last_Article_Id, A.next_Article_Id, A.is_draft,
+      A.article_Content,A.article_Content_md ,
+      T.id, T.type_code, T.type_name, T.type_note, T.is_show, T.add_Date, T.update_Date
+      from bk_article A LEFT join bk_type T ON A.article_Type=T.id
+      where A.id = #{record.id,jdbcType=BIGINT} 
+  </select>
+  
+  <insert id="insertArticleTags" >
+  		 insert into bk_article_tag  (article_id, tag_id)values(#{articleId,jdbcType=BIGINT} ,#{tagId,jdbcType=BIGINT} )
+  </insert>
+  
+  <delete id="deleteArticleTagsByArticleId" parameterType="java.lang.Long">
+  		 delete from  bk_article_tag 
+  		 where article_id=#{articleId,jdbcType=BIGINT}
+  </delete>
+  
+   <select id="countByExTagId" parameterType="java.lang.Long" resultType="java.lang.Long">
+  	 select count(*) from bk_article_tag where  tag_Id= #{tagId,jdbcType=BIGINT} 
+  </select>
+  
+  <select id="selectArticleAllCustom" parameterType="com.zzy.blog.web.pojo.ArticleCustom" resultMap="withPicResult">
+    select  
+  	  id, user_id, article_author, orig_user_id, original_Author, article_Title, article_Type, 
+      article_image, article_Hits, save_Date, publish_Date, update_Date, article_Url, 
+      article_Tabloid, like_yes, like_no, best, last_Article_Id, next_Article_Id, is_draft
+      from bk_article
+      where is_draft=1 
+      <if test="record.best != null">
+	     AND best = #{record.best,jdbcType=BIGINT}
+	 </if>
+	 <if test="record.articleType != null">
+	     AND article_Type = #{record.articleType,jdbcType=BIGINT}
+	 </if>
+     <if test="record.id != null">
+	     AND id = #{record.id,jdbcType=BIGINT}
+	 </if>
+	 order by id desc
+  </select>
+  
+  <select id="selectArticleFiles" resultMap="BaseMapWithFiles">
+  	select  left(publish_date, 4)as yr from bk_article 
+	where  publish_date is not null and  is_draft=1 
+	group by  left(publish_date, 4)   order by yr desc
+  
+  </select>
+  <select id="selectArtListByYearDate" parameterType="java.lang.String" resultMap="BaseResultMap">
+  	  select 
+  	  id,  article_Title,  publish_Date
+  	  from bk_article 
+  	  where   is_draft=1 and publish_date like CONCAT(CONCAT('%',#{yr, jdbcType=VARCHAR}),'%')
+  </select>
+  
+  <select id="selectArtListByImageId" parameterType="java.lang.Long" resultType="java.lang.Long">
+  	 select count(*) from bk_article where  article_image= #{imageId,jdbcType=BIGINT} 
+  </select>
+  
+  <select id="selectPrevArticleById" parameterType="java.lang.Long"  resultMap="BaseResultMap">
+  	 select * from bk_article where id=( select max(id) from bk_article where  id &lt; #{id,jdbcType=BIGINT} and is_draft=1 )
+  </select>
+  
+  <select id="selectNextArticleById" parameterType="java.lang.Long"  resultMap="BaseResultMap">
+  	 select * from bk_article where id=( select min(id) from bk_article where  id &gt; #{id,jdbcType=BIGINT} and is_draft=1 )
+  </select>  
+</mapper>

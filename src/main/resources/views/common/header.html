@@ -1,0 +1,23 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <body>
+        <div th:fragment="headerTop">
+
+           <div id="topbgImg" class="am-hide-sm-only bg_fengche_0  ">
+			</div>
+			<header id="topHeader" class="container am-hide-sm-only am-g am-g-fixed blog-fixed blog-text-center "> 
+			<!-- <img id="topImg" src="stage/bg/hudie.jpg" style="width:100%;display: inline-block;" alt="博客图片"/> -->
+			
+				<div class="am-u-sm-12 am-u-sm-centered  am-container topHeader"  align="left">
+			       <div class="am-u-sm-12 pubHeader ">  
+			              <!-- <div class="am-u-sm-12 header-blog-text"> -->
+				        	<h2 ><span id="mainTitle" th:text="${sysInfo.blogTitle}">博客标题</span></h2>
+				        	<p  th:text="${sysInfo.blogBrief}">描述</p>
+				        <!-- </div> -->
+			       </div>
+			    </div>
+			</header>
+        </div>
+    </body>
+</html>
+

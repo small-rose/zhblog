@@ -1,0 +1,52 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <body>
+        <div th:fragment="copy">
+        	<div class="am-g am-g-fixed blog-fixed am-u-sm-centered "><!-- blog-footer-padding -->
+        	 <div class="container  am-u-sm-centered">
+				<div class="ErWeiMa ">
+					<img alt="微信公众号" width="90px" height="90px" src="images/weixin_pub.jpg">
+					微信公众号
+				</div>
+				<div class="ErWeiMa  ">
+					<img alt="微信" width="90px" height="90px"  src="images/weixin.jpg">
+					微信
+				</div>
+				<div id="shengming" class="  ">
+					<p><b>网站声明：</b></p>
+					<p>1.本站所有原创文章禁止转载、摘编、复制或建立镜像，如有违反，追究法律责任。</p>
+					<p>2.本站所有非原创文章未经授权禁止转载、摘编、复制或建立镜像，如有违反，追究法律责任。</p>
+					<p>3.本站所有技术为科学研究学习使用，禁止用于违反国家法律法规的用途。</p>
+					<p>4.本站有幸所得赞助，将会用于网站建设。</p>
+				</div>
+				<div class="ErWeiMa  ">
+					<img alt="微信" width="90px" height="90px"  src="images/weixin_pay.jpg">
+					微信赞助
+				</div>
+				<div class="ErWeiMa  ">
+					<img alt="微信" width="90px" height="90px"  src="images/alipay.jpg">
+					支付宝赞助
+				</div>
+				</div>
+		     </div> 
+			
+			<div id="copyRight" class=" " style="height: 50px;">
+            	<div class="blog-text-center">  <br/></div> 
+            	<div class="blog-text-center">&copy; 2019.Made By <a href="http://amazeui.org/" target="_blank">AmazeUI</a> template from lw <br/></div>
+            	<div class="blog-text-center">  <br/></div> 
+            </div>
+			
+			 <!-- 回到顶部，设置 -->
+			<div id="back-to-top" style="display:none">返回顶部</div>
+			<div id="webTools" class="am-hide-sm-only">
+					<a href="#" target="_self" id="toTop" ><i class="am-icon-arrow-up icon-big" ></i></a>
+					<a id="webSetting1" data-am-modal="{target: '#setting-modal-1', closeViaDimmer: 0, width: 450, height: 270}" ><i class="am-icon-cogs icon-big"></i></a>
+					<a id="webSetting2" data-am-modal="{target: '#setting-modal-2', closeViaDimmer: 0, width: 450, height: 270}"><i class="am-icon-image"></i></a>
+			</div>
+			<script src="moudle/js/html5.js"></script>
+			<script src="plug-in/laydate/laydate.js"></script>
+			<script src="plug-in/jscolor/jscolor.js"></script>
+			<div th:include="common/assistant :: assistantTool"></div>
+        </div>
+    </body>
+</html>

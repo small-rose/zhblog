@@ -1,0 +1,420 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>Z-BLOG</title>
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-siteapp"/>
+  <link rel="icon" type="image/png" th:href="@{${basePath}+'stage/assets/i/favicon.jpg'}" href="stage/assets/i/favicon.jpg">
+  <meta name="mobile-web-app-capable" content="yes">
+  <link rel="icon" sizes="192x192"  th:href="@{${basePath}+'stage/assets/i/favicon.jpg'}" href="stage/assets/i/favicon.jpg">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="Amaze UI"/>
+  <link rel="apple-touch-icon-precomposed" th:href="@{${basePath}+'stage/assets/i/favicon.jpg'}" href="stage/assets/i/favicon.jpg">
+  <meta name="msapplication-TileImage" th:href="@{${basePath}+'stage/assets/i/favicon.jpg'}" content="stage/assets/i/favicon.jpg">
+  <meta name="msapplication-TileColor" content="#0e90d2">
+  <link rel="stylesheet" th:href="@{${basePath}+'stage/assets/css/amazeui.min.css'}" href="stage/assets/css/amazeui.min.css">
+  <link rel="stylesheet" th:href="@{${basePath}+'stage/assets/css/app.css'}" href="stage/assets/css/app.css">
+  <link rel="stylesheet" th:href="@{${basePath}+'plug-in/bootstrap3.3.7/fonts/glyphicons-halflings-regular.woff'}" href="plug-in/bootstrap3.3.7/fonts/glyphicons-halflings-regular.woff" />
+  <link rel="stylesheet" th:href="@{${basePath}+'plug-in/bootstrap3.3.7/css/bootstrap.min.css'}" href="plug-in/bootstrap3.3.7/css/bootstrap.min.css" />
+<!--   <link rel="stylesheet" href="plug-in/bootstrap3.3.7/css/bootstrap-theme.min.css" /> -->
+  <link rel="stylesheet" th:href="@{${basePath}+'plug-in/editor.md-master/css/editormd.min.css'}" href="plug-in/editor.md-master/css/editormd.min.css" />
+  <link rel="stylesheet" th:href="@{${basePath}+'plug-in/bootstrap3.3.7/buttons.css'}" href="plug-in/bootstrap3.3.7/buttons.css">
+  <link rel="stylesheet" th:href="@{${basePath}+'moudle/admin.css'}" href="moudle/admin.css">
+  <link th:href="@{${basePath}+'plug-in/fileinput/css/fileinput.css'}"  href="plug-in/fileinput/css/fileinput.css" media="all" rel="stylesheet" type="text/css" /> 
+  
+</head>
+<body id="blog" style="height: 100%; color: rgb(0, 0, 0); ">
+<!-- <header class="am-g am-g-fixed blog-fixed blog-text-center blog-header">
+	
+    <div class="am-u-sm-8 am-u-sm-centered">
+        <img width="200" src="https://www.aroad.xyz/source/img/favicon.png" alt="Amaze UI Logo"/>
+        <h2 class="am-hide-sm-only">我似江潮来又去，君如鸥鹭逐波还</h2>
+    </div>
+</header>
+<hr> -->
+<!-- <div th:include="common/admin :: daoTop"></div> -->
+<!-- <hr> -->
+<div class="am-g am-g-fixed blog-fixed blog-content">
+		<div class="container">
+			<div class="panel panel-default  panel-info " style="margin-top: 5px">
+				<div class="panel-heading ">
+					<h5 class="panel-title">相关信息配置 
+						<!-- <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+							<button type="button" class="btn btn-primary btn-sm ">
+							<span class="glyphicon glyphicon-chevron-down"></span>展开/收起
+							</button>
+						</a> -->
+					</h5>
+				</div>
+				<div id="collapseOne" class="panel-collapse collapse in">
+					<div class="panel-body">
+						<ul id="myTab" class="nav nav-tabs">
+						    <li class="active">
+						        <a href="#home" data-toggle="tab"> 博客信息</a>
+						    </li>
+						    <li><a href="#user" data-toggle="tab">博主信息</a></li>
+						    <li class="dropdown">
+						        <a href="#" id="myTabDrop1" class="dropdown-toggle"
+						           data-toggle="dropdown">其他
+						            <b class="caret"></b>
+						        </a>
+						        <ul class="dropdown-menu" role="menu" aria-labelledby="myTabDrop1">
+						            <li><a href="#jmeter" tabindex="-1" data-toggle="tab">修改密码</a></li>
+						            <li><a href="#ejb" tabindex="-1" data-toggle="tab">ejb</a></li>
+						        </ul>
+						    </li>
+						</ul>
+						<div id="myTabContent" class="tab-content">
+						    <div class="tab-pane fade in active" id="home">
+						    	<div class="row col-sm-12 modal-body" style="padding-top: 15px">
+						        <form id="sysInfo" class="form-horizontal" onsubmit="return false">
+									<input type="hidden" name="id" th:value="${sysInfo.id}"  class="form-control" id="input_tagId">
+									<div class="form-group">
+										<label for="input_blogTitle" class="col-sm-2 control-label">博客名称</label>
+										<div class="col-sm-10">
+											<input type="text" name="blogTitle" class="form-control" id="input_blogTitle"  th:value="${sysInfo.blogTitle}" placeholder="博客名称" data-toggle="tooltip" title="博客名称"> <span id="pageHref_block" class="help-block"></span>
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="input_blogStie" class="col-sm-2 control-label">博客网站</label>
+										<div class="col-sm-10">
+											<input type="text" name="blogStie" class="form-control" id="input_blogStie" th:value="${sysInfo.blogStie}" placeholder="博客网站" data-toggle="tooltip" title="博客网站"> <span id="pageNo_block" class="help-block"></span>
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="input_blogBrief" class="col-sm-2 control-label">博客简介</label>
+										<div class="col-sm-10">
+											<input type="text" name="blogBrief" class="form-control" id="input_blogBrief" th:value="${sysInfo.blogBrief}" placeholder="博客简介" data-toggle="tooltip" title="博客简介" value=""> <span id="linkTag_block" class="help-block"></span>
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="input_blogNote" class="col-sm-2 control-label">博客详细描述</label>
+										<div class="col-sm-10">
+											<textarea type="text" rows="5" name="blogNote" class="form-control" id="input_blogNote" th:value="${sysInfo.blogNote}" th:text="${sysInfo.blogNote}"  placeholder="博客详细描述" data-toggle="tooltip" title="博客详细描述" value=""> </textarea>
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="input_blogNotice" class="col-sm-2 control-label">博客临时公告</label>
+										<div class="col-sm-10">
+											<input type="text" name="blogNotice" class="form-control" id="input_blogNotice" th:value="${sysInfo.blogNotice}" placeholder="临时公告" data-toggle="tooltip" title="临时公告" value=""> <span id="linkTag_block" class="help-block"></span>
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="inputlinkTag" class="col-sm-2 control-label">&nbsp;</label>
+										<div class="col-sm-10">
+											<button type="button" class="btn btn-success" id="blog_save_btn">保存信息</button>
+										</div>
+									</div>
+								</form>
+								</div>
+						    </div>
+						    <div class="tab-pane fade" id="user">
+						    	<div class="row col-sm-12 modal-body" style="padding-top: 15px">
+						        <form id="userInfo" class="form-horizontal" onsubmit="return false">
+									<input type="hidden" name="id" th:value="${blogUser.id}" class="form-control" id="input_userId">
+									<div class="form-group">
+										<label for="input_localImgUrl" class="col-sm-2 control-label">博主图片</label>
+										<div class="col-sm-8">
+									    	<input type="" id="localImgUrl" name="localImgUrl" th:value="${blogUser.localImgUrl}">
+							                <input name="img" id="img" type="file" class="file" data-show-upload="false" data-show-preview="true">
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="input_realName" class="col-sm-2 control-label">博主名称</label>
+										<div class="col-sm-8">
+											<input type="text" name="realName" class="form-control" id="input_realName" th:value="${blogUser.realName}" placeholder="博主名称" data-toggle="tooltip" title="博主名称"> <span id="pageHref_block" class="help-block"></span>
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="input_qqAcct" class="col-sm-2 control-label">QQ号码</label>
+										<div class="col-sm-8">
+											<input type="text"  name="qqAcct" class="form-control" id="input_qqAcct" th:value="${blogUser.qqAcct}" placeholder="QQ号码" data-toggle="tooltip" title="QQ号码" value=""></input>
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="input_wxPrivate" class="col-sm-2 control-label">微信号码</label>
+										<div class="col-sm-8">
+											<input type="text"  name="wxPrivate" class="form-control" id="input_wxPrivate" th:value="${blogUser.wxPrivate}" placeholder="微信号码" data-toggle="tooltip" title="微信号码" value=""></input>
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="input_wxPublic" class="col-sm-2 control-label">微信公众号</label>
+										<div class="col-sm-8">
+											<input type="text"  name="wxPublic" class="form-control" id="input_wxPublic" th:value="${blogUser.wxPublic}" placeholder="微信公众号" data-toggle="tooltip" title="微信公众号" value=""></input>
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="input_wbAcct" class="col-sm-2 control-label">微博主页</label>
+										<div class="col-sm-8">
+											<input type="text"  name="wbAcct" class="form-control" id="input_wbAcct" th:value="${blogUser.wbAcct}" placeholder="微博主页" data-toggle="tooltip" title="微博主页" value=""></input>
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="input_gitAcct" class="col-sm-2 control-label">Git主页</label>
+										<div class="col-sm-8">
+											<input type="text"  name="gitAcct" class="form-control" id="input_gitAcct" th:value="${blogUser.gitAcct}" placeholder="Git主页" data-toggle="tooltip" title="Git主页" value=""></input>
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="input_gitBlogUrl" class="col-sm-2 control-label">Git博客</label>
+										<div class="col-sm-8">
+											<input type="text"  name="gitBlogUrl" class="form-control" id="input_gitBlogUrl" th:value="${blogUser.gitBlogUrl}" placeholder="Git博客" data-toggle="tooltip" title="Git博客" value=""></input>
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="input_bloggerMsg" class="col-sm-2 control-label">留言寄语</label>
+										<div class="col-sm-8">
+											<textarea type="text" rows="3" name="bloggerMsg" class="form-control" id="input_bloggerMsg" th:value="${blogUser.bloggerMsg}" placeholder="留言寄语" data-toggle="tooltip" title="留言寄语" th:text="${blogUser.bloggerMsg}"></textarea>
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="input_personalBrief" class="col-sm-2 control-label">博主简介</label>
+										<div class="col-sm-8">
+											<textarea type="text" rows="5" name="personalBrief" class="form-control" id="input_personalBrief" th:value="${blogUser.personalBrief}" placeholder="博主简介" data-toggle="tooltip" title="博主简介" th:text="${blogUser.personalBrief}"></textarea>
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="inputlinkTag" class="col-sm-2 control-label">&nbsp;</label>
+										<div class="col-sm-8">
+											<button type="button" class="btn btn-success" id="user_save_btn">保存博主信息</button>
+										</div>
+									</div>
+								</form>
+								</div>
+						    </div>
+						    <div class="tab-pane fade" id="jmeter">
+						        <div class="row col-sm-12 modal-body" style="padding-top: 15px">
+						        	<form id="pass" class="form-horizontal" onsubmit="return false">
+									<input type="hidden" name="id" class="form-control" id="input_tagId">
+									<div class="form-group">
+										<label for="inputpageHerf" class="col-sm-2 control-label">原密码</label>
+										<div class="col-sm-6">
+											<input type="text" name="tagName" class="form-control" id="input_tagName" placeholder="标签名称" data-toggle="tooltip" title="原密码"> <span id="pageHref_block" class="help-block"></span>
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="inputpageNo" class="col-sm-2 control-label">新密码</label>
+										<div class="col-sm-6">
+											<input type="text" name="tagCode" class="form-control" id="input_tagCode" placeholder="标签代码" data-toggle="tooltip" title="新密码"> <span id="pageNo_block" class="help-block"></span>
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="inputlinkTag" class="col-sm-2 control-label">确认新密码</label>
+										<div class="col-sm-6">
+											<input type="text" name="tagNote" class="form-control" id="input_tagNote" placeholder="标签描述" data-toggle="tooltip" title="确认新密码" value=""> <span id="linkTag_block" class="help-block"></span>
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="inputlinkTag" class="col-sm-2 control-label">&nbsp;</label>
+										<div class="col-sm-6">
+								        	<button type="button" class="btn btn-primary" id="pass_save_btn">确认修改密码</button>
+								        </div>
+							      </div>
+								</form>
+								 
+						        </div>
+						    </div>
+						    <div class="tab-pane fade" id="ejb">
+						        <p>Enterprise Java Beans（EJB）是一个创建高度可扩展性和强大企业级应用程序的开发架构，部署在兼容应用程序服务器（比如 JBOSS、Web Logic 等）的 J2EE 上。
+						        </p>
+						    </div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+<!-- content end-->
+        
+
+<footer class="blog-footer">
+     <!-- <div th:include="common/footer :: copy"></div> -->
+</footer>
+<script th:src="@{${basePath}+'plug-in/fileinput/js/jquery-2.0.3.min.js'}" src="plug-in/fileinput/js/jquery-2.0.3.min.js"></script> 
+<script th:src="@{${basePath}+'plug-in/editor.md-master/editormd.min.js'}" src="plug-in/editor.md-master/editormd.min.js"></script>
+<script th:src="@{${basePath}+'stage/assets/js/amazeui.min.js'}"></script> 
+<script th:src="@{${basePath}+'plug-in/bootstrap3.3.7/js/bootstrap.min.js'}" src="plug-in/bootstrap3.3.7/js/bootstrap.min.js" type="text/javascript"></script> 
+<script th:src="@{${basePath}+'moudle/js/form.js'}" src="moudle/js/form.js" type="text/javascript"></script>
+<script th:src="@{${basePath}+'plug-in/fileinput/js/fileinput.js'}" src="plug-in/fileinput/js/fileinput.js" type="text/javascript"></script>
+<script th:src="@{${basePath}+'plug-in/fileinput/js/fileinput_locale_zh.js'}" src="plug-in/fileinput/js/fileinput_locale_zh.js" type="text/javascript"></script>  
+<script th:inline="javascript">
+    var imagePath = [[${blogUser.localImgUrl}]];
+</script>
+
+<script type="text/javascript">
+	$(function(){
+		initData();
+	});
+	
+	function initData(){
+		requestDataHandle("getSysInfo",'s');
+		requestDataHandle("getUserInfo",'u');
+	}
+	//保存博客信息
+	$(document).on("click","#blog_save_btn", function(){
+		console.log(" save blog info ...");
+		var url = "saveinfo";
+		var data = $("#sysInfo").serializeArray();
+		//alert(data);
+		/* var obj = {};
+		   $.each(data,function(i,v){
+		       obj[v.name] = v.value;
+		   })  */   
+		//console.log(data);
+		requestHandle(url,data,'s');
+	});
+	
+	//保存用户信息
+	$(document).on("click","#user_save_btn", function(){
+		console.log(" save user info ...");
+		var url = "saveuser";
+		var data = $("#userInfo").serializeArray();
+		//console.log(data);
+		requestHandle(url,data,'u');
+	});
+	//修改密码
+	$(document).on("click","#pass_save_btn", function(){
+		console.log(" save pass info ...");
+		var url = "changePwd";
+		var data = $("#pass").serializeArray();
+		//console.log(data);
+		requestHandle(url,data,null);
+	});
+	
+	//保存操作
+	function requestHandle(url,data,type){
+		console.log(JSON.stringify(data));
+		$.ajax({
+			url: url,
+			data: data ,//JSON.stringify(data),
+			type:"post",
+			/* dataType :"json",
+			contentType: "application/json;charset=UTF-8",  */
+			cache : false,
+			success:function(result){
+				console.log(result);
+				if(result.success){
+					AlertModal("success",result.msg);
+					requestDataHandle("getSysInfo",type);
+				}else{
+					AlertModal("error",result.msg);
+				}
+			},
+			error:function(responseText,status,error){
+				console.log(status);
+				console.log(responseText);
+				console.log(error);
+				alert("失败！");
+			}
+		});
+	}
+	
+	//请求数据操作
+	function requestDataHandle(url,type){
+		var data = null;
+		$.ajax({
+			url: url,
+			data: data ,//JSON.stringify(data),
+			type:"post",
+			/* dataType :"json",
+			contentType: "application/json;charset=UTF-8",  */
+			cache : false,
+			success:function(result){
+				console.log(result);
+				if(result.success){
+					initDataShow(result,type);
+				}
+			},
+			error:function(responseText,status,error){
+				console.log(status);
+				console.log(responseText);
+				console.log(error);
+				alert("请求出错！");
+			}
+		});
+	}
+	
+	function initDataShow(result,type){
+		var data = result.extend.object;
+		console.log(data);
+		if(type=='s'){
+			$("#input_blogTitle").val(data.blogTitle);
+			$("#input_blogStie").val(data.blogStie);
+			$("#input_blogBrief").val(data.blogBrief);
+			$("#input_blogNote").val(data.blogNote);
+			$("#input_blogNotice").val(data.blogNotice);
+		}if(type=='u'){
+			
+		}
+	}
+	
+	$("#img").fileinput({
+	      uploadUrl:"upload/img", //接受请求地址
+	      uploadAsync : true, //默认异步上传
+	      showUpload : false, //是否显示上传按钮,跟随文本框的那个
+	      showRemove : true, //显示移除按钮,跟随文本框的那个
+	      showCaption : true,//是否显示标题,就是那个文本框
+	      showPreview : true, //是否显示预览,不写默认为true
+	      dropZoneEnabled : true,//是否显示拖拽区域，默认不写为true，但是会占用很大区域
+	      //minImageWidth: 50, //图片的最小宽度
+	      //minImageHeight: 50,//图片的最小高度
+	      //maxImageWidth: 1000,//图片的最大宽度
+	      //maxImageHeight: 1000,//图片的最大高度
+	      //maxFileSize: 0,//单位为kb，如果为0表示不限制文件大小
+	      //minFileCount: 0,
+	      'theme': 'explorer',
+	      maxFileCount : 1, //表示允许同时上传的最大文件个数
+	      enctype : 'multipart/form-data',
+	      validateInitialCount : true,
+	      previewFileIcon: "<i class='glyphicon glyphicon-king'></i>",
+	      msgFilesTooMany : "选择上传的文件数量({n}) 超过允许的最大数值{m}！",
+	      allowedFileTypes : [ 'image' ],//配置允许文件上传的类型
+	      //allowedPreviewTypes : [ 'image' ],//配置所有的被预览文件类型
+	      //allowedPreviewMimeTypes : [ 'jpg', 'png', 'gif' ],//控制被预览的所有mime类型
+          //overwriteInitial: false,
+	      language : 'zh',
+	      uploadExtraData:function (previewId, index) { 
+	    	    console.log(index+" , previewId = " +previewId);//传参
+        	    var data = {
+                    "picType": 2,      //此处自定义传参
+                };
+                return data;
+        },
+        initialPreview: [  
+            "<img src='"+imagePath+"' class='file-preview-image'>"  
+        ]
+        
+	  })
+	  //异步上传返回结果处理
+	  $('#img').on('fileerror', function(event, data, msg) {
+	      console.log("fileerror");
+	      console.log(data);
+	  });
+	  //异步上传返回结果处理
+	  $("#img").on("fileuploaded", function(event, data, previewId, index) {
+		  var imageUrl = data.response.imgUrl;
+		  var imageId = data.response.imageId;
+	      console.log(imageUrl);
+	      
+		  $("#localImgUrl").val(imageUrl);
+		  //$("#").val(imageId);
+	      var ref = $(this).attr("data-ref");
+	      $("input[name='" + ref + "']").val(data.response.imageUrl);
+
+	  });
+
+	  //上传前
+	  $('#img').on('filepreupload', function(event, data, previewId, index) {
+	      console.log("filepreupload");
+	  });
+</script>
+<div th:include="common/message :: msg"></div> 
+</body>	
+</html>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>        
+    <settings>
+       <!--  <setting name="logImpl" value="STDOUT_LOGGING" /> -->
+        <setting name="logImpl" value="COMMONS_LOGGING" />
+        <setting name="cacheEnabled" value="true" />
+    </settings>
+
+	<plugins>
+	    <plugin interceptor="com.github.pagehelper.PageHelper"> <!--  4.0之前-->
+	    <!-- <plugin interceptor="org.apache.ibatis.plugin.Interceptor"> -->
+	    	<!-- 自4.0.0以后的版本已经可以自动识别数据库 -->
+	        <!-- <property name="dialect" value="db2"/> -->
+	        <!-- 
+	        <property name="offsetAsPageNum" value="false"/>
+	        <property name="rowBoundsWithCount" value="false"/>
+	        <property name="pageSizeZero" value="true"/>
+	        <property name="reasonable" value="false"/>
+	        <property name="supportMethodsArguments" value="false"/>
+	        <property name="returnPageInfo" value="none"/>
+	         -->
+	    </plugin>
+	</plugins>
+</configuration><!-- 全局参数 -->

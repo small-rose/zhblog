@@ -1,0 +1,403 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zzy.blog.web.mapper.PictureMapper">
+  <resultMap id="BaseResultMap" type="com.zzy.blog.web.pojo.Picture">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="pic_name" jdbcType="VARCHAR" property="picName" />
+    <result column="pic_new_name" jdbcType="VARCHAR" property="picNewName" />
+    <result column="pic_local_address" jdbcType="VARCHAR" property="picLocalAddress" />
+    <result column="abs_local_address" jdbcType="VARCHAR" property="absLocalAddress" />
+    <result column="original_address" jdbcType="VARCHAR" property="originalAddress" />
+    <result column="pic_length" jdbcType="BIGINT" property="picLength" />
+    <result column="pic_suffix" jdbcType="VARCHAR" property="picSuffix" />
+    <result column="pic_Type" jdbcType="BIGINT" property="picType" />
+    <result column="upload_Date" jdbcType="VARCHAR" property="uploadDate" />
+    <result column="likes" jdbcType="INTEGER" property="likes" />
+    <result column="cate_Id" jdbcType="BIGINT" property="cateId" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.zzy.blog.web.pojo.Picture">
+    <result column="pic_content" jdbcType="LONGVARBINARY" property="picContent" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, pic_name, pic_new_name, pic_local_address, abs_local_address, original_address, 
+    pic_length, pic_suffix, pic_Type, upload_Date, likes,cate_Id
+  </sql>
+  <sql id="Blob_Column_List">
+    pic_content
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.zzy.blog.web.pojo.PictureQuery" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from bk_picture
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.zzy.blog.web.pojo.PictureQuery" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from bk_picture
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from bk_picture
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from bk_picture
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.zzy.blog.web.pojo.PictureQuery">
+    delete from bk_picture
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.zzy.blog.web.pojo.Picture">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into bk_picture (pic_name, pic_new_name, pic_local_address, 
+      abs_local_address, original_address, pic_length, 
+      pic_suffix, pic_Type, upload_Date, 
+      likes, pic_content,cate_Id)
+    values (#{picName,jdbcType=VARCHAR}, #{picNewName,jdbcType=VARCHAR}, #{picLocalAddress,jdbcType=VARCHAR}, 
+      #{absLocalAddress,jdbcType=VARCHAR}, #{originalAddress,jdbcType=VARCHAR}, #{picLength,jdbcType=BIGINT}, 
+      #{picSuffix,jdbcType=VARCHAR}, #{picType,jdbcType=BIGINT}, #{uploadDate,jdbcType=VARCHAR}, 
+      #{likes,jdbcType=INTEGER}, #{picContent,jdbcType=LONGVARBINARY}, #{cateId,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zzy.blog.web.pojo.Picture">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into bk_picture
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="picName != null">
+        pic_name,
+      </if>
+      <if test="picNewName != null">
+        pic_new_name,
+      </if>
+      <if test="picLocalAddress != null">
+        pic_local_address,
+      </if>
+      <if test="absLocalAddress != null">
+        abs_local_address,
+      </if>
+      <if test="originalAddress != null">
+        original_address,
+      </if>
+      <if test="picLength != null">
+        pic_length,
+      </if>
+      <if test="picSuffix != null">
+        pic_suffix,
+      </if>
+      <if test="picType != null">
+        pic_Type,
+      </if>
+      <if test="uploadDate != null">
+        upload_Date,
+      </if>
+      <if test="likes != null">
+        likes,
+      </if>
+      <if test="picContent != null">
+        pic_content,
+      </if>
+      <if test="cateId != null">
+        cate_Id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="picName != null">
+        #{picName,jdbcType=VARCHAR},
+      </if>
+      <if test="picNewName != null">
+        #{picNewName,jdbcType=VARCHAR},
+      </if>
+      <if test="picLocalAddress != null">
+        #{picLocalAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="absLocalAddress != null">
+        #{absLocalAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="originalAddress != null">
+        #{originalAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="picLength != null">
+        #{picLength,jdbcType=BIGINT},
+      </if>
+      <if test="picSuffix != null">
+        #{picSuffix,jdbcType=VARCHAR},
+      </if>
+      <if test="picType != null">
+        #{picType,jdbcType=BIGINT},
+      </if>
+      <if test="uploadDate != null">
+        #{uploadDate,jdbcType=VARCHAR},
+      </if>
+      <if test="likes != null">
+        #{likes,jdbcType=INTEGER},
+      </if>
+      <if test="picContent != null">
+        #{picContent,jdbcType=LONGVARBINARY},
+      </if>
+      <if test="cateId != null">
+        #{cateId,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.zzy.blog.web.pojo.PictureQuery" resultType="java.lang.Long">
+    select count(*) from bk_picture
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update bk_picture
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.picName != null">
+        pic_name = #{record.picName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.picNewName != null">
+        pic_new_name = #{record.picNewName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.picLocalAddress != null">
+        pic_local_address = #{record.picLocalAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.absLocalAddress != null">
+        abs_local_address = #{record.absLocalAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.originalAddress != null">
+        original_address = #{record.originalAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.picLength != null">
+        pic_length = #{record.picLength,jdbcType=BIGINT},
+      </if>
+      <if test="record.picSuffix != null">
+        pic_suffix = #{record.picSuffix,jdbcType=VARCHAR},
+      </if>
+      <if test="record.picType != null">
+        pic_Type = #{record.picType,jdbcType=BIGINT},
+      </if>
+      <if test="record.uploadDate != null">
+        upload_Date = #{record.uploadDate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.likes != null">
+        likes = #{record.likes,jdbcType=INTEGER},
+      </if>
+      <if test="record.picContent != null">
+        pic_content = #{record.picContent,jdbcType=LONGVARBINARY},
+      </if>
+      <if test="record.cateId != null">
+        cate_Id = #{record.cateId,jdbcType=BIGINT},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update bk_picture
+    set id = #{record.id,jdbcType=BIGINT},
+      pic_name = #{record.picName,jdbcType=VARCHAR},
+      pic_new_name = #{record.picNewName,jdbcType=VARCHAR},
+      pic_local_address = #{record.picLocalAddress,jdbcType=VARCHAR},
+      abs_local_address = #{record.absLocalAddress,jdbcType=VARCHAR},
+      original_address = #{record.originalAddress,jdbcType=VARCHAR},
+      pic_length = #{record.picLength,jdbcType=BIGINT},
+      pic_suffix = #{record.picSuffix,jdbcType=VARCHAR},
+      pic_Type = #{record.picType,jdbcType=BIGINT},
+      upload_Date = #{record.uploadDate,jdbcType=VARCHAR},
+      likes = #{record.likes,jdbcType=INTEGER},
+      pic_content = #{record.picContent,jdbcType=LONGVARBINARY},
+       cate_Id = #{record.cateId,jdbcType=BIGINT}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update bk_picture
+    set id = #{record.id,jdbcType=BIGINT},
+      pic_name = #{record.picName,jdbcType=VARCHAR},
+      pic_new_name = #{record.picNewName,jdbcType=VARCHAR},
+      pic_local_address = #{record.picLocalAddress,jdbcType=VARCHAR},
+      abs_local_address = #{record.absLocalAddress,jdbcType=VARCHAR},
+      original_address = #{record.originalAddress,jdbcType=VARCHAR},
+      pic_length = #{record.picLength,jdbcType=BIGINT},
+      pic_suffix = #{record.picSuffix,jdbcType=VARCHAR},
+      pic_Type = #{record.picType,jdbcType=BIGINT},
+      upload_Date = #{record.uploadDate,jdbcType=VARCHAR},
+      likes = #{record.likes,jdbcType=INTEGER},
+       cate_Id = #{record.cateId,jdbcType=BIGINT}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zzy.blog.web.pojo.Picture">
+    update bk_picture
+    <set>
+      <if test="picName != null">
+        pic_name = #{picName,jdbcType=VARCHAR},
+      </if>
+      <if test="picNewName != null">
+        pic_new_name = #{picNewName,jdbcType=VARCHAR},
+      </if>
+      <if test="picLocalAddress != null">
+        pic_local_address = #{picLocalAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="absLocalAddress != null">
+        abs_local_address = #{absLocalAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="originalAddress != null">
+        original_address = #{originalAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="picLength != null">
+        pic_length = #{picLength,jdbcType=BIGINT},
+      </if>
+      <if test="picSuffix != null">
+        pic_suffix = #{picSuffix,jdbcType=VARCHAR},
+      </if>
+      <if test="picType != null">
+        pic_Type = #{picType,jdbcType=BIGINT},
+      </if>
+      <if test="uploadDate != null">
+        upload_Date = #{uploadDate,jdbcType=VARCHAR},
+      </if>
+      <if test="likes != null">
+        likes = #{likes,jdbcType=INTEGER},
+      </if>
+      <if test="picContent != null">
+        pic_content = #{picContent,jdbcType=LONGVARBINARY},
+      </if>
+      <if test="record != null">
+        cate_Id = #{record.cateId,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.zzy.blog.web.pojo.Picture">
+    update bk_picture
+    set pic_name = #{picName,jdbcType=VARCHAR},
+      pic_new_name = #{picNewName,jdbcType=VARCHAR},
+      pic_local_address = #{picLocalAddress,jdbcType=VARCHAR},
+      abs_local_address = #{absLocalAddress,jdbcType=VARCHAR},
+      original_address = #{originalAddress,jdbcType=VARCHAR},
+      pic_length = #{picLength,jdbcType=BIGINT},
+      pic_suffix = #{picSuffix,jdbcType=VARCHAR},
+      pic_Type = #{picType,jdbcType=BIGINT},
+      upload_Date = #{uploadDate,jdbcType=VARCHAR},
+      likes = #{likes,jdbcType=INTEGER},
+      pic_content = #{picContent,jdbcType=LONGVARBINARY},
+      cate_Id = #{record.cateId,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zzy.blog.web.pojo.Picture">
+    update bk_picture
+    set pic_name = #{picName,jdbcType=VARCHAR},
+      pic_new_name = #{picNewName,jdbcType=VARCHAR},
+      pic_local_address = #{picLocalAddress,jdbcType=VARCHAR},
+      abs_local_address = #{absLocalAddress,jdbcType=VARCHAR},
+      original_address = #{originalAddress,jdbcType=VARCHAR},
+      pic_length = #{picLength,jdbcType=BIGINT},
+      pic_suffix = #{picSuffix,jdbcType=VARCHAR},
+      pic_Type = #{picType,jdbcType=BIGINT},
+      upload_Date = #{uploadDate,jdbcType=VARCHAR},
+      likes = #{likes,jdbcType=INTEGER},
+      cate_Id = #{record.cateId,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <!-- 根据分类查询图片 -->
+  <select id="selectByCateId" parameterType="java.lang.Long" resultType="java.lang.Long">
+  	select count(*) from bk_picture
+    where cate_Id = #{cateId,jdbcType=BIGINT}
+  </select>
+  <select id="selecListByCateId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+  	select * from bk_picture
+    where cate_Id = #{cateId,jdbcType=BIGINT}
+  </select>
+</mapper>

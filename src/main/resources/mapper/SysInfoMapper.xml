@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zzy.blog.web.mapper.SysInfoMapper">
+  <resultMap id="BaseResultMap" type="com.zzy.blog.web.pojo.SysInfo">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="blog_title" jdbcType="VARCHAR" property="blogTitle" />
+    <result column="blog_stie" jdbcType="VARCHAR" property="blogStie" />
+    <result column="blog_brief" jdbcType="VARCHAR" property="blogBrief" />
+    <result column="blog_notice" jdbcType="VARCHAR" property="blogNotice" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.zzy.blog.web.pojo.SysInfo">
+    <result column="blog_Note" jdbcType="LONGVARCHAR" property="blogNote" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, blog_title, blog_stie, blog_brief, blog_notice
+  </sql>
+  <sql id="Blob_Column_List">
+    blog_Note
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.zzy.blog.web.pojo.SysInfoQuery" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from bk_sys_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.zzy.blog.web.pojo.SysInfoQuery" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from bk_sys_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from bk_sys_info
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from bk_sys_info
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.zzy.blog.web.pojo.SysInfoQuery">
+    delete from bk_sys_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.zzy.blog.web.pojo.SysInfo">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into bk_sys_info (blog_title, blog_stie, blog_brief, 
+      blog_notice, blog_Note)
+    values (#{blogTitle,jdbcType=VARCHAR}, #{blogStie,jdbcType=VARCHAR}, #{blogBrief,jdbcType=VARCHAR}, 
+      #{blogNotice,jdbcType=VARCHAR}, #{blogNote,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zzy.blog.web.pojo.SysInfo">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into bk_sys_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="blogTitle != null">
+        blog_title,
+      </if>
+      <if test="blogStie != null">
+        blog_stie,
+      </if>
+      <if test="blogBrief != null">
+        blog_brief,
+      </if>
+      <if test="blogNotice != null">
+        blog_notice,
+      </if>
+      <if test="blogNote != null">
+        blog_Note,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="blogTitle != null">
+        #{blogTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="blogStie != null">
+        #{blogStie,jdbcType=VARCHAR},
+      </if>
+      <if test="blogBrief != null">
+        #{blogBrief,jdbcType=VARCHAR},
+      </if>
+      <if test="blogNotice != null">
+        #{blogNotice,jdbcType=VARCHAR},
+      </if>
+      <if test="blogNote != null">
+        #{blogNote,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.zzy.blog.web.pojo.SysInfoQuery" resultType="java.lang.Long">
+    select count(*) from bk_sys_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update bk_sys_info
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.blogTitle != null">
+        blog_title = #{record.blogTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.blogStie != null">
+        blog_stie = #{record.blogStie,jdbcType=VARCHAR},
+      </if>
+      <if test="record.blogBrief != null">
+        blog_brief = #{record.blogBrief,jdbcType=VARCHAR},
+      </if>
+      <if test="record.blogNotice != null">
+        blog_notice = #{record.blogNotice,jdbcType=VARCHAR},
+      </if>
+      <if test="record.blogNote != null">
+        blog_Note = #{record.blogNote,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update bk_sys_info
+    set id = #{record.id,jdbcType=BIGINT},
+      blog_title = #{record.blogTitle,jdbcType=VARCHAR},
+      blog_stie = #{record.blogStie,jdbcType=VARCHAR},
+      blog_brief = #{record.blogBrief,jdbcType=VARCHAR},
+      blog_notice = #{record.blogNotice,jdbcType=VARCHAR},
+      blog_Note = #{record.blogNote,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update bk_sys_info
+    set id = #{record.id,jdbcType=BIGINT},
+      blog_title = #{record.blogTitle,jdbcType=VARCHAR},
+      blog_stie = #{record.blogStie,jdbcType=VARCHAR},
+      blog_brief = #{record.blogBrief,jdbcType=VARCHAR},
+      blog_notice = #{record.blogNotice,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zzy.blog.web.pojo.SysInfo">
+    update bk_sys_info
+    <set>
+      <if test="blogTitle != null">
+        blog_title = #{blogTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="blogStie != null">
+        blog_stie = #{blogStie,jdbcType=VARCHAR},
+      </if>
+      <if test="blogBrief != null">
+        blog_brief = #{blogBrief,jdbcType=VARCHAR},
+      </if>
+      <if test="blogNotice != null">
+        blog_notice = #{blogNotice,jdbcType=VARCHAR},
+      </if>
+      <if test="blogNote != null">
+        blog_Note = #{blogNote,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.zzy.blog.web.pojo.SysInfo">
+    update bk_sys_info
+    set blog_title = #{blogTitle,jdbcType=VARCHAR},
+      blog_stie = #{blogStie,jdbcType=VARCHAR},
+      blog_brief = #{blogBrief,jdbcType=VARCHAR},
+      blog_notice = #{blogNotice,jdbcType=VARCHAR},
+      blog_Note = #{blogNote,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zzy.blog.web.pojo.SysInfo">
+    update bk_sys_info
+    set blog_title = #{blogTitle,jdbcType=VARCHAR},
+      blog_stie = #{blogStie,jdbcType=VARCHAR},
+      blog_brief = #{blogBrief,jdbcType=VARCHAR},
+      blog_notice = #{blogNotice,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

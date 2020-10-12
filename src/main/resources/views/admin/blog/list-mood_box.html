@@ -1,0 +1,222 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>Z-BLOG</title>
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-siteapp"/>
+  <link rel="icon" type="image/png" th:href="@{${basePath}+'stage/assets/i/favicon.jpg'}" href="stage/assets/i/favicon.jpg">
+  <meta name="mobile-web-app-capable" content="yes">
+  <link rel="icon" sizes="192x192" th:href="@{${basePath}+'stage/assets/i/favicon.jpg'}" href="stage/assets/i/favicon.jpg">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="Amaze UI"/>
+  <link rel="apple-touch-icon-precomposed" th:href="@{${basePath}+'stage/assets/i/favicon.jpg'}" href="stage/assets/i/favicon.jpg">
+  <meta name="msapplication-TileImage" th:content="@{${basePath}+'stage/assets/i/favicon.jpg'}" content="stage/assets/i/favicon.jpg">
+  <meta name="msapplication-TileColor" content="#0e90d2">
+  <link rel="stylesheet" th:href="@{${basePath}+'stage/assets/css/amazeui.min.css'}" href="stage/assets/css/amazeui.min.css">
+  <link rel="stylesheet" th:href="@{${basePath}+'stage/assets/css/app.css'}" href="stage/assets/css/app.css">
+  <link rel="stylesheet" th:href="@{${basePath}+'plug-in/bootstrap3.3.7/fonts/glyphicons-halflings-regular.woff'}" href="plug-in/bootstrap3.3.7/fonts/glyphicons-halflings-regular.woff" />
+  <link rel="stylesheet" th:href="@{${basePath}+'plug-in/bootstrap3.3.7/css/bootstrap.min.css'}" href="plug-in/bootstrap3.3.7/css/bootstrap.min.css" />
+  <link rel="stylesheet" th:href="@{${basePath}+'plug-in/bootstrap3.3.7/css/bootstrap-theme.min.css'}" href="plug-in/bootstrap3.3.7/css/bootstrap-theme.min.css" />
+  <link rel="stylesheet" th:href="@{${basePath}+'plug-in/editor.md-master/css/editormd.min.css'}" href="plug-in/editor.md-master/css/editormd.min.css" />
+  <link rel="stylesheet" th:href="@{${basePath}+'plug-in/bootstrap3.3.7/buttons.css'}" href="plug-in/bootstrap3.3.7/buttons.css">
+  <link rel="stylesheet" th:href="@{${basePath}+'moudle/admin.css'}" href="moudle/admin.css">
+    <link rel="stylesheet" th:href="@{${basePath}+'moudle/mood/css/mood_box.css'}" href="moudle/mood/css/mood_box.css">   
+</head>
+<body id="blog" style="height: 100%; color: rgb(0, 0, 0); ">
+<!-- <header class="am-g am-g-fixed blog-fixed blog-text-center blog-header">
+	
+    <div class="am-u-sm-8 am-u-sm-centered">
+        <img width="200" src="https://www.aroad.xyz/source/img/favicon.png" alt="Amaze UI Logo"/>
+        <h2 class="am-hide-sm-only">我似江潮来又去，君如鸥鹭逐波还</h2>
+    </div>
+</header>
+<hr> -->
+<!-- <div th:include="common/admin :: daoTop"></div> -->
+<!-- <hr> -->
+<div class="am-g am-g-fixed blog-fixed blog-content">
+<div class="container">
+		<!-- 标题 -->
+		<div class="row">
+		  <div class="col-md-12" style="height: 25px;margin-top: 10px;">
+		  	<strong>文章相关 </strong>&nbsp; / &nbsp; <span >心情盒子 </span>
+		  </div>
+		</div>
+		
+		<div  class="panel panel-default  panel-info " style="margin-top: 5px">
+			<div class="panel-heading ">
+				<h5 class="panel-title"><span class="glyphicon glyphicon-heart-empty"></span> 心情列表
+               <!--  <a  data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+	                <button type="button" class="btn btn-primary btn-sm ">
+	            	<span class="glyphicon glyphicon-chevron-down"></span>展开/收起
+	           		 </button></a> -->
+           		 </h5>
+			</div>
+			<div id="collapseOne" class="panel-collapse collapse in">
+  			<div class="panel-body">
+		<!-- 按钮 -->
+		<!-- <div class="row">
+			<div class="col-md-12">
+				<form class="form-inline" id="queryForm">
+					  <div class="form-group input-group-sm">
+					    <label for="queryMoodTitle">心情名称</label>
+					    <input type="text" name="queryMoodTitle" class="form-control" id="queryMoodTitle" placeholder="">
+					  </div>
+					   <div class="form-group input-group-sm">
+					    <label for="queryMoodContent">心情内容</label>
+					    <input type="text" name="queryMoodContent"  class="form-control" id="queryMoodContent" placeholder="">
+					  </div> 
+					   <button type="button" class="btn btn-primary btn-sm" id="query_handle"><span class="glyphicon glyphicon-search"></span>查询</button>
+						 <button type="button" class="btn btn-primary btn-sm" id="query_delete_all"><span class="glyphicon glyphicon-remove"></span>清空条件</button>
+					</form>
+					
+			</div>
+		     <div class="col-md-12 " style="padding-top: 4px; padding-bottom: 4px">
+		     	<button type="button" class="btn btn-primary btn-sm" id="add_model_btn"><span class="glyphicon glyphicon-plus"></span> 新增</button>
+		    	<button type="button" class="btn btn-danger btn-sm" id="type_delete_all"><span class="glyphicon glyphicon-trash"></span>批量删除</button>
+				<button type="button" class="btn btn-success btn-sm" id="type_refresh"><span class="glyphicon glyphicon-refresh"></span>刷新</button>
+				 
+		    </div>
+		</div> -->
+		
+		<!-- 表格数据 -->
+		<div class="row  ">
+		
+			<div id="qq"> 
+				<button type="button" class="btn btn-success btn-sm" id="mood_refresh"><span class="glyphicon glyphicon-refresh"></span>刷新</button>
+			   <p>今天的心情怎么样呢?</p> 
+			   <input type="text" name="moodTitle" class="form-control" id="moodTitle" placeholder="">
+			   <hr/>
+			   <div class="message" contenteditable="true"></div> 
+			   <div class="But"> 
+			    <img src="moudle/mood/images/bba_thumb.gif" class="bq"> 
+			    <span class="submit">发表</span> 
+			    <!--face begin--> 
+			    <div class="face"> 
+			     <ul> 
+			      <li><img th:src="@{${basePath}+'moudle/mood/images/smilea_thumb.gif'}" src="moudle/mood/images/smilea_thumb.gif" title="呵呵]"></li> 
+			      <li><img th:src="@{${basePath}+'moudle/mood/images/tootha_thumb.gif'}" src="moudle/mood/images/tootha_thumb.gif" title="嘻嘻]"></li> 
+			      <li><img th:src="@{${basePath}+'moudle/mood/images/laugh.gif'}" src="moudle/mood/images/laugh.gif" title="[哈哈]"></li> 
+			      <li><img th:src="@{${basePath}+'moudle/mood/images/tza_thumb.gif'}" src="moudle/mood/images/tza_thumb.gif" title="[可爱]"></li> 
+			      <li><img th:src="@{${basePath}+'moudle/mood/images/kl_thumb.gif'}" src="moudle/mood/images/kl_thumb.gif" title="[可怜]"></li> 
+			      <li><img th:src="@{${basePath}+'moudle/mood/images/kbsa_thumb.gif'}" src="moudle/mood/images/kbsa_thumb.gif" title="[挖鼻屎]"></li> 
+			      <li><img th:src="@{${basePath}+'moudle/mood/images/cj_thumb.gif'}" src="moudle/mood/images/cj_thumb.gif" title="[吃惊]"></li> 
+			      <li><img th:src="@{${basePath}+'moudle/mood/images/shamea_thumb.gif'}" src="moudle/mood/images/shamea_thumb.gif" title="[害羞]"></li> 
+			      <li><img th:src="@{${basePath}+'moudle/mood/images/zy_thumb.gif'}" src="moudle/mood/images/zy_thumb.gif" title="[挤眼]"></li> 
+			      <li><img th:src="@{${basePath}+'moudle/mood/images/bz_thumb.gif'}" src="moudle/mood/images/bz_thumb.gif" title="[闭嘴]"></li> 
+			      <li><img th:src="@{${basePath}+'moudle/mood/images/bs2_thumb.gif'}" src="moudle/mood/images/bs2_thumb.gif" title="[鄙视]"></li> 
+			      <li><img th:src="@{${basePath}+'moudle/mood/images/lovea_thumb.gif'}" src="moudle/mood/images/lovea_thumb.gif" title="[爱你]"></li> 
+			      <li><img th:src="@{${basePath}+'moudle/mood/images/sada_thumb.gif'}" src="moudle/mood/images/sada_thumb.gif" title="[泪]"></li> 
+			      <li><img th:src="@{${basePath}+'moudle/mood/images/heia_thumb.gif'}" src="moudle/mood/images/heia_thumb.gif" title="[偷笑]"></li> 
+			      <li><img th:src="@{${basePath}+'moudle/mood/images/qq_thumb.gif'}" src="moudle/mood/images/qq_thumb.gif" title="[亲亲]"></li> 
+			      <li><img th:src="@{${basePath}+'moudle/mood/images/sb_thumb.gif'}" src="moudle/mood/images/sb_thumb.gif" title="[生病]"></li> 
+			      <li><img th:src="@{${basePath}+'moudle/mood/images/mb_thumb.gif'}" src="moudle/mood/images/mb_thumb.gif" title="[太开心]"></li> 
+			      <li><img th:src="@{${basePath}+'moudle/mood/images/ldln_thumb.gif'}" src="moudle/mood/images/ldln_thumb.gif" title="[懒得理你]"></li> 
+			      <li><img th:src="@{${basePath}+'moudle/mood/images/yhh_thumb.gif'}" src="moudle/mood/images/yhh_thumb.gif" title="[右哼哼]"></li> 
+			      <li><img th:src="@{${basePath}+'moudle/mood/images/zhh_thumb.gif'}" src="moudle/mood/images/zhh_thumb.gif" title="[左哼哼]"></li> 
+			      <li><img th:src="@{${basePath}+'moudle/mood/images/x_thumb.gif'}" src="moudle/mood/images/x_thumb.gif" title="[嘘]"></li> 
+			      <li><img th:src="@{${basePath}+'moudle/mood/images/cry.gif'}" src="moudle/mood/images/cry.gif" title="[衰]"></li> 
+			      <li><img th:src="@{${basePath}+'moudle/mood/images/wq_thumb.gif'}" src="moudle/mood/images/wq_thumb.gif" title="[委屈]"></li> 
+			      <li><img th:src="@{${basePath}+'moudle/mood/images/t_thumb.gif'}" src="moudle/mood/images/t_thumb.gif" title="[吐]"></li> 
+			      <li><img th:src="@{${basePath}+'moudle/mood/images/k_thumb.gif'}" src="moudle/mood/images/k_thumb.gif" title="[打哈气]"></li> 
+			      <li><img th:src="@{${basePath}+'moudle/mood/images/bba_thumb.gif'}" src="moudle/mood/images/bba_thumb.gif" title="[抱抱]"></li> 
+			      <li><img th:src="@{${basePath}+'moudle/mood/images/angrya_thumb.gif'}" src="moudle/mood/images/angrya_thumb.gif" title="[怒]"></li> 
+			      <li><img th:src="@{${basePath}+'moudle/mood/images/yw_thumb.gif'}" src="moudle/mood/images/yw_thumb.gif" title="[疑问]"></li> 
+			      <li><img th:src="@{${basePath}+'moudle/mood/images/cza_thumb.gif'}" src="moudle/mood/images/cza_thumb.gif" title="[馋嘴]"></li> 
+			      <li><img th:src="@{${basePath}+'moudle/mood/images/88_thumb.gif'}" src="moudle/mood/images/88_thumb.gif" title="[拜拜]"></li> 
+			      <li><img th:src="@{${basePath}+'moudle/mood/images/sk_thumb.gif'}" src="moudle/mood/images/sk_thumb.gif" title="[思考]"></li> 
+			      <li><img th:src="@{${basePath}+'moudle/mood/images/sweata_thumb.gif'}" src="moudle/mood/images/sweata_thumb.gif" title="[汗]"></li> 
+			      <li><img th:src="@{${basePath}+'moudle/mood/images/sleepya_thumb.gif'}" src="moudle/mood/images/sleepya_thumb.gif" title="[困]"></li> 
+			      <li><img th:src="@{${basePath}+'moudle/mood/images/sleepa_thumb.gif'}" src="moudle/mood/images/sleepa_thumb.gif" title="[睡觉]"></li> 
+			      <li><img th:src="@{${basePath}+'moudle/mood/images/money_thumb.gif'}" src="moudle/mood/images/money_thumb.gif" title="[钱]"></li> 
+			      <li><img th:src="@{${basePath}+'moudle/mood/images/sw_thumb.gif'}" src="moudle/mood/images/sw_thumb.gif" title="[失望]"></li> 
+			      <li><img th:src="@{${basePath}+'moudle/mood/images/cool_thumb.gif'}" src="moudle/mood/images/cool_thumb.gif" title="[酷]"></li> 
+			      <li><img th:src="@{${basePath}+'moudle/mood/images/hsa_thumb.gif'}" src="moudle/mood/images/hsa_thumb.gif" title="[花心]"></li> 
+			      <li><img th:src="@{${basePath}+'moudle/mood/images/hatea_thumb.gif'}" src="moudle/mood/images/hatea_thumb.gif" title="[哼]"></li> 
+			      <li><img th:src="@{${basePath}+'moudle/mood/images/gza_thumb.gif'}" src="moudle/mood/images/gza_thumb.gif" title="[鼓掌]"></li> 
+			      <li><img th:src="@{${basePath}+'moudle/mood/images/dizzya_thumb.gif'}" src="moudle/mood/images/dizzya_thumb.gif" title="[晕]"></li> 
+			      <li><img th:src="@{${basePath}+'moudle/mood/images/bs_thumb.gif'}" src="moudle/mood/images/bs_thumb.gif" title="[悲伤]"></li> 
+			      <li><img th:src="@{${basePath}+'moudle/mood/images/crazya_thumb.gif'}" src="moudle/mood/images/crazya_thumb.gif" title="[抓狂]"></li> 
+			      <li><img th:src="@{${basePath}+'moudle/mood/images/h_thumb.gif'}" src="moudle/mood/images/h_thumb.gif" title="[黑线]"></li> 
+			      <li><img th:src="@{${basePath}+'moudle/mood/images/yx_thumb.gif'}" src="moudle/mood/images/yx_thumb.gif" title="[阴险]"></li> 
+			      <li><img th:src="@{${basePath}+'moudle/mood/images/nm_thumb.gif'}" src="moudle/mood/images/nm_thumb.gif" title="[怒骂]"></li> 
+			      <li><img th:src="@{${basePath}+'moudle/mood/images/hearta_thumb.gif'}" src="moudle/mood/images/hearta_thumb.gif" title="[心]"></li> 
+			      <li><img th:src="@{${basePath}+'moudle/mood/images/unheart.gif'}" src="moudle/mood/images/unheart.gif" title="[伤心]"></li> 
+			      <li><img th:src="@{${basePath}+'moudle/mood/images/pig.gif'}" src="moudle/mood/images/pig.gif" title="[猪头]"></li> 
+			      <li><img th:src="@{${basePath}+'moudle/mood/images/ok_thumb.gif'}" src="moudle/mood/images/ok_thumb.gif" title="[ok]"></li> 
+			      <li><img th:src="@{${basePath}+'moudle/mood/images/ye_thumb.gif'}" src="moudle/mood/images/ye_thumb.gif" title="[耶]"></li> 
+			      <li><img th:src="@{${basePath}+'moudle/mood/images/good_thumb.gif'}" src="moudle/mood/images/good_thumb.gif" title="[good]"></li> 
+			      <li><img th:src="@{${basePath}+'moudle/mood/images/no_thumb.gif'}" src="moudle/mood/images/no_thumb.gif" title="[不要]"></li> 
+			      <li><img th:src="@{${basePath}+'moudle/mood/images/z2_thumb.gif'}" src="moudle/mood/images/z2_thumb.gif" title="[赞]"></li> 
+			      <li><img th:src="@{${basePath}+'moudle/mood/images/come_thumb.gif'}" src="moudle/mood/images/come_thumb.gif" title="[来]"></li> 
+			      <li><img th:src="@{${basePath}+'moudle/mood/images/sad_thumb.gif'}" src="moudle/mood/images/sad_thumb.gif" title="[弱]"></li> 
+			      <li><img th:src="@{${basePath}+'moudle/mood/images/lazu_thumb.gif'}" src="moudle/mood/images/lazu_thumb.gif" title="[蜡烛]"></li> 
+			      <li><img th:src="@{${basePath}+'moudle/mood/images/clock_thumb.gif'}" src="moudle/mood/images/clock_thumb.gif" title="[钟]"></li> 
+			      <li><img th:src="@{${basePath}+'moudle/mood/images/cake.gif'}" src="moudle/mood/images/cake.gif" title="[蛋糕]"></li> 
+			      <li><img th:src="@{${basePath}+'moudle/mood/images/m_thumb.gif'}" src="moudle/mood/images/m_thumb.gif" title="[话筒]"></li> 
+			      <li><img th:src="@{${basePath}+'moudle/mood/images/weijin_thumb.gif'}" src="moudle/mood/images/weijin_thumb.gif" title="[围脖]"></li> 
+			      <li><img th:src="@{${basePath}+'moudle/mood/images/lxhzhuanfa_thumb.gif'}" src="moudle/mood/images/lxhzhuanfa_thumb.gif" title="[转发]"></li> 
+			      <li><img th:src="@{${basePath}+'moudle/mood/images/lxhluguo_thumb.gif'}" src="moudle/mood/images/lxhluguo_thumb.gif" title="[路过这儿]"></li> 
+			      <li><img th:src="@{${basePath}+'moudle/mood/images/bofubianlian_thumb.gif'}" src="moudle/mood/images/bofubianlian_thumb.gif" title="[bofu变脸]"></li> 
+			      <li><img th:src="@{${basePath}+'moudle/mood/images/gbzkun_thumb.gif'}" src="moudle/mood/images/gbzkun_thumb.gif" title="[gbz困]"></li> 
+			      <li><img th:src="@{${basePath}+'moudle/mood/images/boboshengmenqi_thumb.gif'}" src="moudle/mood/images/boboshengmenqi_thumb.gif" title="[生闷气]"></li> 
+			      <li><img th:src="@{${basePath}+'moudle/mood/images/chn_buyaoya_thumb.gif'}" src="moudle/mood/images/chn_buyaoya_thumb.gif" title="[不要啊]"></li> 
+			      <li><img th:src="@{${basePath}+'moudle/mood/images/daxiongleibenxiong_thumb.gif'}" src="moudle/mood/images/daxiongleibenxiong_thumb.gif" title="[dx泪奔]"></li> 
+			      <li><img th:src="@{${basePath}+'moudle/mood/images/cat_yunqizhong_thumb.gif'}" src="moudle/mood/images/cat_yunqizhong_thumb.gif" title="[运气中]"></li> 
+			      <li><img th:src="@{${basePath}+'moudle/mood/images/youqian_thumb.gif'}" src="moudle/mood/images/youqian_thumb.gif" title="[有钱]"></li> 
+			     </ul> 
+			    </div> 
+			    <!--face end--> 
+			   </div> 
+		  	</div> 
+	  		<!--qq end--> 
+			  <!--msgCon begin--> 
+			  <div class="msgCon">
+			  	<!-- <div class='msgBox'  th:each="mood,modStat : ${moodList}" th:class="'msgBox  bg-'+${modStat.index%20}">
+					<div class="headUrl">
+							<img src='moudle/mood/images/tx_zxc.png' width='50' height='50'/>
+								<div>
+									<span class="title" th:text="${mood.moodTitle}">标题</span>
+									<span class="time" th:text="${mood.moodDate}">2019-01-01</span>
+								</div>
+								<a class="like" title="喜欢"><i class="am-icon-heart heart-bg"></i>（<span th:text="${mood.moodLike}">0</span>）</a>
+								<a class="update update-bg" title="修改"><i class="am-icon-edit "></i>修改</a>
+								<a class="del del-bg " title="删除"><i class="am-icon-remove "></i>删除</a>
+					</div>
+					<div class='msgTxt' th:text="${mood.moodContent}">
+					</div>
+				 </div> -->
+			  </div>
+		</div>
+		<div class="row">
+		<div id="page-num" class="am-pagination-page-num">共  <span id="totalPage"></span> 页，当前第  <span id="currPage"></span> 页</div>
+		<ul class="am-pagination">
+		  <li id="first-page" class="am-pagination-prev"><a href="javascript:void(0);"> 首 页 </a></li>
+		  <li id="prev-page" class="am-pagination-prev"><a href="javascript:void(0);">&laquo; 上一页</a></li>
+		  <li id="last-page" class="am-pagination-next"><a href="javascript:void(0);"> 末 页 </a></li>
+		  <li id="next-page" class="am-pagination-next"><a href="javascript:void(0);">下一页 &raquo;</a></li>
+		  
+		</ul>
+		</div>
+		</div>
+		</div>
+	</div>
+</div>
+<hr>
+<footer class="blog-footer">
+    <!--  <div th:include="common/footer :: copy"></div> -->
+    <!-- <div class="blog-text-center">© 2015 AllMobilize, Inc. Licensed under MIT license. Made with love By LWXYFER</div>     -->
+</footer>
+<div th:include="common/message :: msg"></div> 
+</body>
+  <script th:src="@{${basePath}+'plug-in/fileinput/js/jquery-2.0.3.min.js'}" src="plug-in/fileinput/js/jquery-2.0.3.min.js"></script>
+  <script th:src="@{${basePath}+'plug-in/bootstrap3.3.7/js/bootstrap.min.js'}"src="plug-in/bootstrap3.3.7/js/bootstrap.min.js"></script>
+  <script th:src="@{${basePath}+'plug-in/mCustomScrollbar3.1.5/jquery.mCustomScrollbar.concat.min.js'}" src="plug-in/mCustomScrollbar3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
+  <script th:src="@{${basePath}+'moudle/js/tools.js'}" src="moudle/js/tools.js"></script>
+  <script th:src="@{${basePath}+'moudle/js/mood_box.js'}" src="moudle/js/mood_box.js"></script>
+</html>

@@ -1,0 +1,576 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>Z-BLOG</title>
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-siteapp"/>
+  <link rel="icon" type="image/png" href="stage/assets/i/favicon.jpg">
+  <meta name="mobile-web-app-capable" content="yes">
+  <link rel="icon" sizes="192x192" th:href="@{${basePath}+'stage/assets/i/favicon.jpg'}" href="stage/assets/i/favicon.jpg">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="Amaze UI"/>
+  <link rel="apple-touch-icon-precomposed" th:href="@{${basePath}+'stage/assets/i/favicon.jpg'}" href="stage/assets/i/favicon.jpg">
+  <meta name="msapplication-TileImage" content="stage/assets/i/app-icon72x72@2x.png">
+  <meta name="msapplication-TileColor" content="#0e90d2">
+  <link rel="stylesheet" th:href="@{${basePath}+'stage/assets/css/amazeui.min.css'}" href="stage/assets/css/amazeui.min.css">
+  <link rel="stylesheet" th:href="@{${basePath}+'stage/assets/css/app.css'}"  href="stage/assets/css/app.css">
+  <link rel="stylesheet" th:href="@{${basePath}+'plug-in/bootstrap3.3.7/fonts/glyphicons-halflings-regular.woff'}" href="plug-in/bootstrap3.3.7/fonts/glyphicons-halflings-regular.woff" />
+  <link rel="stylesheet" th:href="@{${basePath}+'plug-in/bootstrap3.3.7/css/bootstrap.min.css'}" href="plug-in/bootstrap3.3.7/css/bootstrap.min.css" />
+  <link rel="stylesheet" th:href="@{${basePath}+'plug-in/bootstrap3.3.7/css/bootstrap-theme.min.css'}" href="plug-in/bootstrap3.3.7/css/bootstrap-theme.min.css" />
+  <link rel="stylesheet" th:href="@{${basePath}+'plug-in/editor.md-master/css/editormd.min.css'}"  href="plug-in/editor.md-master/css/editormd.min.css" />
+  <link rel="stylesheet" th:href="@{${basePath}+'plug-in/bootstrap3.3.7/buttons.css'}" href="plug-in/bootstrap3.3.7/buttons.css">
+  <link rel="stylesheet" th:href="@{${basePath}+'moudle/admin.css'}" href="moudle/admin.css">
+</head>
+<body id="blog" style="height: 100%; color: rgb(0, 0, 0); ">
+<!-- <header class="am-g am-g-fixed blog-fixed blog-text-center blog-header">
+	
+    <div class="am-u-sm-8 am-u-sm-centered">
+        <img width="200" src="https://www.aroad.xyz/source/img/favicon.png" alt="Amaze UI Logo"/>
+        <h2 class="am-hide-sm-only">我似江潮来又去，君如鸥鹭逐波还</h2>
+    </div>
+</header>
+<hr> -->
+<!-- <div th:include="common/admin :: daoTop"></div> -->
+<!-- <hr> -->
+<div class="am-g am-g-fixed blog-fixed blog-content">
+<div class="container">
+		<!-- 标题 -->
+		<div class="row">
+		  <div class="col-md-12" style="height: 25px;margin-top: 10px;">
+		  	<strong>文章相关 </strong>&nbsp; / &nbsp; <span >分类维护 </span>
+		  </div>
+		</div>
+		
+		<div  class="panel panel-default  panel-info " style="margin-top: 5px">
+			<div class="panel-heading ">
+				<h5 class="panel-title">分类列表
+                <a  data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+	                <button type="button" class="btn btn-primary btn-sm ">
+	            	<span class="glyphicon glyphicon-chevron-down"></span>展开/收起
+	           		 </button></a>
+           		 </h5>
+			</div>
+			<div id="collapseOne" class="panel-collapse collapse in">
+  			<div class="panel-body">
+		<!-- 按钮 -->
+		<div class="row">
+			<div class="col-md-12">
+				<form class="form-inline" id="queryForm">
+					  <div class="form-group input-group-sm">
+					    <label for="queryTypeName">分类名称</label>
+					    <input type="text" name="queryTypeName" class="form-control" id="queryTypeName" placeholder="">
+					  </div>
+					 <!--  <div class="form-group input-group-sm">
+					    <label for="exampleInputEmail2"></label>
+					    <input type="text" name="linkName"  class="form-control" id="querylinkName" placeholder="">
+					  </div> -->
+					  <div class="form-group " >
+					    <label class="control-label">是否显示</label>
+						    <select class="form-control" name="queryisShow" id="queryisShow">
+						    	<option value="">请选择</option>
+						    	<option value="1">已显示</option>
+						    	<option value="0">未显示</option>
+							</select>
+					  </div>
+					   <button type="button" class="btn btn-primary btn-sm" id="query_handle"><span class="glyphicon glyphicon-search"></span>查询</button>
+						 <button type="button" class="btn btn-primary btn-sm" id="query_delete_all"><span class="glyphicon glyphicon-remove"></span>清空条件</button>
+					</form>
+					
+			</div>
+		     <div class="col-md-3 col-md-offset-9" style="padding-top: 4px; padding-bottom: 4px">
+		     	<button type="button" class="btn btn-primary btn-sm" id="add_model_btn"><span class="glyphicon glyphicon-plus"></span> 新增</button>
+		    	<button type="button" class="btn btn-danger btn-sm" id="type_delete_all"><span class="glyphicon glyphicon-trash"></span>批量删除</button>
+				<button type="button" class="btn btn-success btn-sm" id="type_refresh"><span class="glyphicon glyphicon-refresh"></span>刷新</button>
+				 
+		    </div>
+		</div>
+		
+		<!-- 表格数据 -->
+		<div class="row  ">
+			    <div class="col-md-12">
+			    	<table id="data_table" class="table table-bordered table-hover" >
+			    		<thead>
+			    		<tr>
+			    			<th><input type="checkbox" id="check_all"/></th>
+			    			<th>编号</th>
+			    			<th>分类名称</th>
+			    			<th>分类代码</th>
+			    			<th>分类描述</th>
+			    			<th align="center">是否显示</th>
+			    			<th>新增时间</th>
+			    			<th>最后修改时间</th>
+			    			<th>操作</th>
+			    		</tr>
+			    		</thead>
+			    		<tbody>
+			    		</tbody>
+			    	</table>
+			    </div>
+			
+			
+			
+			</div>
+			<!-- 分页 -->
+			<div class="row">
+			    <div class="col-md-6" id="page_info">
+			    </div>
+			    <div class="col-md-6" id="page_navi">
+			    </div>
+			</div>
+			</div><!-- #collapseOne  end-->
+		</div>
+		</div>
+	</div>
+</div>
+<hr>
+<footer class="blog-footer">
+     <!-- <div th:include="common/footer :: copy"></div> -->
+</footer>
+  <script th:src="@{${basePath}+'plug-in/fileinput/js/jquery-2.0.3.min.js'}" src="plug-in/fileinput/js/jquery-2.0.3.min.js"></script>
+  <script th:src="@{${basePath}+'plug-in/bootstrap3.3.7/js/bootstrap.min.js'}" src="plug-in/bootstrap3.3.7/js/bootstrap.min.js"></script>
+<!--   <script th:src="@{/stage/assets/js/amazeui.min.js}"></script> -->
+<script type="text/javascript">
+	var totalPage ;//总页数，也可以使用总记录数
+	var currPageNum ;//总页数，也可以使用总记录数
+	//1页面加载完成后发ajax
+	$(function(){
+		to_page(1);
+		//绑定单击保存
+		$("#save_btn").click(function(){
+			//1.将模态框的内容提交后台保存到数据库
+			alert($("#addModal form").serializeArray());
+			//2.发送ajax请求保存
+	 		$.ajax({
+				url:"savetype",
+				type:"post",
+				//contentType:'application/json;charset=utf-8',
+				data:$("#addModal form").serializeArray(),
+				cache : false,
+				success:function(result){
+					if(result.success){
+						AlertModal("success",result.msg);
+						//员工保存成功1.要关闭模态框，2来到最后一页
+						$('#addModal').modal('hide');
+						to_page(currPageNum);
+					}else{
+						AlertModal("error",result.msg);
+					}
+				},
+				error:function(data,type, err){
+			         console.log("ajax错误类型："+type);
+			         console.log(err);
+					 AlertModal("error",err);
+				}
+			});  
+			
+		});
+		
+		//点击新增，弹出模态框
+		$("#add_model_btn").click(function(){
+			//alert("add_model_btn click ");
+			clear_model();
+			$("#addModalLabel").text("新增分类信息");
+			//弹出模态框
+			$("#addModal").modal({
+				backdrop:"static"
+			});
+		});
+		
+		
+	});
+	
+	function to_page(pn){
+		//var query = $("#queryForm").serializeArray();
+		var query = getQueryForm();
+		var pageNum = $(".page_size_change").children('option:selected').val();
+		if(undefined==pageNum){
+			pageNum = 5;
+		}
+		$.ajax({
+			url:"typesAjax",
+			data:"pn="+pn+"&pageNum="+pageNum+query,
+			type:"POST",
+			success:function(result){
+				//清空数据
+				clear_table();
+				//1解析并显示数据
+				build_data_table(result);
+				//2解析并显示分页
+				build_page_info(result);
+				//2解析并显示分页导航
+				build_page_navi(result);
+			}
+		});
+	}
+	//解析显示数据
+	function build_data_table(result){
+		
+		var data = result.extend.pageInfo.list;
+		//console.log(data);
+		$.each(data,function(index,item){
+			//alert(" item"+item.empName);
+			var checkBox = $("<td></td>").append($("<input type=\"checkbox\"/>").addClass("check_item"));
+			var IdTD = $("<td></td>").append(item.id);
+			var typeNameTD = $("<td></td>").append(item.typeName);
+			var typeCodeTD = $("<td></td>").append(item.typeCode);
+			var typeNoteTD = $("<td></td>").append(item.typeNote);
+			var show ;
+			if(item.isShow==1){
+				show =  $("<span class=\"glyphicon glyphicon-eye-open\" title=\"显示\"  aria-hidden=\"true\"></span>");
+			}else{
+				show = $("<span class=\"glyphicon glyphicon-eye-close\"  title=\"显示\"  aria-hidden=\"true\"></span>");
+			}
+			var isshowTD = $("<td align='center'></td>").append(show);
+			isshowTD.click(function(){
+				show_handle(item.id,result);
+			});
+			var addTimeTD = $("<td></td>").append(item.addDate);
+			var updTimeTD = $("<td></td>").append(item.updateDate);
+			
+			var editBtn = $("<button></button>").addClass("btn btn-warning btn-xs edit_btn")
+							.append($("<span></span>").addClass("glyphicon glyphicon-edit")).append("编辑");
+			editBtn.attr("edit-id",item.id);
+			
+			var viewBtn = $("<button></button>").addClass("btn btn-info btn-xs view_btn")
+					.append($("<span></span>").addClass("glyphicon glyphicon-eye-open")).append("查看");
+			viewBtn.attr("view-id",item.id);
+			
+			var delBtn = $("<button></button>").addClass("btn btn-danger btn-xs del_btn")
+						.append($("<span></span>").addClass("glyphicon glyphicon-trash")).append("删除");
+			delBtn.attr("del-id",item.id);
+			
+			var opt = $("<td></td>").append(editBtn).append(" ").append(viewBtn).append(" ").append(delBtn);
+			var trObj =  $("<tr></tr>").append(checkBox).append(IdTD).append(typeNameTD).append(typeCodeTD)
+						.append(typeNoteTD).append(isshowTD).append(addTimeTD).append(updTimeTD)
+						.append(opt);
+			trObj.appendTo("#data_table tbody");
+		});
+	}
+	
+
+	function clear_table(){
+		$("#data_table tbody").empty();
+		$("#page_info").empty();
+		$("#page_navi").empty();
+	}
+	
+	//解析显示分页信息
+	function build_page_info(result){
+		var pageInfo = result.extend.pageInfo;
+		totalPage = pageInfo.pages;
+		currPageNum = pageInfo.pageNum;
+		var pageSize = pageInfo.navigatePages;
+		var select = $("<select></select>");//.addClass("form-control");
+		for(var i = 1 ;i<5 ;i ++){
+			if( (i*5) == pageSize){
+				select.append($("<option selected=\"selected\">"+(i*5)+"</option>"));
+			}else{
+				select.append($("<option>"+(i*10)+"</option>"));
+			}
+		}
+		select.addClass("page_size_change");
+		$("#page_info").append("当前第 "+pageInfo.pageNum +" 页，总 "+pageInfo.pages+"页，总 "+pageInfo.total+"条记录");
+		$("#page_info").append(",每页显示").append(select).append("条");
+	}
+	
+	//解析显示分页条
+	function build_page_navi(result){
+		var pageInfo = result.extend.pageInfo
+		var ulObj = $("<ul></ul>").addClass("pagination pagination-sm");
+		//首页
+		var firstli = $("<li></li>").append($("<a></a>").append("首页").attr("href","#"));
+		//前一页
+		var preli = $("<li></li>").append($("<a></a>").append("&laquo;").attr("href","#"));
+		if(!pageInfo.hasPreviousPage){
+			firstli.addClass("disabled");
+			preli.addClass("disabled");
+		}else{
+			firstli.click(function(){
+				to_page(1);
+			});
+			preli.click(function(){
+				to_page(pageInfo.pageNum-1);
+			});
+		}
+		//后一页
+		var nextli = $("<li></li>").append($("<a></a>").append("&raquo;").attr("href","#"));
+		//末页
+		var lastli = $("<li></li>").append($("<a></a>").append("末页").attr("href","#"));
+		if(!pageInfo.hasNextPage){
+			nextli.addClass("disabled");
+			lastli.addClass("disabled");
+		}else{
+			nextli.click(function(){
+				to_page(pageInfo.pageNum+1);
+			});
+			lastli.click(function(){
+				to_page(pageInfo.pages);
+			});
+		}
+		
+		//组装
+		ulObj.append(firstli).append(preli);
+		var pages = result.extend.pageInfo.navigatepageNums;
+		$.each(pages,function(index,item){
+			var numli = $("<li></li>").append($("<a></a>").append(item).attr("href","#"));
+			if(item==pageInfo.pageNum){
+				numli.addClass("active");
+			}
+			numli.click(function(){
+				to_page(item);
+			});
+			ulObj.append(numli);
+		});
+		ulObj.append(nextli).append(lastli);
+		//把ul放入nav元素
+		var navEle = $("<nav></nav>").append(ulObj);
+		//把nav元素放入$("#page_navi")
+		navEle.appendTo("#page_navi");
+	}
+	
+	function clear_model(){
+		$("#input_typeId").val("");
+		$("#input_typeName").val("");
+		$("#input_typeCode").val("");
+		$("#input_typeNote").val("");
+		$("#addModal input").removeAttr("readonly");
+		$("#addModal select").removeAttr("disabled");
+		$("#addModal input:checkbox").removeAttr("disabled");
+		$("#save_btn").show();
+	}
+	
+	function init_add_model(result,type){
+		var object = result.extend.object;
+		$("#input_typeId").val(object.id);
+		
+		$("#input_typeName").val(object.typeName);
+		$("#input_typeCode").val(object.typeCode);
+		$("#input_typeNote").val(object.typeNote);
+		
+		if(type=="edit"){
+			$("#addModalLabel").text("编辑分页信息");
+		}
+		$("#addModal input").removeAttr("readonly");
+		$("#addModal select").removeAttr("disabled");
+		$("#addModal input:checkbox").removeAttr("disabled");
+		$("#save_btn").show();
+		if(type=="view"){
+			$("#addModalLabel").text("查看分类信息");
+			$("#addModal input").attr("readonly","readonly");
+			$("#addModal select").attr("disabled","disabled");
+			$("#addModal input:checkbox").attr("disabled","disabled");
+			$("#save_btn").hide();
+		}
+	}
+	//编辑
+	$(document).on("click",".edit_btn",function (){
+		
+		var id = $(this).attr("edit-id");
+		$.ajax({
+			url:"editType/"+id,
+			data:"id="+id,
+			type:"POST",
+			success:function(result){
+				clear_model();
+				init_add_model(result,"edit");
+				$(".modal-title").text("编辑分页信息");
+				$("#addModal").modal({
+					backdrop:"static"
+				});
+			}
+		});
+	});
+	
+	//查看
+	$(document).on("click",".view_btn",function (){
+		
+		var id = $(this).attr("view-id");
+		$.ajax({
+			url:"editType/"+id,
+			data:"id="+id,
+			type:"POST",
+			success:function(result){
+				console.log(result);
+				//清空数据
+				clear_model();
+				init_add_model(result,"view");
+				
+				$("#addModal").modal({
+					backdrop:"static"
+				});
+			}
+		});
+	});
+	
+	
+	$(document).on("click",".link_btn",function(){
+		var link = $(this).parents("tr").find("td:eq(3)").text();
+		window.open(link, "前往");
+	});
+	
+	
+	
+	function show_handle(id,result){
+		var pageInfo = result.extend.pageInfo;
+		$.ajax({
+			url:"typeIsShow",
+			data:"id="+id,
+			type:"POST",
+			success:function(result){
+				if(result.success){
+					AlertModal("success",result.msg);
+				}else{
+					AlertModal("error",result.msg);
+				}
+				to_page(pageInfo.pageNum);
+			}
+		});
+	}
+
+	$(document).on("click", ".del_btn",function(){
+		//弹出确认框
+		var picName = $(this).parents("tr").find("td:eq(3)").text();
+		var  picId = $(this).attr("del-id");
+		if(confirm("确认删除【"+picName+" 】吗?")){
+			del_handle(picId);
+		}
+	});
+	
+	
+	function del_handle(ids){
+		$.ajax({
+			url:"delType/"+ids,
+			//data:"ids="+ids,
+			type:"DELETE",
+			success:function(result){
+				if(result.success){
+					AlertModal("success",result.msg);
+				}else{
+					AlertModal("error",result.msg);
+				}
+				to_page(currPageNum);
+				$("#check_all").prop("checked",false);
+			}
+		});
+	}
+	$("#check_all").click(function(){
+		//atrr获取checked是undefined
+		//attr读取自定义属性的值
+		//prop修改读取DOM原生属性的值
+		//$(this).prop("checked");
+		$(".check_item").prop("checked",$(this).prop("checked"));
+	});
+	
+	$(document).on("click",".check_item",function(){
+		//alert($(".check_item:checked").length +" ---"+$(".check_item").length);
+		var flag =$(".check_item:checked").length == $(".check_item").length ;
+		$("#check_all").prop("checked",flag);
+	});
+	
+	$("#type_delete_all").click(function(){
+		var typeNames = "";
+		var ids = "";
+		$.each($(".check_item:checked"),function(){
+			//找第三个
+			typeNames += $(this).parents("tr").find("td:eq(3)").text()+",";
+			ids += $(this).parents("tr").find("td:eq(1)").text()+",";
+		});
+		typeNames = typeNames.length>1 ? typeNames.substring(0,typeNames.length-1) :typeNames ;
+		if(ids==""){
+			AlertModal("warning","请选择要删除的记录");
+			return false;
+		}
+		if(confirm("确认批量删除【"+typeNames+" 】吗?")){
+			del_handle(ids);
+		}
+		
+	});
+	
+	$("#type_refresh").click(function(){
+		window.location.reload(true);
+	});
+	
+	$("#query_handle").click(function(){
+		to_page(1);
+	});
+	
+	$("#query_delete_all").click(function(){
+		$("#queryForm")[0].reset();
+		$("#queryTypeName").val("");
+		$("#queryisShow").val("");
+	});
+
+	
+	var tmpSize = 5 ;
+	$(document).on("change",".page_size_change",function(){
+		var p1 =$(this).children('option:selected').val();//这就是selected的值 
+		if(p1!=tmpSize){
+			tmpSize = p1;
+			to_page(1);
+		}
+	});
+	
+	function getQueryForm(){
+		var query = "";
+		var typeName = $("#queryTypeName").val();
+		var isShow = $("#queryisShow option:selected").val();
+		if(typeName!=null && typeName!=""){
+			query += "&typeName="+typeName ;
+		}
+		if(isShow!=null && isShow!=""){
+			query += "&isShow="+isShow ;
+		}
+		return query ;
+	}
+	
+</script>
+<!-- 新增模态框 -->
+<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+  <div class="modal-dialog " role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="addModalLabel">新增分类地址</h4>
+      </div>
+      <div class="modal-body">
+       <form class="form-horizontal" onsubmit="return false">
+       		<input type="hidden" name="id" class="form-control" id="input_typeId">
+		  <div class="form-group">
+		    <label for="input_typeName" class="col-sm-2 control-label">分类名称</label>
+		    <div class="col-sm-10">
+		      <input type="text" name="typeName" class="form-control" id="input_typeName" placeholder="分类名称" data-toggle="tooltip" title="分类名称" >
+		      <span id="typeName_block" class="help-block"></span>
+		    </div>
+		  </div>
+		  <div class="form-group">
+		    <label for="input_typeCode" class="col-sm-2 control-label">分类代码</label>
+		    <div class="col-sm-10">
+		      <input type="text"name="typeCode" class="form-control" id="input_typeCode" placeholder="分类代码" data-toggle="tooltip" title="分类代码" >
+		      <span id="typeCode_block" class="help-block"></span>
+		    </div>
+		  </div>
+		   <div class="form-group">
+		    <label for="inp分类typeNote" class="col-sm-2 control-label">分类描述</label>
+		    <div class="col-sm-10">
+		      <input type="text" name="typeNote" class="form-control" id="input_typeNote" placeholder="分类描述" data-toggle="tooltip" title="分类描述" value="">
+		      <span id="typeNote_block" class="help-block"></span>
+		    </div>
+		  </div>
+		</form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+        <button type="button" class="btn btn-primary" id="save_btn">保存</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div th:include="common/message :: msg"></div> 
+</body>
+</html>

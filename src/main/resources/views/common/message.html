@@ -1,0 +1,238 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <body>
+        <div th:fragment="msg">
+
+<!-- msg 警告模态框 -->
+<div class="modal fade " id="warningModal" tabindex="-100" role="dialog" aria-labelledby="msgModalLabel">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="warningModalLabel">警告信息</h4>
+      </div>
+      <div class="modal-body">
+       <form class="form-horizontal">
+		 <div class="form-group">
+		    <label class="col-sm-4 control-label" id="msgType">提示：</label>
+	    	<p class="form-control-static" id="warningMsgContent"></p>
+		  </div>
+		</form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-warning" data-dismiss="modal">确定</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- msg 信息提示模态框 -->
+<div class="modal fade " id="successModal" tabindex="-100" role="dialog" aria-labelledby="msgModalLabel">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="successModalLabel">提示信息</h4>
+      </div>
+      <div class="modal-body">
+       <form class="form-horizontal">
+		 <div class="form-group">
+		    <label class="col-sm-4 control-label" id="msgType">提示：</label>
+	    	<p class="form-control-static" id="successMsgContent"></p>
+		  </div>
+		</form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success" data-dismiss="modal">确定</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- msg 信息提示模态框 -->
+<div class="modal fade " id="errorModal" tabindex="-100" role="dialog" aria-labelledby="msgModalLabel">
+  <div class="modal-dialog " role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="errorModalLabel">错误信息</h4>
+      </div>
+      <div class="modal-body">
+       <form class="form-horizontal">
+		 <div class="form-group">
+		    <label class="col-sm-4 control-label" id="msgType">提示：</label>
+	    	<p class="form-control-static" id="errorMsgContent"></p>
+		  </div>
+		</form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">确定</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 信息删除确认 -->  
+<div class="modal fade" id="delcfmModel">  
+  <div class="modal-dialog">  
+    <div class="modal-content message_align">  
+      <div class="modal-header">  
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>  
+        <h4 class="modal-title">提示信息</h4>  
+      </div>  
+      <div class="modal-body">  
+        <p class="form-control-static" id="delcfmContent">您确认要删除吗？</p>  
+      </div>  
+      <div class="modal-footer">  
+         <input type="hidden" id="url"/>  
+         <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>  
+         <a  onclick="urlSubmit()" class="btn btn-success" data-dismiss="modal">确定</a>  
+      </div>  
+    </div><!-- /.modal-content -->  
+  </div><!-- /.modal-dialog -->  
+</div><!-- /.modal -->  
+  
+
+<script type="text/javascript">
+	function AlertModal(type,msg){
+		if(type==null || type==undefined || type==""){
+			type = "success";
+		}
+		$("#"+type+"MsgContent").text(msg);
+		$("#"+type+"Modal").modal({
+			backdrop:"static"
+		});
+		if(type=="success"){
+			setTimeout(function(){
+	            $("#"+type+"Modal").modal("hide");
+	        },3000);
+		}
+	}
+	
+	function ConfirmModal(type,msg){
+		if(type==null || type==undefined || type==""){
+			type = "success";
+		}
+		$("#"+type+"MsgContent").text(msg);
+		$("#"+type+"Modal").modal({
+			backdrop:"static"
+		});
+		if(type=="success"){
+			setTimeout(function(){
+	            $("#"+type+"Modal").modal("hide")
+	        },1200);
+		}
+	}
+	
+</script>
+		<div class="am-modal am-modal-no-btn" tabindex="-1" id="setting-modal-1">
+		  <div class="am-modal-dialog">
+		    <div class="am-modal-hd bg-1 am-popup-title ">显示设置
+		      <a href="javascript: void(0)" class="am-close am-close-spin" data-am-modal-close>&times;</a>
+		    </div>
+		    <div class="am-modal-bd">
+		        <table id="setTable" style="width: 100%;">
+		        	<tr >
+		        		<td>字体大小:</td>
+		        		<td><button class="fontSizeBtn am-btn am-btn-xs  am-fr am-margin-right" value=" 12px"> 12px </button></td>
+		        		<td><button class="fontSizeBtn active am-btn am-btn-xs am-btn-default am-fr am-margin-right" value="14px"> 14px </button></td>
+		        		<td><button class="fontSizeBtn am-btn am-btn-xs am-btn-default am-fr am-margin-right" value="16px"> 16px </button></td>
+		        		<td><button class="fontSizeBtn am-btn am-btn-xs am-btn-default am-fr am-margin-right" value="18px"> 18px </button></td>
+		        	</tr>
+		        	<tr>
+		        		<td>字体家族:</td>
+		        		<td><button class="fontFmlBtn active am-btn am-btn-xs am-btn-default am-fr am-margin-right" value=" Microsoft JhengHei">微软正黑</button></td>
+		        		<td><button class="fontFmlBtn am-btn am-btn-xs am-btn-default am-fr am-margin-right" value=" Hiragino Sans GB ">苹果丽黑</button></td>
+		        		<td><button class="fontFmlBtn am-btn am-btn-xs am-btn-default am-fr am-margin-right" value=" Microsoft YaHei">微软雅黑</button></td>
+		        		<td><button class="fontFmlBtn am-btn am-btn-xs am-btn-default am-fr am-margin-right" value=" Segoe UI"> Segoe UI </button></td>
+		        	</tr>
+		        	<tr>
+		        		<td></td>
+		        		<td><button class="fontFmlBtn am-btn am-btn-xs am-btn-default am-fr am-margin-right" value=" STKaiti">华文楷体</button></td>
+		        		<td><button class="fontFmlBtn am-btn am-btn-xs am-btn-default am-fr am-margin-right" value=" STFangsong">华文仿宋</button></td>
+		        		<td><button class="fontFmlBtn am-btn am-btn-xs am-btn-default am-fr am-margin-right" value=" STZhongsong">华文中宋</button></td>
+		        		<td><button class="fontFmlBtn am-btn am-btn-xs am-btn-default am-fr am-margin-right" value=" Consolas">Consolas</button></td>
+		        	</tr>
+		        	<tr>
+		        		<td>背景颜色:</td>
+		        		<td><button class="webBg active am-btn am-btn-xs am-btn-default am-fr am-margin-right" value="#fff" style="background-color: #fff">默认</button></td>
+		        		<td><button class="webBg am-btn am-btn-xs am-btn-default am-fr am-margin-right" value="#CCE8CF" style="background-color: #CCE8CF">护眼色</button></td>
+		        		<td><button class="webBg am-btn am-btn-xs am-btn-default am-fr am-margin-right" value="#8CC7B5"  style="background-color: #8CC7B5">翠绿色</button></td>
+		        		<td><button class="webBg am-btn am-btn-xs am-btn-default am-fr am-margin-right" value="#A8947C"  style="background-color: #A8947C">浅咖啡</button></td>
+		        	</tr>
+		        	<tr>
+		        		<td></td>
+		        		<td><button class="webBg am-btn am-btn-xs am-btn-default am-fr am-margin-right" value="#FAF0E6" style="background-color: #FAF0E6">亚麻布</button></td>
+		        		<td><button class="webBg am-btn am-btn-xs am-btn-default am-fr am-margin-right" value="#FFB6C1"  style="background-color: #FFB6C1">浅粉色</button></td>
+		        		<td><button class="webBg am-btn am-btn-xs am-btn-default am-fr am-margin-right" value="#B0C4DE"  style="background-color: #B0C4DE">淡钢蓝</button></td>
+		        		<td><button class="webBg am-btn am-btn-xs am-btn-default am-fr am-margin-right" value="" style="background-color: #87CEFA; height: 28px;">
+		        		<input id="colorPic" class="color" style="width: 50px;height: 20px;"/></button></td>
+		        	</tr>
+		        </table>
+		        <hr/>
+		        <input type="checkbox" value="0" class="am-fl bgFollow" id="bgFollow" checked="checked">&nbsp;<span class="am-fl">背景色自适应</span> 
+		    	<button class="am-btn am-btn-xs am-btn-primary am-fr am-margin-right" id="resetting">恢复默认</button>
+		    	<button class="am-btn am-btn-xs am-btn-success am-fr am-margin-right " data-am-modal-close>设置完成</button>
+		    	</div>
+		    </div>
+		  </div>
+			
+			<div class="am-modal am-modal-no-btn" tabindex="-1" id="setting-modal-2">
+			  <div class="am-modal-dialog">
+			    <div class="am-modal-hd bg-1 am-popup-title ">主题背景设置
+			      <a href="javascript: void(0)" class="am-close am-close-spin" data-am-modal-close>&times;</a>
+			    </div>
+			    <div class="am-modal-bd" >
+			    	<div style="overflow-x:auto;" >
+			        <table id="setBgTable" style=" width:100%; height: auto;">
+			        	<tr >
+			        		<td><div id="bg_fengche_0" class="bg_div checked"> <img  src="stage/bg/bg_fengche.jpg"  width="80px" height="48px" /></div></td>
+			        		<td><div id="bg_child_1" class="bg_div"> <img  src="stage/bg/bg_child.jpg"  width="80px" height="48px" /></div></td>
+			        		<td><div id="bg_girl_2" class="bg_div"> <img  src="stage/bg/bg_girl.jpg" width="80px" height="48px" /></div></td>
+			        		<td><div id="bg_shanshui_3" class="bg_div"> <img  src="stage/bg/bg_shanshui.jpg" width="80px" height="48px" /></div></td>
+			        	</tr>
+			        	<tr >
+			        		<td><div id="bg_fen_4" class="bg_div"> <img  src="stage/bg/bg_fen.jpg"  width="80px" height="48px" /></div></td>
+			        		<td><div id="bg_chun_5" class="bg_div "> <img  src="stage/bg/bg_num.jpg" width="80px" height="48px" /></div></td>
+			        		<td><div id="bg_danlan_6" class="bg_div"> <img  src="stage/bg/bg_danlan.jpg"  width="80px" height="48px" /></div></td>
+			        		<td><div id="bg_fengye_7" class="bg_div"> <img  src="stage/bg/bg_fengye.jpg"  width="80px" height="48px" /></div></td>
+			        	</tr>
+			        </table>
+			        </div>
+			        <hr/>
+			        <input type="checkbox" value="0" class="am-fl bgFollow" id="bgFollow2" checked="checked">&nbsp;<span class="am-fl">背景色自适应</span>
+			    	<button class="am-btn am-btn-xs am-btn-primary am-fr am-margin-right" id="resetting">恢复默认</button>
+			    	<button class="am-btn am-btn-xs am-btn-success am-fr am-margin-right " data-am-modal-close>设置完成</button>
+			    	
+			    	</div>
+			    </div>
+			  </div>
+			  
+			  <div class="am-modal am-modal-no-btn" tabindex="-1" id="setting-modal-3">
+			  <div class="am-modal-dialog">
+			    <div class="am-modal-hd bg-1 am-popup-title ">搜索
+			      <a href="javascript: void(0)" class="am-close am-close-spin" data-am-modal-close>&times;</a>
+			    </div>
+			    <div class="am-modal-bd" >
+			    	<div style="overflow-x:auto;height: 170px;" >
+			        	<form class="am-topbar-form am-topbar-center am-form-inline" action="" role="search">
+						      <div class="am-u-sm-12 am-u-md-12 am-u-lg-12 am-form-group">
+						      	<i class=" am-icon-sm am-icon-search"></i>
+						        <input id="keyWord_pc" type="text" class="am-form-field am-input-sm " placeholder="搜索">
+						      </div>
+						       <input type="text" style="display: none;" >
+						</form>
+						<ul id="searchDiv">
+						
+						</ul>
+			        </div>
+			        <hr/>
+			        <button class="am-btn am-btn-xs am-btn-primary am-fr am-margin-right" id="clearHis" >清空历史</button>
+			    	<button class="am-btn am-btn-xs am-btn-primary am-fr am-margin-right" data-am-modal-close >取消</button>
+			    	<button class="am-btn am-btn-xs am-btn-success am-fr am-margin-right " id="searchBtn" >搜索</button>
+			    	</div>
+			    </div>
+			  </div>
+        </div>
+    </body>
+</html>

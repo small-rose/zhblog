@@ -1,0 +1,325 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>ZH-BLOG 留言</title>
+  <link rel="icon" type="image/jpg" href="stage/assets/i/favicon.jpg">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-siteapp"/>
+  <meta name="mobile-web-app-capable" content="yes">
+  <link rel="icon" sizes="192x192" href="stage/assets/i/favicon.jpg">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="Amaze UI"/>
+  <link rel="apple-touch-icon-precomposed" href="stage/assets/i/favicon.jpg">
+  <meta name="msapplication-TileImage" content="stage/assets/i/favicon.jpg">
+  <meta name="msapplication-TileColor" content="#0e90d2">
+
+  <link type="text/css" rel="stylesheet" href="plug-in/bootstrap3.3.7/fonts/glyphicons-halflings-regular.woff" />
+  <link type="text/css" rel="stylesheet" href="stage/assets/css/amazeui.css">
+  <link type="text/css" rel="stylesheet" href="stage/assets/css/app.css">
+  <link type="text/css" rel="stylesheet" href="plug-in/bootstrap3.3.7/css/bootstrap.min.css" />
+  <link type="text/css" rel="stylesheet" href="plug-in/mCustomScrollbar3.1.5/jquery.mCustomScrollbar.css" />
+  <link type="text/css" rel="stylesheet" href="moudle/home.css" /> 
+  <link type="text/css" rel="stylesheet" href="moudle/say/say.css">  
+</head>
+
+<body id="blog" style="height: 100%; color: rgb(0, 0, 0);">
+
+<!-- <div class=" touming" th:include="common/topfix :: daoFixTop"></div> -->
+ <div th:include="common/daohang :: daoTop"></div>
+ 
+<div th:include="common/header :: headerTop"></div>
+
+<!-- <div th:include="common/daohang :: daoTop"></div> -->
+
+<div class="container divLine"> 
+</div>
+<div class="container">
+<!-- content srart -->
+<div class="am-g am-g-fixed blog-fixed ">
+	<input type="hidden" id="sayPageSize" th:value="${sayPageSize}">
+	<div  class="am-u-md-8 am-u-sm-12 blog-sidebar">
+		<div class="blog-sidebar-widget blog-bor">
+            <h3 class="blog-text-center blog-title"><span>留言声明</span></h3>
+            	<ol class="sayNotice">
+            		<li>本站留言版暂行开放，留言无需审核，所有文字敬请遵守本国相关法律法规，请勿发表违法违规文字言论。</li>
+            		<li>所有在本站留言均不代表本站立场，涉及相关法律责任由留言当事人承担，请做守法文明网民。</li>
+            		<li>本站有权删除不合法，不合规，不文明等违规留言。</li>
+            		<li>留言是为了交流，可以进行技术问题交流，生活交流，文字交流(博主是一个不入流的文艺青年)等共同进步，欢迎博友互通往来。</li>
+            		<li>本留言板块未使用任何第三方插件，是博主搜集一些网络资源，例如模仿某些留言、评论、说说之类的效果为蓝本，借鉴其中的部分样式布局参考，独立完成。给我特别印象的是我学会了JS的模板标签使用。</li>
+            		<li>本留言板块后续计划将进行优化显示、非法文字校验等功能。</li>
+            	</ol>
+      </div>
+	  <div id="bestlist" class="am-u-md-12 am-u-sm-12  blog-bor">
+	   <h4><b>博主寄语</b></h4>
+		 <div class="lishu">
+			<p th:text="${blogUser.bloggerMsg}">我似江潮来又去，君如鸥鹭逐波还。人生知己总相怀。</p>
+	  	</div>
+		<div id="qq">
+        <h4 ><b>留言板</b></h4>
+      	<hr/>
+      	<div class="">
+		  <form id="say" class="form-horizontal" onsubmit="return false"> 
+		    <div class="form-group">
+			    <!-- <label for="input_blogTitle" class="col-sm-2 control-label"></label> -->
+			    <input type="hidden" name="utx" class="form-control" id="utx" value=""/>
+			</div>
+		   <div class="form-group input-group-sm">
+				<!-- <label for="input_blogTitle" class="col-sm-2 control-label">昵称</label> -->
+				<div class="col-sm-1 col-sm-12"> 
+				<div class="check-toux"><img src="moudle/say/images/tx_kt_7.jpg" width="33px" height="33px" class="bq-touxiang "></div>
+				<div class="touxiang-list">
+				<div class="big-toux"><img /></div> 
+			     <ul> 
+			      <li><img src="moudle/say/images/tx_kt_1.jpg" width="25px" height="25px" title=""></li> 
+			      <li><img src="moudle/say/images/tx_kt_2.jpg" width="25px" height="25px" title=""></li> 
+			      <li><img src="moudle/say/images/tx_kt_3.jpg" width="25px" height="25px" title=""></li> 
+			      <li><img src="moudle/say/images/tx_kt_4.jpg" width="25px" height="25px" title=""></li> 
+			      <li><img src="moudle/say/images/tx_kt_5.jpg" width="25px" height="25px" title=""></li> 
+			      <li><img src="moudle/say/images/tx_kt_6.jpg" width="25px" height="25px" title=""></li> 
+			      <li><img src="moudle/say/images/tx_kt_7.jpg" width="25px" height="25px" title=""></li> 
+			      <li><img src="moudle/say/images/tx_kt_8.jpg" width="25px" height="25px" title=""></li> 
+			      <li><img src="moudle/say/images/tx_kt_9.jpg" width="25px" height="25px" title=""></li> 
+			      <li><img src="moudle/say/images/tx_kt_10.jpg" width="25px" height="25px" title=""></li> 
+			      <li><img src="moudle/say/images/tx_kt_11.jpg" width="25px" height="25px" title=""></li> 
+			      <li><img src="moudle/say/images/tx_kt_12.jpg" width="25px" height="25px" title=""></li> 
+			      <li><img src="moudle/say/images/tx_kt_13.jpg" width="25px" height="25px" title=""></li> 
+			      <li><img src="moudle/say/images/tx_kt_14.jpg" width="25px" height="25px" title=""></li> 
+			      <li><img src="moudle/say/images/tx_kt_15.jpg" width="25px" height="25px" title=""></li> 
+			      <li><img src="moudle/say/images/tx_kt_16.jpg" width="25px" height="25px" title=""></li> 
+			      <li><img src="moudle/say/images/tx_kt_17.jpg" width="25px" height="25px" title=""></li> 
+			      <li><img src="moudle/say/images/tx_kt_18.jpg" width="25px" height="25px" title=""></li> 
+			      <li><img src="moudle/say/images/tx_kt_19.jpg" width="25px" height="25px" title=""></li> 
+			      <li><img src="moudle/say/images/tx_kt_20.jpg" width="25px" height="25px" title=""></li> 
+			      <li><img src="moudle/say/images/tx_gl_1.jpg" width="25px" height="25px" title=""></li> 
+			      <li><img src="moudle/say/images/tx_gl_2.jpg" width="25px" height="25px" title=""></li> 
+			      <li><img src="moudle/say/images/tx_gl_3.jpg" width="25px" height="25px" title=""></li> 
+			      <li><img src="moudle/say/images/tx_gl_4.jpg" width="25px" height="25px" title=""></li> 
+			      <li><img src="moudle/say/images/tx_gl_5.jpg" width="25px" height="25px" title=""></li> 
+			      <li><img src="moudle/say/images/tx_gl_6.jpg" width="25px" height="25px" title=""></li> 
+			      <li><img src="moudle/say/images/tx_gl_7.jpg" width="25px" height="25px" title=""></li> 
+			      <li><img src="moudle/say/images/tx_gl_8.jpg" width="25px" height="25px" title=""></li> 
+			      <li><img src="moudle/say/images/tx_gl_9.jpg" width="25px" height="25px" title=""></li> 
+			      <li><img src="moudle/say/images/tx_gl_10.jpg" width="25px" height="25px" title=""></li> 
+			      <li><img src="moudle/say/images/tx_dw_.jpg" width="25px" height="25px" title=""></li> 
+			      <li><img src="moudle/say/images/tx_dw_1.jpg" width="25px" height="25px" title=""></li> 
+			      <li><img src="moudle/say/images/tx_dw_2.jpg" width="25px" height="25px" title=""></li> 
+			     </ul>
+			    </div>
+			    </div>
+				<div class="col-sm-5 am-u-md-12 ">
+				 <input type="text" name="moodTitle" class="form-control" id="uname"  placeholder="昵称"  title="昵称" >&nbsp;
+				</div>
+				<div class="col-sm-6 am-u-md-12 " >
+				 <input type="text" name="moodTitle" class="form-control" id="uemail" placeholder="邮箱"  title="邮箱" >
+				</div>
+			</div>
+			
+		   <div class="form-group">
+				<div class="message" contenteditable="true">来都来了，不说点什么吗？</div>
+			   	<div class="But"> 
+			    <img src="moudle/mood/images/bba_thumb.gif" class="bq"> 
+			    <span class="submit">留言</span> 
+			    <!--face begin--> 
+			    <div class="face"> 
+			     <ul> 
+			      <li><img src="moudle/mood/images/smilea_thumb.gif" title="呵呵]"></li> 
+			      <li><img src="moudle/mood/images/tootha_thumb.gif" title="嘻嘻]"></li> 
+			      <li><img src="moudle/mood/images/laugh.gif" title="[哈哈]"></li> 
+			      <li><img src="moudle/mood/images/tza_thumb.gif" title="[可爱]"></li> 
+			      <li><img src="moudle/mood/images/kl_thumb.gif" title="[可怜]"></li> 
+			      <li><img src="moudle/mood/images/kbsa_thumb.gif" title="[挖鼻屎]"></li> 
+			      <li><img src="moudle/mood/images/cj_thumb.gif" title="[吃惊]"></li> 
+			      <li><img src="moudle/mood/images/shamea_thumb.gif" title="[害羞]"></li> 
+			      <li><img src="moudle/mood/images/zy_thumb.gif" title="[挤眼]"></li> 
+			      <li><img src="moudle/mood/images/bz_thumb.gif" title="[闭嘴]"></li> 
+			      <li><img src="moudle/mood/images/bs2_thumb.gif" title="[鄙视]"></li> 
+			      <li><img src="moudle/mood/images/lovea_thumb.gif" title="[爱你]"></li> 
+			      <li><img src="moudle/mood/images/sada_thumb.gif" title="[泪]"></li> 
+			      <li><img src="moudle/mood/images/heia_thumb.gif" title="[偷笑]"></li> 
+			      <li><img src="moudle/mood/images/qq_thumb.gif" title="[亲亲]"></li> 
+			      <li><img src="moudle/mood/images/sb_thumb.gif" title="[生病]"></li> 
+			      <li><img src="moudle/mood/images/mb_thumb.gif" title="[太开心]"></li> 
+			      <li><img src="moudle/mood/images/ldln_thumb.gif" title="[懒得理你]"></li> 
+			      <li><img src="moudle/mood/images/yhh_thumb.gif" title="[右哼哼]"></li> 
+			      <li><img src="moudle/mood/images/zhh_thumb.gif" title="[左哼哼]"></li> 
+			      <li><img src="moudle/mood/images/x_thumb.gif" title="[嘘]"></li> 
+			      <li><img src="moudle/mood/images/cry.gif" title="[衰]"></li> 
+			      <li><img src="moudle/mood/images/wq_thumb.gif" title="[委屈]"></li> 
+			      <li><img src="moudle/mood/images/t_thumb.gif" title="[吐]"></li> 
+			      <li><img src="moudle/mood/images/k_thumb.gif" title="[打哈气]"></li> 
+			      <li><img src="moudle/mood/images/bba_thumb.gif" title="[抱抱]"></li> 
+			      <li><img src="moudle/mood/images/angrya_thumb.gif" title="[怒]"></li> 
+			      <li><img src="moudle/mood/images/yw_thumb.gif" title="[疑问]"></li> 
+			      <li><img src="moudle/mood/images/cza_thumb.gif" title="[馋嘴]"></li> 
+			      <li><img src="moudle/mood/images/88_thumb.gif" title="[拜拜]"></li> 
+			      <li><img src="moudle/mood/images/sk_thumb.gif" title="[思考]"></li> 
+			      <li><img src="moudle/mood/images/sweata_thumb.gif" title="[汗]"></li> 
+			      <li><img src="moudle/mood/images/sleepya_thumb.gif" title="[困]"></li> 
+			      <li><img src="moudle/mood/images/sleepa_thumb.gif" title="[睡觉]"></li> 
+			      <li><img src="moudle/mood/images/money_thumb.gif" title="[钱]"></li> 
+			      <li><img src="moudle/mood/images/sw_thumb.gif" title="[失望]"></li> 
+			      <li><img src="moudle/mood/images/cool_thumb.gif" title="[酷]"></li> 
+			      <li><img src="moudle/mood/images/hsa_thumb.gif" title="[花心]"></li> 
+			      <li><img src="moudle/mood/images/hatea_thumb.gif" title="[哼]"></li> 
+			      <li><img src="moudle/mood/images/gza_thumb.gif" title="[鼓掌]"></li> 
+			      <li><img src="moudle/mood/images/dizzya_thumb.gif" title="[晕]"></li> 
+			      <li><img src="moudle/mood/images/bs_thumb.gif" title="[悲伤]"></li> 
+			      <li><img src="moudle/mood/images/crazya_thumb.gif" title="[抓狂]"></li> 
+			      <li><img src="moudle/mood/images/h_thumb.gif" title="[黑线]"></li> 
+			      <li><img src="moudle/mood/images/yx_thumb.gif" title="[阴险]"></li> 
+			      <li><img src="moudle/mood/images/nm_thumb.gif" title="[怒骂]"></li> 
+			      <li><img src="moudle/mood/images/hearta_thumb.gif" title="[心]"></li> 
+			      <li><img src="moudle/mood/images/unheart.gif" title="[伤心]"></li> 
+			      <li><img src="moudle/mood/images/pig.gif" title="[猪头]"></li> 
+			      <li><img src="moudle/mood/images/ok_thumb.gif" title="[ok]"></li> 
+			      <li><img src="moudle/mood/images/ye_thumb.gif" title="[耶]"></li> 
+			      <li><img src="moudle/mood/images/good_thumb.gif" title="[good]"></li> 
+			      <li><img src="moudle/mood/images/no_thumb.gif" title="[不要]"></li> 
+			      <li><img src="moudle/mood/images/z2_thumb.gif" title="[赞]"></li> 
+			      <li><img src="moudle/mood/images/come_thumb.gif" title="[来]"></li> 
+			      <li><img src="moudle/mood/images/sad_thumb.gif" title="[弱]"></li> 
+			      <li><img src="moudle/mood/images/lazu_thumb.gif" title="[蜡烛]"></li> 
+			      <li><img src="moudle/mood/images/clock_thumb.gif" title="[钟]"></li> 
+			      <li><img src="moudle/mood/images/cake.gif" title="[蛋糕]"></li> 
+			      <li><img src="moudle/mood/images/m_thumb.gif" title="[话筒]"></li> 
+			      <li><img src="moudle/mood/images/weijin_thumb.gif" title="[围脖]"></li> 
+			      <li><img src="moudle/mood/images/lxhzhuanfa_thumb.gif" title="[转发]"></li> 
+			      <li><img src="moudle/mood/images/lxhluguo_thumb.gif" title="[路过这儿]"></li> 
+			      <li><img src="moudle/mood/images/bofubianlian_thumb.gif" title="[bofu变脸]"></li> 
+			      <li><img src="moudle/mood/images/gbzkun_thumb.gif" title="[gbz困]"></li> 
+			      <li><img src="moudle/mood/images/boboshengmenqi_thumb.gif" title="[生闷气]"></li> 
+			      <li><img src="moudle/mood/images/chn_buyaoya_thumb.gif" title="[不要啊]"></li> 
+			      <li><img src="moudle/mood/images/daxiongleibenxiong_thumb.gif" title="[dx泪奔]"></li> 
+			      <li><img src="moudle/mood/images/cat_yunqizhong_thumb.gif" title="[运气中]"></li> 
+			      <li><img src="moudle/mood/images/youqian_thumb.gif" title="[有钱]"></li> 
+			     </ul> 
+			    </div> 
+			    <!--face end--> 
+			   </div> 
+			    
+			</div> 
+	    </form>
+	    
+	  </div>
+	  </div>
+	  <!--qq end--> 
+	  <div class="liuyanshu">
+	  	   留言<span>（<span id="sayCount" th:text="${msgcount}">0</span>）</span>
+	  </div>
+	  <!--msgCon begin--> 
+	  <div class="msgCon">
+	  	<!-- 
+	  	<div class='msgBox'  th:each="msge, msgeStat : ${msgList}" th:class="'msgBox  bg-'">
+			<div class="headUrl">
+					<img th:src='${msge.msgUtx}' width='50' height='50'/>
+						<div>
+							<span class="title" th:text="${msge.msgUname}">标题</span>
+							<span class="time" th:text="${msge.msgTime}">2019-01-01</span>
+						</div>
+						<a th:id="${msge.id}" class="like-huifu" title="喜欢"><i class="am-icon-heart "></i>（<span>0</span>）</a>
+						<a th:id="${msge.id}" class="huifu" title="回复"><i class="am-icon-comment "></i>（<span th:text="${msge.children.size()}">0</span>）</a>
+						<a th:id="${msge.id}" class="open-close" title="展开/收起"><i th:class="${msge.children.size()>0} ? 'am-icon-chevron-down' :'am-icon-chevron-right' " ></i></a>
+			</div>
+			<div class='msgTxt' th:utext="${msge.msgContent}">
+				
+			</div>
+			<div th:class="${'child-pinlun-'+ msge.id}" >
+			<div class='msgBox-huifu' th:each="msgchild , msgcStat : ${msge.children}" >
+				<div class="headUrl-huifu">
+					<img th:src='${msgchild.msgUtx}' width='50' height='50'/>
+						<div>
+							<span class="title-huifu" th:text="${msgchild.msgUname}">标题</span>
+							<span class="time-huifu" th:text="${msgchild.msgTime}">2019-01-01</span>
+						</div>
+						<a th:id="${msgchild.id}" class="like-huifu" title="喜欢"><i class="am-icon-heart "></i>（<span >0</span>）</a>
+						<a th:id="${msge.id}" class="huifu" title="回复"><i class="am-icon-comment "></i>（<span>0</span>）</a>
+			</div>
+			<div class='msgTxt-huifu' th:utext="${msgchild.msgContent}">
+				
+			</div>
+			</div></div>
+		 </div>
+		  -->
+	  </div>
+	</div>
+  </div>
+  <div id="ceiBianLan" class="am-u-md-4 am-u-sm-12 blog-sidebar">
+   		 <div class="blog-sidebar-widget blog-bor">
+            <h3 class="blog-text-center blog-title"><span>关于我</span></h3>
+            <img src="stage/assets/i/f14.jpg" th:src="${blogUser.localImgUrl}" alt="about me" class="blog-entry-img" >
+            <h4><b><span th:text="${blogUser.realName}"></span></b></h4>
+            <p id="about-me" class="blog-entry-article" th:text="${blogUser.personalBrief}"></p>
+        </div>
+
+        <div class="blog-clear-margin blog-sidebar-widget blog-bor am-g ">
+            <h3 class="blog-text-center blog-title"><span>联系方式</span></h3>
+            <!-- <img alt="" src=""> -->
+            <ul  class="  lianxi">
+                <li><a th:href="${blogUser.qqAcct}" th:title="${blogUser.qqAcct}" target="_blank"><span class="am-icon-qq am-icon-fw am-primary blog-icon"></span>QQ:<span th:text="${blogUser.qqAcct}"></span> </a></li>
+                <li><a th:href="${blogUser.gitBlogUrl}" th:title="Git" target="_blank"><span class="am-icon-github am-icon-fw blog-icon"></span> <span  >GitHub</span></a></li>
+                <li><a th:href="${blogUser.WbAcct}" th:title="微博" target="_blank"><span class="am-icon-weibo am-icon-fw blog-icon"></span> <span>微博</span></a></li>
+                <li><a th:href="${blogUser.WbAcct}"><span class="am-icon-reddit am-icon-fw blog-icon"></span> <span  >空间</span></a></li>
+                <li><a href="" th:title="微信公众号"><span class="am-icon-weixin am-icon-fw blog-icon"></span> <span >微信公众号</span></a> </li>
+            </ul>
+        </div>
+        
+        <div class="blog-clear-margin blog-sidebar-widget blog-bor am-g ">
+            <h3 class="blog-title"><span>标签云</span></h3>
+            <div class="am-u-sm-12 blog-clear-padding">
+            	<a href="" class="blog-tag" th:each="tag,tagStat : ${tagList}"><span th:text="${tag.tagName}"></span></a>
+            </div>
+        </div>
+        <div class="blog-sidebar-widget blog-bor">
+            <h3 class="blog-title"><span>心情</span></h3>
+            <ul class="am-list">
+            	<li th:each="mood,modStat : ${moodList}">
+            		<a href="mood"><span th:utext="${mood.moodContent}"></span></a>
+            	</li> 
+            </ul>
+        </div>
+         <div class="blog-sidebar-widget blog-bor ">
+            <h3 class="blog-title"><span>友情链接</span></h3>
+            <ul class="am-list" id="youQingLink">
+            	<li th:each="link, oStat : ${linkList}">
+            		<a href="#"><span th:utext="${link.linkName}"></span></a>
+            	</li> 
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- content end -->
+</div>
+
+<footer class="blog-footer">
+     <div th:include="common/footer :: copy"></div>
+</footer>
+
+<!--[if (gte IE 9)|!(IE)]><!-->
+<script src="stage/assets/js/jquery.min.js"></script>
+<!--<![endif]-->
+<!--[if lte IE 8 ]>
+<script src="http://libs.baidu.com/jquery/1.11.3/jquery.min.js"></script>
+<script src="http://cdn.staticfile.org/modernizr/2.8.3/modernizr.js"></script>
+<script src="assets/js/amazeui.ie8polyfill.min.js"></script>
+<![endif]-->
+<script src="plug-in/mCustomScrollbar3.1.5/js/minified/jquery.mousewheel-3.0.6.min.js"></script>
+<script src="stage/assets/js/amazeui.min.js"></script>
+<script src="plug-in/fileinput/js/jquery-2.0.3.min.js"></script>
+<script src="plug-in/bootstrap3.3.7/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="plug-in/mCustomScrollbar3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
+ 
+<script src="moudle/js/main.js"></script>
+<script src="moudle/js/tools.js"></script>
+<script src="moudle/say/say.js"></script>
+<script type="text/javascript">
+
+</script> 
+<div th:include="common/message :: msg"></div> 
+</body>
+</html>

@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zzy.blog.web.mapper.PicCategorieMapper">
+  <resultMap id="BaseResultMap" type="com.zzy.blog.web.pojo.PicCategorie">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="pic_Cate_code" jdbcType="VARCHAR" property="picCateCode" />
+    <result column="pic_Cate_name" jdbcType="VARCHAR" property="picCateName" />
+    <result column="pic_Cate_Note" jdbcType="VARCHAR" property="picCateNote" />
+    <result column="is_show" jdbcType="INTEGER" property="isShow" />
+    <result column="pic_Cate_order" jdbcType="INTEGER" property="picCateOrder" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, pic_Cate_code, pic_Cate_name, pic_Cate_Note, is_show, pic_Cate_order
+  </sql>
+  <select id="selectByExample" parameterType="com.zzy.blog.web.pojo.PicCategorieQuery" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from bk_pic_categorie
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from bk_pic_categorie
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from bk_pic_categorie
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.zzy.blog.web.pojo.PicCategorieQuery">
+    delete from bk_pic_categorie
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.zzy.blog.web.pojo.PicCategorie">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into bk_pic_categorie (pic_Cate_code, pic_Cate_name, pic_Cate_Note, 
+      is_show, pic_Cate_order)
+    values (#{picCateCode,jdbcType=VARCHAR}, #{picCateName,jdbcType=VARCHAR}, #{picCateNote,jdbcType=VARCHAR}, 
+      #{isShow,jdbcType=INTEGER}, #{picCateOrder,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zzy.blog.web.pojo.PicCategorie">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into bk_pic_categorie
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="picCateCode != null">
+        pic_Cate_code,
+      </if>
+      <if test="picCateName != null">
+        pic_Cate_name,
+      </if>
+      <if test="picCateNote != null">
+        pic_Cate_Note,
+      </if>
+      <if test="isShow != null">
+        is_show,
+      </if>
+      <if test="picCateOrder != null">
+        pic_Cate_order,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="picCateCode != null">
+        #{picCateCode,jdbcType=VARCHAR},
+      </if>
+      <if test="picCateName != null">
+        #{picCateName,jdbcType=VARCHAR},
+      </if>
+      <if test="picCateNote != null">
+        #{picCateNote,jdbcType=VARCHAR},
+      </if>
+      <if test="isShow != null">
+        #{isShow,jdbcType=INTEGER},
+      </if>
+      <if test="picCateOrder != null">
+        #{picCateOrder,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.zzy.blog.web.pojo.PicCategorieQuery" resultType="java.lang.Long">
+    select count(*) from bk_pic_categorie
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update bk_pic_categorie
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.picCateCode != null">
+        pic_Cate_code = #{record.picCateCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.picCateName != null">
+        pic_Cate_name = #{record.picCateName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.picCateNote != null">
+        pic_Cate_Note = #{record.picCateNote,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isShow != null">
+        is_show = #{record.isShow,jdbcType=INTEGER},
+      </if>
+      <if test="record.picCateOrder != null">
+        pic_Cate_order = #{record.picCateOrder,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update bk_pic_categorie
+    set id = #{record.id,jdbcType=BIGINT},
+      pic_Cate_code = #{record.picCateCode,jdbcType=VARCHAR},
+      pic_Cate_name = #{record.picCateName,jdbcType=VARCHAR},
+      pic_Cate_Note = #{record.picCateNote,jdbcType=VARCHAR},
+      is_show = #{record.isShow,jdbcType=INTEGER},
+      pic_Cate_order = #{record.picCateOrder,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zzy.blog.web.pojo.PicCategorie">
+    update bk_pic_categorie
+    <set>
+      <if test="picCateCode != null">
+        pic_Cate_code = #{picCateCode,jdbcType=VARCHAR},
+      </if>
+      <if test="picCateName != null">
+        pic_Cate_name = #{picCateName,jdbcType=VARCHAR},
+      </if>
+      <if test="picCateNote != null">
+        pic_Cate_Note = #{picCateNote,jdbcType=VARCHAR},
+      </if>
+      <if test="isShow != null">
+        is_show = #{isShow,jdbcType=INTEGER},
+      </if>
+      <if test="picCateOrder != null">
+        pic_Cate_order = #{picCateOrder,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zzy.blog.web.pojo.PicCategorie">
+    update bk_pic_categorie
+    set pic_Cate_code = #{picCateCode,jdbcType=VARCHAR},
+      pic_Cate_name = #{picCateName,jdbcType=VARCHAR},
+      pic_Cate_Note = #{picCateNote,jdbcType=VARCHAR},
+      is_show = #{isShow,jdbcType=INTEGER},
+      pic_Cate_order = #{picCateOrder,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  
+  <select id="selectPicCategorieList" parameterType="com.zzy.blog.web.pojo.PicCategorie" resultMap="BaseResultMap">
+  	select * from bk_pic_categorie where 1=1
+  	  <if test="record.id != null">
+        AND id = #{record.id,jdbcType=BIGINT}
+      </if>
+      <if test="record.picCateCode != null">
+        AND pic_Cate_code = #{record.picCateCode,jdbcType=VARCHAR}
+      </if>
+      <if test="record.picCateName != null">
+        AND pic_Cate_name = #{record.picCateName,jdbcType=VARCHAR}
+      </if>
+      <if test="record.picCateNote != null">
+        AND pic_Cate_Note = #{record.picCateNote,jdbcType=VARCHAR}
+      </if>
+      <if test="record.isShow != null">
+        AND is_show = #{record.isShow,jdbcType=INTEGER}
+      </if>
+      <if test="record.picCateOrder != null">
+        AND pic_Cate_order = #{record.picCateOrder,jdbcType=INTEGER}
+      </if>
+      order by pic_Cate_order ASC
+  </select>
+</mapper>

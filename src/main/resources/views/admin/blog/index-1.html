@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>jquery滑动侧边栏插件jSide|DEMO_jQuery之家-自由分享jQuery、html5、css3的插件库</title>
+	<link href="https://fonts.googleapis.com/css?family=Hind|Oxygen" rel="stylesheet" />
+	<link rel="stylesheet" type="text/css" href="plug-in/jSide/css/normalize.css" /><!--CSS RESET-->
+	<link rel="stylesheet" type="text/css" href="plug-in/jSide/css/htmleaf-demo.css"><!--演示页面样式，使用时可以不引用-->
+	<!--Material Design Iconic Font-->
+	<link rel="stylesheet" href="plug-in/jSide/material-design/css/material-design-iconic-font.css" />
+	<!--jSide Menu CSS-->
+	<link rel="stylesheet" href="plug-in/jSide/css/jside-menu.css" />
+	   <!--jSide Skins-->
+	<link rel="stylesheet" href="plug-in/jSide/css/jside-skins.css" />
+	<link rel="stylesheet" href="plug-in/jSide/css/demo-only.css" />
+	<link rel="stylesheet" href="plug-in/bootstrap3.3.7/css/bootstrap.css" />
+</head>
+<body>
+	<menu class="menubar">
+	   <menuitem>
+	   <button class="menu-trigger"> </button>
+	   </menuitem>
+
+	    <menuitem class="logo" title="Your Logo Goes Here">
+	    	<img class="img-rounded" style="width: 28px;height: 28px;" src="stage/assets/i/logo.png" alt="Amaze UI Logo"/>
+       		  <img class="img-rounded" style="width: 28px;height: 28px;" src="stage/assets/i/logo_1.png" alt="Amaze UI Logo"/>
+			  <img class="img-rounded" style="width: 28px;height: 28px;" src="stage/assets/i/logo_2.png" alt="Amaze UI Logo"/>
+			  <img class="img-rounded" style="width: 28px;height: 28px;" src="stage/assets/i/logo_3.png" alt="Amaze UI Logo"/>
+			  <img class="img-rounded" style="width: 28px;height: 28px;" src="stage/assets/i/logo_4.png" alt="Amaze UI Logo"/>
+			  <img class="img-rounded" style="width: 28px;height: 28px;" src="stage/assets/i/logo_5.png" alt="Amaze UI Logo"/>
+	    		<b>个人博客管理后台</b>
+	           <!-- <a href="#1"><img src="plug-in/jSide/image/jside-menu.png" alt="jSide Menu" /> </a> -->
+	     </menuitem>
+	</menu>
+
+
+	<div class="menu-head">
+	   <span class="layer">
+	<div class="col">
+	  <div class="row for-pic">
+	   <div class="profile-pic">     
+	   <img src="plug-in/jSide/image/asif-mughal.jpg" alt="Asif Mughal" /> 
+	         </div>
+	  </div>
+	         <div class="row for-name">
+	   <h3 title="User Name"> Administrator </h3>
+	        <span class="tagline"> 小签名</span>
+	          </div>
+	         </div> <!--//col-->
+	  </span>
+	</div> <!--//menu-head-->
+
+	<nav class="menu-container">
+
+	<ul class="menu-items">
+	<li><span class="item-icon"><i class="zmdi zmdi-android"></i></span> <a href="#1">
+	 首页 </a></li> 
+
+	<li> <span class="item-icon"> <i class="zmdi zmdi-apple"></i> </span> <a href="#1">
+	 系统设置 </a></li>
+	 
+	<li class="has-sub"> <span class="item-icon"> <i class="zmdi zmdi-windows"></i> </span>
+	<span class="dropdown-heading">
+	 文章相关 </span> 
+	     <ul> 
+	      <li> <a href="#2">文章列表 </a> </li>
+	      <li> <a href="#2"> 标签列表 </a> </li>
+	      <li> <a href="#2"> 文章分类 </a> </li>
+	      <li> <a href="#2"> 草稿箱 </a> </li>
+	     </ul> 
+	 </li>
+	<li class="has-sub"> <span class="item-icon"> <i class="zmdi zmdi-devices"></i> </span>
+	 <span class="dropdown-heading">
+
+	 博客配置</span> 
+	     <ul> 
+	      <li> <a href="#2">sub item 1 </a> </li>
+	      <li> <a href="#2">sub item 2 </a> </li>
+	      <li> <a href="#2">sub item 3 </a> </li>
+	     <li> <a href="#2">sub item 4 </a> </li>
+	     </ul> 
+	 </li>
+
+	<li> <span class="item-icon"> <i class="zmdi zmdi-keyboard"></i> </span> <a href="#1">
+	 扩展功能1 </a></li> 
+
+	<li> <span class="item-icon"> <i class="zmdi zmdi-dock"></i> </span> <a href="#1">
+	  扩展功能2  </a></li> 
+
+	<li> <span class="item-icon"> <i class="zmdi zmdi-mouse"></i> </span> <a href="#1">
+	  扩展功能3 </a></li> 
+
+	<li> <span class="item-icon"> <i class="zmdi zmdi-tv"></i> </span> <a href="#1">
+	 扩展功能4  </a></li> 
+
+	</ul>
+
+
+	</nav>
+	<div class="dim-overlay"></div>
+
+	<!--End jSide Menu-->
+	<!--Introduction and Demo Only -->
+	<header class="intro">
+      <h1>jquery滑动侧边栏插件jSide</h1>
+	</header>
+
+<div class="container">
+			<div class="panel panel-default  panel-info " style="margin-top: 5px">
+				<div class="panel-heading ">
+					<h5 class="panel-title">相关信息配置 
+						<a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+							<button type="button" class="btn btn-primary btn-sm ">
+							<span class="glyphicon glyphicon-chevron-down"></span>展开/收起
+							</button>
+						</a>
+					</h5>
+				</div>
+				<div id="collapseOne" class="panel-collapse collapse in">
+					<div class="panel-body">
+						<ul id="myTab" class="nav nav-tabs">
+						    <li class="active">
+						        <a href="#home" data-toggle="tab"> 博客信息</a>
+						    </li>
+						    <li><a href="#user" data-toggle="tab">博主信息</a></li>
+						    <li class="dropdown">
+						        <a href="#" id="myTabDrop1" class="dropdown-toggle"
+						           data-toggle="dropdown">其他
+						            <b class="caret"></b>
+						        </a>
+						        <ul class="dropdown-menu" role="menu" aria-labelledby="myTabDrop1">
+						            <li><a href="#jmeter" tabindex="-1" data-toggle="tab">修改密码</a></li>
+						            <li><a href="#ejb" tabindex="-1" data-toggle="tab">ejb</a></li>
+						        </ul>
+						    </li>
+						</ul>
+						<div id="myTabContent" class="tab-content">
+						    <div class="tab-pane fade in active" id="home">
+						    	<div class="row col-sm-12 modal-body" style="padding-top: 15px">
+						        <form class="form-horizontal" onsubmit="return false">
+									<input type="hidden" name="id" class="form-control" id="input_tagId">
+									<div class="form-group">
+										<label for="inputpageHerf" class="col-sm-2 control-label">博客名称</label>
+										<div class="col-sm-10">
+											<input type="text" name="tagName" class="form-control" id="input_tagName" placeholder="标签名称" data-toggle="tooltip" title="标签名称"> <span id="pageHref_block" class="help-block"></span>
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="inputpageNo" class="col-sm-2 control-label">博客网站</label>
+										<div class="col-sm-10">
+											<input type="text" name="tagCode" class="form-control" id="input_tagCode" placeholder="标签代码" data-toggle="tooltip" title="标签代码"> <span id="pageNo_block" class="help-block"></span>
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="inputlinkTag" class="col-sm-2 control-label">博客描述</label>
+										<div class="col-sm-10">
+											<input type="text" name="tagNote" class="form-control" id="input_tagNote" placeholder="标签描述" data-toggle="tooltip" title="标签描述" value=""> <span id="linkTag_block" class="help-block"></span>
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="inputlinkTag" class="col-sm-2 control-label">&nbsp;</label>
+										<div class="col-sm-10">
+											<button type="button" class="btn btn-success" id="blog_save_btn">保存信息</button>
+										</div>
+									</div>
+								</form>
+								</div>
+						    </div>
+						    <div class="tab-pane fade" id="user">
+						    	<div class="row col-sm-12 modal-body" style="padding-top: 15px">
+						        <form class="form-horizontal" onsubmit="return false">
+									<input type="hidden" name="id" class="form-control" id="input_userId">
+									<div class="form-group">
+										<label for="input_localImgUrl" class="col-sm-2 control-label">博主图片</label>
+										<div class="col-sm-8">
+									    	<input type="" id="localImgUrl" name="localImgUrl" value="">
+							                <input name="img" id="img" type="file" class="file" data-show-upload="false" data-show-preview="true">
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="input_realName" class="col-sm-2 control-label">博主名称</label>
+										<div class="col-sm-8">
+											<input type="text" name="realName" class="form-control" id="input_realName" placeholder="博主名称" data-toggle="tooltip" title="博主名称"> <span id="pageHref_block" class="help-block"></span>
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="input_personalBrief" class="col-sm-2 control-label">博主简介</label>
+										<div class="col-sm-8">
+											<textarea type="text" name="personalBrief" class="form-control" id="input_personalBrief" placeholder="博主简介" data-toggle="tooltip" title="博主简介"></textarea>
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="input_personalBrief" class="col-sm-2 control-label">博客描述</label>
+										<div class="col-sm-8">
+											<input type="text" name="personalBrief" class="form-control" id="input_personalBrief" placeholder="博客描述" data-toggle="tooltip" title="博客描述" value=""> <span id="linkTag_block" class="help-block"></span>
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="inputlinkTag" class="col-sm-2 control-label">&nbsp;</label>
+										<div class="col-sm-8">
+											<button type="button" class="btn btn-success" id="user_save_btn">保存博主信息</button>
+										</div>
+									</div>
+								</form>
+								</div>
+						    </div>
+						    <div class="tab-pane fade" id="jmeter">
+						        <div class="row col-sm-12 modal-body" style="padding-top: 15px">
+						        	<form class="form-horizontal" onsubmit="return false">
+									<input type="hidden" name="id" class="form-control" id="input_tagId">
+									<div class="form-group">
+										<label for="inputpageHerf" class="col-sm-2 control-label">原密码</label>
+										<div class="col-sm-6">
+											<input type="text" name="tagName" class="form-control" id="input_tagName" placeholder="标签名称" data-toggle="tooltip" title="原密码"> <span id="pageHref_block" class="help-block"></span>
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="inputpageNo" class="col-sm-2 control-label">新密码</label>
+										<div class="col-sm-6">
+											<input type="text" name="tagCode" class="form-control" id="input_tagCode" placeholder="标签代码" data-toggle="tooltip" title="新密码"> <span id="pageNo_block" class="help-block"></span>
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="inputlinkTag" class="col-sm-2 control-label">确认新密码</label>
+										<div class="col-sm-6">
+											<input type="text" name="tagNote" class="form-control" id="input_tagNote" placeholder="标签描述" data-toggle="tooltip" title="确认新密码" value=""> <span id="linkTag_block" class="help-block"></span>
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="inputlinkTag" class="col-sm-2 control-label">&nbsp;</label>
+										<div class="col-sm-6">
+								        	<button type="button" class="btn btn-primary" id="pass_save_btn">确认修改密码</button>
+								        </div>
+							      </div>
+								</form>
+								 
+						        </div>
+						    </div>
+						    <div class="tab-pane fade" id="ejb">
+						        <p>Enterprise Java Beans（EJB）是一个创建高度可扩展性和强大企业级应用程序的开发架构，部署在兼容应用程序服务器（比如 JBOSS、Web Logic 等）的 J2EE 上。
+						        </p>
+						    </div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+<main>
+<article>
+   
+<h2> Main Features </h2>
+
+ 
+
+<h2> Save Time to Quickly Customize </h2>
+
+<h3> 1. jSide Menu Skin </h3>
+
+<p> Choose the theme for the menu: </p>
+
+ <div class="theme-tray">
+      <section class="pl-color">
+         <h4> Plain Color</h4>
+         <span title="Love Red" class="red"> </span>
+         <span title="Clover Green" class="green"> </span>
+         <span title="Dodger Blue" class="blue"> </span>
+         <span title="Bright Neon Pink" class="bnp"> </span>
+         <span title="Pumpkin Orange" class="orange"> </span>
+         <span title="Black" class="black"> </span>
+         <span title="Neon Pink" class="pink"> </span>
+         <span title="Golden Brown" class="gol-b"> </span>
+         <span title="Greenish Blue" class="greenish"> </span>
+         <span title="Wood" class="wood"> </span>
+      </section>
+   
+      <section class="gr-color">
+         <h4> Gradient Color</h4>
+         <span title="Flickr" class="flickr"> </span>
+         <span title="Facebook Messenger" class="fb-messenger"> </span>
+         <span title="Moonlit Asteroid" class="moonlit"> </span>
+         <span title="Park Life" class="park-life"> </span>
+         <span title="Dance to Forget" class="d2f"> </span>
+         <span title="Man of the Steel" class="steel-man"> </span>
+         <span title="Amethyst" class="amethyst"> </span>
+         <span title="Between the Clouds" class="between-clouds"> </span>
+         <span title="Crazy Orange"class="crazy-orange"> </span>
+         <span title="Endless River" class="endless-river"> </span>
+      </section>
+   </div>
+   <!--//theme-tray-->
+
+<h3>2. Menubar Position</h3>
+<p> Choose the menubar position:</p>
+<ol>
+  <li> <input type="radio" id="set-top" name="radio" checked/> Fixed on Top </li>
+  <li> <input type="radio" name="radio" id="set-st"/> Static </li>
+
+</ol>
+
+<h3>3. Menu Container Position </h3>
+<p> Choose the suitable position for menu container. </p>
+<select class="menu-position">
+<option> position-left </option>
+<option> position-right </option>
+</select>
+
+<h2>Generated Script</h2>
+<p>
+Copy and paste it into document ready function. 
+</p>
+   <pre class="prettyprint">
+$(".menu-container").jSideMenu({
+   <span class="j-pos">jSidePosition: "position-left",</span>
+   <span class="j-sticky">jSideSticky: true, </span> 
+   <span class="j-skin">jSideSkin: "default-skin", </span>
+  });
+ </pre>
+
+
+<h2> Browsers Compatability</h2>
+   <p>Best view on Google Chrome, Firefox, Opera and UC Desktop Browser</p>
+     
+ 
+   </p>
+
+
+</article>
+
+</main>
+
+
+	<div class="htmleaf-container">
+			test
+		<!-- <div class="related">
+		    <h3>如果你喜欢这个插件，那么你可能也喜欢:</h3>
+		    <a href="http://www.htmleaf.com/jQuery/Menu-Navigation/201807285250.html">
+			  <img src="plug-in/jSide/related/1.jpg" width="300" alt="适合移动手机的jQuery多级侧边栏菜单插件"/>
+			  <h3>适合移动手机的jQuery多级侧边栏菜单插件</h3>
+			</a>
+			<a href="http://www.htmleaf.com/jQuery/Menu-Navigation/201807255244.html">
+			  <img src="plug-in/jSide/related/2.jpg" width="300" alt="js带模糊效果的隐藏滑动侧边栏插件"/>
+			  <h3>js带模糊效果的隐藏滑动侧边栏插件</h3>
+			</a>
+		</div> -->
+	</div>
+	
+	<script src="plug-in/jSide/js/jquery-1.11.0.min.js" type="text/javascript"></script>
+	<script src="plug-in/jSide/js/jquery.jside.menu.js"></script>
+	<script src="plug-in/jSide/js/demo-only.js"></script>
+   <script th:src="@{/stage/assets/js/amazeui.min.js}"></script> 
+   <script src="plug-in/bootstrap3.3.7/js/bootstrap.min.js"></script>
+	<script>
+	$(document).ready(function(){
+
+	$(".menu-container").jSideMenu({
+	    jSidePosition: "position-left", //possible options position-left or position-right
+	 
+	    jSideSticky: true, // menubar will be fixed on top, false to set static
+
+	   jSideSkin: "default-skin", // to apply custom skin, just put its name in this string
+	     });
+	}); 
+	</script>
+</body>
+</html>

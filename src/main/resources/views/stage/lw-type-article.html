@@ -1,0 +1,185 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="keywords" content="张小菜,博客,个人博客,web开发,前端页面,数据库">
+  <meta name="description" content="张小菜,个人博客,web开发,java web教程">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>zhBlog-张小菜个人博客</title>
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-siteapp"/>
+  <link rel="icon" type="image/png"  th:href="@{${basePath}+'stage/assets/i/favicon.jpg'}" href="stage/assets/i/favicon.jpg">
+  <meta name="mobile-web-app-capable" content="yes">
+  <link rel="icon" sizes="192x192" href="stage/assets/i/logo.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="ZH-BLOG"/>
+  <link rel="apple-touch-icon-precomposed" href="stage/assets/i/logo.png">
+  <meta name="msapplication-TileImage" content="stage/assets/i/logo.png">
+  <meta name="msapplication-TileColor" content="#0e90d2">
+  <link type="text/css" rel="stylesheet" th:href="@{${basePath}+'plug-in/bootstrap3.3.7/fonts/glyphicons-halflings-regular.woff'}" href="plug-in/bootstrap3.3.7/fonts/glyphicons-halflings-regular.woff" />
+  <link type="text/css" rel="stylesheet" th:href="@{${basePath}+'stage/assets/css/amazeui.css'}" href="stage/assets/css/amazeui.css">
+  <link type="text/css" rel="stylesheet" th:href="@{${basePath}+'stage/assets/css/app.css'}" href="stage/assets/css/app.css">
+  <link type="text/css" rel="stylesheet" th:href="@{${basePath}+'plug-in/bootstrap3.3.7/css/bootstrap.css'}" href="plug-in/bootstrap3.3.7/css/bootstrap.css" />
+  <link type="text/css" rel="stylesheet" th:href="@{${basePath}+'plug-in/mCustomScrollbar3.1.5/jquery.mCustomScrollbar.css'}" href="plug-in/mCustomScrollbar3.1.5/jquery.mCustomScrollbar.css" />
+  <link type="text/css" rel="stylesheet" th:href="@{${basePath}+'moudle/home.css'}" href="moudle/home.css" />
+   <style>
+        p.clock{border-width: 1px; position: fixed; top: 30px; right: 50px;}
+    </style>
+</head>
+<body id="blog" style="height: 100%; color: rgb(0, 0, 0); ">
+
+<!-- <div class=" touming" th:include="common/topfix :: daoFixTop"></div> -->
+ <div th:include="common/daohang :: daoTop"></div>
+ 
+<div th:include="common/header :: headerTop"></div>
+
+<!-- <div th:include="common/daohang :: daoTop"></div> -->
+
+<div class="container divLine"> 
+</div>
+
+<div class="container">
+<!-- banner start -->
+<div class="am-g am-g-fixed blog-fixed am-u-sm-centered blog-article-margin">
+    <div class="am-u-lg-4 am-u-md-4 am-u-sm-12  blog-text-center" style="height:50px ;border:1px solid #e5e5e5; /* background-color: red; */">
+          	 
+    </div>
+    <div class="am-u-lg-4 am-u-md-4 am-u-sm-12  blog-text-center" style="height:50px ;border-top:1px solid #e5e5e5;border-bottom:1px solid #e5e5e5; /* background-color: yellow; */">
+          	  
+    </div>
+    <div class="am-u-lg-4 am-u-md-4 am-u-sm-12  blog-text-center" style="height:50px ;border:1px solid #e5e5e5; /* background-color: blue; */">
+          	  
+    </div> 
+</div>
+<!-- banner end -->
+
+<!-- content srart -->
+<div class="am-g am-g-fixed blog-fixed">
+ 	
+	
+    <div  class="am-u-md-8 am-u-sm-12 blog-sidebar list-article list-article">
+    	<input type="hidden" id="pageSize" th:value="${pageNum}">
+    	<input type="hidden" id="tpId" th:value="${tp.id}">
+    	<div id="artlist" class="blog-sidebar-widget blog-bor ">
+    	<h3 class="blog-text-center blog-title"><span th:text="${tp.typeName}">最近文章</span></h3>
+		
+		<article th:if="${tplist.size()==0}" class="am-g blog-entry-article blog-entry-article-border " >
+			<div class="am-u-lg-5 am-u-md-12 am-u-sm-12 blog-entry-img leftImg">
+				<p >暂无相关文章</p>
+			</div>
+		</article>
+        <article class="am-g blog-entry-article blog-entry-article-border article-li " th:each="newart, artStat : ${tplist}">
+            <div class="am-u-lg-5 am-u-md-12 am-u-sm-12 blog-entry-img leftImg">
+            	<!-- newart.image.picLocalAddress + newart.image.picName -->
+            	<img th:if="${newart.image} !=null " th:id="'img-test'+${newart.id}" th:src="${newart.image.picLocalAddress + newart.image.picName}" class="am-u-sm-12">
+                <img th:if="${newart.image} ==null " th:id="'img-test'+${newart.id}" src="stage/assets/i/f10.jpg" alt="" class="am-u-sm-12">
+            </div>
+            <div class="am-u-lg-7 am-u-md-12 am-u-sm-12 blog-entry-text wenziLeft">
+                <!-- <span><a href="" class="blog-color"><i class="am-icon am-icon-user author-color"></i><span th:text="${ newart.articleAuthor }"></span> &nbsp;</a></span> -->
+                
+                <h3><span class="keyWorld">原创</span><a th:href="'view?id='+${newart.id}"  title="点击阅读详细内容" th:text="${#strings.abbreviate(newart.articleTitle,18) }"></a></h3>
+                <div class="articleTabloid">
+                <p  th:text="${#strings.abbreviate(newart.articleTabloid,84)}">这里是简述
+                </p>
+                </div>
+                <div class="view-art">
+                <span class="font-yahei" ><i class="am-icon am-icon-flag type-color"></i><span th:text="${ newart.type.typeName }"></span>&nbsp;</span>
+                <span class="font-yahei" ><i class="am-icon am-icon-calendar rili-color"></i><span th:text="${ #strings.substring(newart.publishDate,0,10) }"></span></span>
+                
+                <span class="font-yahei f_r"><i class="am-icon am-icon-thumbs-up thumbs-up-color" ></i>点赞 (<span th:text="${ newart.likeYes }"></span>) </span>
+                <span class="font-yahei f_r"><i class="am-icon am-icon-eye author-color"></i>浏览 (<span th:text="${ newart.articleHits }"></span>)</span>
+                <span class="font-yahei f_r"><a th:href="'view?id='+${newart.id}+'#commentShow'"><i class="am-icon am-icon-comment author-color"></i>评论 (<span th:text="${ newart.commentNum }"></span>)</a></span>
+                
+                <!-- <span class="font-yahei f_r"><i class="am-icon am-icon-thumbs-down thumbs-down-color" ></i>[<span th:text="${ newart.likeNo }"></span>] </span> -->
+                </div>
+            </div>
+            <!-- <div class="am-u-lg-12 am-u-md-12 am-u-sm-12 line">
+            <div class="lineBackColor"></div>
+            </div> -->
+        </article>
+        
+        </div>
+        <ul th:if="${tplist.size() > 0}" id="loadPag" class="am-pagination">
+		  <!-- <li id="prev-page" class="am-pagination-prev"><a href="javascript:void(0);">&laquo; Prev</a></li> -->
+		  
+		  <li id="next-page" class="am-pagination-next"><a href="javascript:void(0);" target="_self">加载更多</a></li>
+		</ul> 
+    </div>
+	
+    <div id="ceiBianLan" class="am-u-md-4 am-u-sm-12 blog-sidebar">
+   		 <div class="blog-sidebar-widget blog-bor">
+            <h3 class="blog-text-center blog-title"><span>关于我</span></h3>
+            <img src="stage/assets/i/f14.jpg" th:src="${blogUser.localImgUrl}" alt="about me" class="blog-entry-img" >
+            <h4><b><span th:text="${blogUser.realName}"></span></b></h4>
+            <p id="about-me" class="blog-entry-article" th:text="${blogUser.personalBrief}"></p>
+        </div>
+
+        <div class="blog-clear-margin blog-sidebar-widget blog-bor am-g ">
+            <h3 class="blog-text-center blog-title"><span>联系方式</span></h3>
+            <!-- <img alt="" src=""> -->
+            <ul  class="  lianxi">
+                <li><a th:href="${blogUser.qqAcct}" th:title="${blogUser.qqAcct}" target="_blank"><span class="am-icon-qq am-icon-fw am-primary blog-icon"></span>QQ:<span th:text="${blogUser.qqAcct}"></span> </a></li>
+                <li><a th:href="${blogUser.gitBlogUrl}" th:title="Git" target="_blank"><span class="am-icon-github am-icon-fw blog-icon"></span> <span  >GitHub</span></a></li>
+                <li><a th:href="${blogUser.WbAcct}" th:title="微博" target="_blank"><span class="am-icon-weibo am-icon-fw blog-icon"></span> <span>微博</span></a></li>
+                <li><a th:href="${blogUser.WbAcct}"><span class="am-icon-reddit am-icon-fw blog-icon"></span> <span  >空间</span></a></li>
+                <li><a href="" th:title="微信公众号"><span class="am-icon-weixin am-icon-fw blog-icon"></span> <span >微信公众号</span></a> </li>
+            </ul>
+        </div>
+        
+        <div class="blog-clear-margin blog-sidebar-widget blog-bor am-g ">
+            <h3 class="blog-title"><span>标签云</span></h3>
+            <div class="am-u-sm-12 blog-clear-padding cloud">
+            	<ul >
+            		<li th:each="tag,tagStat : ${tagList}"><a href=""  ><span th:text="${tag.tagName}"></span></a></li>
+            	</ul>
+            </div>
+        </div>
+        <div class="blog-sidebar-widget blog-bor">
+            <h3 class="blog-title"><span>心情</span></h3>
+            <ul class="am-list">
+            	<li th:each="mood,modStat : ${moodList}">
+            		<a href="mood"><span th:utext="${mood.moodContent}"></span></a>
+            	</li> 
+            </ul>
+        </div>
+        <div class="blog-sidebar-widget blog-bor ">
+            <h3 class="blog-title"><span>友情链接</span></h3>
+            <ul class="am-list" id="youQingLink">
+            	<li th:each="link, oStat : ${linkList}">
+            		<a href="#"><span th:utext="${link.linkName}"></span></a>
+            	</li> 
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- content end -->
+</div>
+
+<footer class="blog-footer">
+     <div th:include="common/footer :: copy"></div>
+</footer>
+
+
+
+<!--[if (gte IE 9)|!(IE)]><!-->
+<script th:src="@{${basePath}+'stage/assets/js/jquery.min.js'}" src="stage/assets/js/jquery.min.js"></script>
+<script th:src="@{${basePath}+'plug-in/mCustomScrollbar3.1.5/js/minified/jquery.mousewheel-3.0.6.min.js'}" src="plug-in/mCustomScrollbar3.1.5/js/minified/jquery.mousewheel-3.0.6.min.js"></script>
+<!--<![endif]-->
+<!--[if lte IE 8 ]>
+<script src="http://libs.baidu.com/jquery/1.11.3/jquery.min.js"></script>
+<script src="http://cdn.staticfile.org/modernizr/2.8.3/modernizr.js"></script>
+<script src="stage/assets/js/amazeui.ie8polyfill.min.js"></script>
+<![endif]-->
+<script th:src="@{${basePath}+'stage/assets/js/amazeui.min.js'}" src="stage/assets/js/amazeui.min.js"></script>
+<!-- <script src="stage/assets/js/app.js"></script> -->
+<script th:src="@{${basePath}+'plug-in/mCustomScrollbar3.1.5/jquery.mCustomScrollbar.concat.min.js'}" src="plug-in/mCustomScrollbar3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
+
+<!-- <p id="time" class="clock"><script>time1()</script></p> -->
+<div th:include="common/message :: msg"></div> 
+<script th:src="@{${basePath}+'moudle/js/main.js'}" src="moudle/js/main.js"></script>
+<script th:src="@{${basePath}+'moudle/js/typeIndex.js'}" src="moudle/js/typeIndex.js"></script>
+
+</body>
+</html>

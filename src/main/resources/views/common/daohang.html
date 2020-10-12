@@ -1,0 +1,37 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <body>
+        <div th:fragment="daoTop">
+			<nav class="am-g am-g-fixed blog-fixed blog-nav " id="blog-nav">
+			<div class="am-show-sm-only smTop">
+			<a id="MobTid" th:text="${sysInfo.blogTitle}">张小菜个人博客</a>
+			<button class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-btn-success am-show-sm-only " data-am-collapse="{target: '#blog-collapse-1'}" ><span class="am-sr-only">导航切换</span> <span class="am-icon-bars"></span></button>
+			<div style="clear:both"></div>
+			</div>
+			  <div class="am-collapse am-topbar-collapse zhNav" id="blog-collapse-1">
+			  <img alt="" src="stage/assets/i/favicon.jpg" class="am-show-lg-only" style="float: left;height: 36px;width:36px;line-height:50px;margin-top:7px;">
+			    <ul class="am-nav am-nav-pills am-topbar-nav">
+			      <li  th:each="menu, mnStat : ${menuList}" th:class="${menu.childCount>0} ? 'am-dropdown  parent' : '' " data-am-dropdown th:id="${menu.menuCode}" >
+			      		<a th:if="${menu.childCount>=0}" data-am-dropdown-toggle th:class="${menu.childCount>0} ? 'am-dropdown-toggle' : '' " th:href="${menu.menuUrl!='' ?   menu.menuUrl :'javascript:;'} " >
+			      		<span th:text="${menu.menuName}"></span>
+			      		<span th:if="${menu.childCount>0}" class="am-icon-caret-down"></span>
+			      		</a>
+			      		<ul th:if="${menu.childCount>0}" th:class="${menu.childCount>0} ? 'am-dropdown-content  child' : '' " >
+				          <li th:each="child, chStat : ${menu.children}" th:id="${child.menuCode}" >
+				          <a th:href="@{'/'+${child.menuUrl}}" th:text="${child.menuName}" >后端技术</a>
+				          </li>         
+				        </ul>
+			      </li>
+			       
+			    </ul>
+			    <!-- <form class="am-topbar-form am-topbar-right am-form-inline" action="search?key=" role="search">
+			      <div class="am-form-group">
+			        <input id="keyWord" type="text" class="am-form-field am-input-sm" placeholder="搜索">
+			      </div>
+			    </form> -->
+			
+			  </div>
+			</nav>
+	</div>
+</body>
+</html>

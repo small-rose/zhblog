@@ -1,0 +1,16 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <body>
+        <div th:fragment="assistantTool">
+			 <!-- 回到顶部，设置 -->
+			<div id="back-to-top" style="display:none">返回顶部</div>
+			<div id="webTools" class="am-hide-sm-only">
+					<a href="#" target="_self" id="toTop" ><i class="am-icon-sm am-icon-arrow-up" ></i></a>
+					<a id="webSetting1" class="webSetting"  data-am-modal="{target: '#setting-modal-1', closeViaDimmer: 0, width: 450, height: 300}" ><i class=" am-icon-cogs "></i></a>
+					<a id="webSetting2" class="webSetting"  data-am-modal="{target: '#setting-modal-2', closeViaDimmer: 0, width: 450, height: 300}"><i class=" am-icon-image"></i></a>
+					<a id="webSetting3" class="search"  data-am-modal="{target: '#setting-modal-3', closeViaDimmer: 0, width: 900, height: 300}"><i class=" am-icon-search"></i></a>
+			</div>
+					
+        </div>
+    </body>
+</html>

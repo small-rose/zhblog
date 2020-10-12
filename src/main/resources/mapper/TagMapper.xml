@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zzy.blog.web.mapper.TagMapper">
+  <resultMap id="BaseResultMap" type="com.zzy.blog.web.pojo.Tag">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="tag_code" jdbcType="VARCHAR" property="tagCode" />
+    <result column="tag_name" jdbcType="VARCHAR" property="tagName" />
+    <result column="tag_note" jdbcType="VARCHAR" property="tagNote" />
+    <result column="is_show" jdbcType="INTEGER" property="isShow" />
+    <result column="add_Date" jdbcType="VARCHAR" property="addDate" />
+    <result column="update_Date" jdbcType="VARCHAR" property="updateDate" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, tag_code, tag_name, tag_note, is_show, add_Date, update_Date
+  </sql>
+  <select id="selectByExample" parameterType="com.zzy.blog.web.pojo.TagQuery" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from bk_tag
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from bk_tag
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from bk_tag
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.zzy.blog.web.pojo.TagQuery">
+    delete from bk_tag
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.zzy.blog.web.pojo.Tag">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into bk_tag (tag_code, tag_name, tag_note, 
+      is_show, add_Date, update_Date
+      )
+    values (#{tagCode,jdbcType=VARCHAR}, #{tagName,jdbcType=VARCHAR}, #{tagNote,jdbcType=VARCHAR}, 
+      #{isShow,jdbcType=INTEGER}, #{addDate,jdbcType=VARCHAR}, #{updateDate,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zzy.blog.web.pojo.Tag">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into bk_tag
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="tagCode != null">
+        tag_code,
+      </if>
+      <if test="tagName != null">
+        tag_name,
+      </if>
+      <if test="tagNote != null">
+        tag_note,
+      </if>
+      <if test="isShow != null">
+        is_show,
+      </if>
+      <if test="addDate != null">
+        add_Date,
+      </if>
+      <if test="updateDate != null">
+        update_Date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="tagCode != null">
+        #{tagCode,jdbcType=VARCHAR},
+      </if>
+      <if test="tagName != null">
+        #{tagName,jdbcType=VARCHAR},
+      </if>
+      <if test="tagNote != null">
+        #{tagNote,jdbcType=VARCHAR},
+      </if>
+      <if test="isShow != null">
+        #{isShow,jdbcType=INTEGER},
+      </if>
+      <if test="addDate != null">
+        #{addDate,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null">
+        #{updateDate,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.zzy.blog.web.pojo.TagQuery" resultType="java.lang.Long">
+    select count(*) from bk_tag
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update bk_tag
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.tagCode != null">
+        tag_code = #{record.tagCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tagName != null">
+        tag_name = #{record.tagName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tagNote != null">
+        tag_note = #{record.tagNote,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isShow != null">
+        is_show = #{record.isShow,jdbcType=INTEGER},
+      </if>
+      <if test="record.addDate != null">
+        add_Date = #{record.addDate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateDate != null">
+        update_Date = #{record.updateDate,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update bk_tag
+    set id = #{record.id,jdbcType=BIGINT},
+      tag_code = #{record.tagCode,jdbcType=VARCHAR},
+      tag_name = #{record.tagName,jdbcType=VARCHAR},
+      tag_note = #{record.tagNote,jdbcType=VARCHAR},
+      is_show = #{record.isShow,jdbcType=INTEGER},
+      add_Date = #{record.addDate,jdbcType=VARCHAR},
+      update_Date = #{record.updateDate,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zzy.blog.web.pojo.Tag">
+    update bk_tag
+    <set>
+      <if test="tagCode != null">
+        tag_code = #{tagCode,jdbcType=VARCHAR},
+      </if>
+      <if test="tagName != null">
+        tag_name = #{tagName,jdbcType=VARCHAR},
+      </if>
+      <if test="tagNote != null">
+        tag_note = #{tagNote,jdbcType=VARCHAR},
+      </if>
+      <if test="isShow != null">
+        is_show = #{isShow,jdbcType=INTEGER},
+      </if>
+      <if test="addDate != null">
+        add_Date = #{addDate,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null">
+        update_Date = #{updateDate,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zzy.blog.web.pojo.Tag">
+    update bk_tag
+    set tag_code = #{tagCode,jdbcType=VARCHAR},
+      tag_name = #{tagName,jdbcType=VARCHAR},
+      tag_note = #{tagNote,jdbcType=VARCHAR},
+      is_show = #{isShow,jdbcType=INTEGER},
+      add_Date = #{addDate,jdbcType=VARCHAR},
+      update_Date = #{updateDate,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  
+  <select id="selectTagListByArtId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+  	select t.* from 
+  	bk_tag t left join bk_article_tag a on t.id=a.tag_id
+  	where a.article_id= #{id,jdbcType=BIGINT}
+  </select>
+</mapper>

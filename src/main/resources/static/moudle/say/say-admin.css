@@ -1,0 +1,445 @@
+
+ body { 
+ 	/*
+ 	background: url("../images/bg.jpg") no-repeat fixed; 
+ 	*/
+ } 
+ #qq { 
+ 	width: 580px; /*宽*/ 
+ 	/* width: 600px; */ /*宽*/ 
+ 	height: 350px; /*高*/ 
+	background: #fff; /*背景颜色*/ 
+	margin: 10px auto 30px; 
+	border-radius: 5px; /*Html5 圆角*/ 
+} 
+
+#qq p { 
+	font-size: 12px; 
+	color: #666; 
+	font-family: "微软雅黑"; 
+	line-height: 45px; 
+	text-indent: 20px; 
+} 
+
+#qq .message { 
+	width: 567px; height: 70px; 
+	margin: 0 auto; 
+	overflow: hidden; 
+	outline: none; 
+	border: 1px solid #ddd; 
+	padding: 8px; 
+	box-sizing: border-box; 
+	font-size: 14px; 
+	-webkit-background-clip: text; 
+	color: transparent; 
+	background-image: linear-gradient(to right, #778899 0%, #333 100%); /*粗细 风格 颜色*/ 
+} 
+#qq .But { 
+	width: 560px; height: 35px; 
+	margin: 15px auto 0px; 
+	position: relative; /*相对，参考对象*/ 
+} 
+
+#qq .But img.bq { 
+	float: left; /*左浮动*/ 
+} 
+	
+#qq .But span.submit { 
+	width: 80px; height: 30px; 
+	/* background: #ff8140;  */
+	background: #4cb0f9;
+	display: block; float: right; /*右浮动*/ 
+	line-height: 30px; border-radius: 5px; 
+	cursor: pointer; /*手指*/ 
+	color: #fff; font-size: 12px; 
+	text-align: center; font-family: "微软雅黑"; 
+} /*face begin*/ 
+
+#qq .But .face { 
+	width: 440px; background: #fff; 
+	border: 1px solid #ddd; box-shadow: 0 0 12px #666; 
+	position: absolute; /*绝对定位*/ top: 21px; left: 15px; display: none; /*隐藏*/ 
+} 
+
+#qq .But .face ul { 
+	width: 100%; height: 100%; display: flex; 
+	flex-wrap: wrap; padding: 8px; 
+	box-sizing: border-box; 
+} 
+
+#qq .But .face ul li { 
+	width: 30px; height: 30px; 
+	list-style-type: none; 
+	cursor: pointer; display: flex; 
+	justify-content: center; 
+	align-items: center; 
+} 
+
+/*msgCon begin*/
+.msgCon {
+	width: 600px;
+	margin: 0px auto;
+	margin-bottom: 60px;
+}
+
+.msgCon .msgBox {
+	/*  使用自己的颜色 bg-n 需要注释 公有颜色*/
+	/* background: #fff;  */
+	padding: 10px;
+	box-sizing: border-box;
+	margin-top: 16px;
+	border-radius: 4px;
+}
+
+.msgCon .msgBox .headUrl {
+	width: 100%;
+	height: 60px;
+	border-bottom: 1px dotted #ddd;
+	display: flex;
+	align-items: center;
+}
+
+.msgCon .msgBox .headUrl img {
+	width: 46px;
+	height: 46px;
+	border-radius: 50%
+}
+
+.msgCon .msgBox .headUrl div {
+	flex: 1;
+	display: flex;
+	flex-flow: column;
+	font-size: 16px;
+	margin-left: 16px;
+	-webkit-background-clip: text;
+	color: transparent;
+	background-image: linear-gradient(to top, #b224ef 0%, #7579ff 100%);
+}
+
+.msgCon .msgBox .headUrl div .title{
+	font-weight: bold;
+}
+
+.msgCon .msgBox .headUrl div .time {
+	font-size: 14px;
+	margin-top: 6px;
+	-webkit-background-clip: text;
+	color: transparent;
+	background-image: linear-gradient(to right, #27050f 0%, #9face6 100%);
+}
+
+.msgCon .msgBox .headUrl a {
+	font-size: 14px;
+	padding: 10px;
+	/* color: salmon; */
+	cursor: pointer;
+}
+
+.msgCon .msgBox .msgTxt {
+	font-size: 14px;
+	color: #666;
+	min-height: 40px;
+	line-height: 24px;
+	padding: 15px;
+	box-sizing: border-box;
+	word-wrap: break-word;
+	-webkit-background-clip: text;
+	color: transparent;
+	background-image: linear-gradient(to right, #778899 0%, #333 100%);
+	/* font-family: "微软雅黑";  */
+	font-style: black;
+}
+
+.heart-bg{
+	color: red;
+}
+.bg-0{
+	background-color: #f3aaa9;
+}
+.bg-1{
+	background-color: #90c5f0;
+}
+.bg-2{
+	background-color: #AEDD81;
+}
+.bg-3{
+	background-color: #FC9D99;
+}
+.bg-4{
+	background-color: #00CCFF;
+}
+
+.bg-5{
+	background-color: #84AF9B;
+}
+
+.bg-6{
+	background-color: #EB7347;
+}
+.bg-7{
+	background-color: #D0D0D0;
+}
+.bg-8{
+	background-color: #7FDBFF;
+}
+.bg-9{
+	background-color: #39CCCC;
+}
+.bg-10{
+	background-color: #1E90FF;
+}
+.bg-11{
+	background-color: #FFDC00;
+}
+.bg-12{
+	background-color: #90c5f0;
+}
+.bg-13{
+	background-color: #FFA500;
+}
+.bg-14{
+	background-color: #ADFF2F;
+}
+.bg-15{
+	background-color: #00FFFF;
+}
+.bg-16{
+	background-color: #9AFF9A;
+}
+.bg-17{
+	background-color: #FF0000;
+}
+.bg-18{
+	background-color: #FF83FA;
+}
+.bg-19{
+	background-color: #EEEE00;
+}
+.bg-20{
+	background-color: #00BFFF;
+}
+
+.current-check{
+	opacity: 1;
+	border: 1px solid black;
+}
+#uname #uemail{
+	width: 560px; height: 70px; 
+	margin: 0 auto; 
+	overflow: hidden; 
+	outline: none; 
+	border: 1px solid #ddd; 
+	padding: 8px; 
+	box-sizing: border-box; 
+	font-size: 14px; 
+	-webkit-background-clip: text; 
+	/* color: transparent;  */
+	background-image: linear-gradient(to right, #778899 0%, #333 100%); /*粗细 风格 颜色*/ 
+}
+
+.tmp-hui-fu .huifu-message{
+
+	border-color:black;
+	width: 577px; height: 70px; 
+	margin: 0 auto; 
+	overflow: hidden; 
+	outline: none; 
+	border: 1px solid #ddd; 
+	padding: 8px; 
+	box-sizing: border-box; 
+	font-size: 14px; 
+	-webkit-background-clip: text; 
+	color: transparent;
+	background-image: linear-gradient(to right, #778899 0%, #333 100%); /*粗细 风格 颜色*/ 
+}
+
+.tmp-hui-fu .huifuSub{
+	width: 78px; height: 30px; 
+	background: #ff8140; 
+	display: block; float: right; /*右浮动*/ 
+	line-height: 30px; 
+	border-radius: 5px; 
+	cursor: pointer; /*手指*/ 
+	color: #fff; font-size: 12px; 
+	text-align: center; font-family: "微软雅黑"; 
+}
+.tmp-hui-fu .quxiao{
+	width: 78px; height: 30px; 
+	background: #DCDCDC; 
+	display: block; float: right; /*右浮动*/ 
+	line-height: 30px; 
+	border-radius: 5px; 
+	cursor: pointer; /*手指*/ 
+	color: #000000; font-size: 12px; 
+	text-align: center; font-family: "微软雅黑"; 
+}
+.tmp-hui-fu .But-1 { 
+	width: 567px; height: 35px; 
+	margin: 15px auto 0px; 
+	position: relative; /*相对，参考对象*/ 
+}
+
+.tmp-hui-fu .face-1 { 
+	width: 440px; background: #fff; 
+	border: 1px solid #ddd; box-shadow: 0 0 12px #666; 
+	position: absolute; /*绝对定位*/ top: 21px; left: 15px; display: none; /*隐藏*/ 
+} 
+
+.tmp-hui-fu .But-1 .face-1 ul { 
+	width: 100%; height: 100%; display: flex; 
+	flex-wrap: wrap; padding: 8px; 
+	box-sizing: border-box; 
+} 
+
+.tmp-hui-fu .But-1 .face-1 ul li { 
+	width: 30px; height: 30px; 
+	list-style-type: none; 
+	cursor: pointer; display: flex; 
+	justify-content: center; 
+	align-items: center; 
+} 
+
+.tmp-hui-fu .But-1 img.bq-1 { 
+	float: left; /*左浮动*/ 
+} 
+#tmp-1{
+	padding-left: 8px;
+}
+
+#qq-1{
+	border: 1px solid #F5F5F5;
+}
+
+
+.msgCon .msgBox-huifu {
+	/*  使用自己的颜色 bg-n 需要注释 公有颜色*/
+	/* background: #fff;  */
+	padding-left: 60px;
+	box-sizing: border-box;
+	margin-top: 4px;
+	border-radius: 4px;
+}
+.msgCon .msgBox .headUrl-huifu {
+	width: 100%;
+	height: 60px;
+	border-bottom: 1px dotted #ddd;
+	display: flex;
+	align-items: center;
+}
+.msgCon .msgBox .headUrl-huifu img {
+	width: 30px;
+	height: 30px;
+	border-radius: 50%
+}
+.msgCon .msgBox .headUrl-huifu  div {
+	flex: 1;
+	display: flex;
+	flex-flow: column;
+	font-size: 14px;
+	margin-left: 16px;
+	-webkit-background-clip: text;
+	color: transparent;
+	background-image: linear-gradient(to top, #b224ef 0%, #7579ff 100%);
+}
+
+.msgCon .msgBox .headUrl-huifu  div .title{
+	font-weight: bold;
+}
+
+.msgCon .msgBox .headUrl-huifu  div .time {
+	font-size: 14px;
+	margin-top: 6px;
+	-webkit-background-clip: text;
+	color: transparent;
+	background-image: linear-gradient(to right, #27050f 0%, #9face6 100%);
+}
+.msgCon .msgBox .msgTxt-huifu {
+	font-size: 14px;
+	color: #666;
+	min-height: 40px;
+	line-height: 24px;
+	padding: 5px;
+	box-sizing: border-box;
+	word-wrap: break-word;
+	-webkit-background-clip: text;
+	color: transparent;
+	background-image: linear-gradient(to right, #778899 0%, #333 100%);
+	/* font-family: "微软雅黑";  */
+	font-style: black;
+}
+.like-huifu{
+	color: red;
+}
+.huifu {
+	color: #337ab7;
+}
+
+
+.tmp-hui-fu .huifu-message-1{
+	border-color:black;
+	/* width: 577px;  */
+	height: 70px; 
+	/* margin: 0 auto;  */
+	margin:0 15px 0 15px;
+	overflow: hidden; 
+	outline: none; 
+	border: 1px solid #ddd; 
+	padding: 8px; 
+	box-sizing: border-box; 
+	font-size: 14px; 
+	-webkit-background-clip: text; 
+	color: transparent;
+	background-image: linear-gradient(to right, #778899 0%, #333 100%); /*粗细 风格 颜色*/ 
+}
+
+.tmp-hui-fu .huifuSub-1{
+	width: 78px; height: 30px; 
+	background: #ff8140; 
+	display: block; float: right; /*右浮动*/ 
+	line-height: 30px; 
+	border-radius: 5px; 
+	cursor: pointer; /*手指*/ 
+	color: #fff; font-size: 12px; 
+	text-align: center; font-family: "微软雅黑"; 
+}
+.tmp-hui-fu .quxiao-1{
+	width: 78px; height: 30px; 
+	background: #DCDCDC; 
+	display: block; float: right; /*右浮动*/ 
+	line-height: 30px; 
+	border-radius: 5px; 
+	cursor: pointer; /*手指*/ 
+	color: #000000; font-size: 12px; 
+	text-align: center; font-family: "微软雅黑"; 
+}
+.tmp-hui-fu .But-1-1 { 
+	/* width: 567px;  */
+	height: 35px; 
+	margin: 15px auto 0px; 
+	padding: 0 15px 0 16px;
+	position: relative; /*相对，参考对象*/ 
+}
+
+.tmp-hui-fu .face-1-1 { 
+	width: 440px; background: #fff; 
+	border: 1px solid #ddd; box-shadow: 0 0 12px #666; 
+	position: absolute; /*绝对定位*/ top: 21px; left: 15px; display: none; /*隐藏*/ 
+} 
+
+.tmp-hui-fu .But-1-1 .face-1-1 ul { 
+	width: 100%; height: 100%; display: flex; 
+	flex-wrap: wrap; padding: 8px; 
+	box-sizing: border-box; 
+} 
+
+.tmp-hui-fu .But-1-1 .face-1-1 ul li { 
+	width: 30px; height: 30px; 
+	list-style-type: none; 
+	cursor: pointer; display: flex; 
+	justify-content: center; 
+	align-items: center; 
+} 
+
+.tmp-hui-fu .But-1-1 img.bq-1-1 { 
+	float: left; /*左浮动*/ 
+} 

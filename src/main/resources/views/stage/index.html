@@ -1,0 +1,316 @@
+<!DOCTYPE>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="description" content="张小菜个人博客">
+  <meta name="keywords" content="张小菜,博客">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>zhBlog-<th:block th:text="${sysInfo.blogTitle}" /></title>
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-siteapp"/>
+  <link rel="icon" type="image/png" href="stage/assets/i/favicon.jpg">
+  <meta name="mobile-web-app-capable" content="yes">
+  <link rel="icon" sizes="192x192" href="stage/assets/i/favicon.jpg">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="ZH-BLOG"/>
+  <link rel="apple-touch-icon-precomposed" href="stage/assets/i/favicon.jpg">
+  <meta name="msapplication-TileImage" content="stage/assets/i/favicon.jpg">
+  <meta name="msapplication-TileColor" content="#0e90d2"> 
+  <link type="text/css" rel="stylesheet" href="stage/assets/css/amazeui.css"/>
+  <link type="text/css" rel="stylesheet" href="stage/assets/css/app.css"/>
+  <link type="text/css" rel="stylesheet" href="plug-in/bootstrap3.3.7/css/bootstrap.css" />
+  <link type="text/css" rel="stylesheet" href="plug-in/mCustomScrollbar3.1.5/jquery.mCustomScrollbar.css" />
+  <link type="text/css" rel="stylesheet" href="moudle/home.css" />
+  <!-- <base target="_blank"> -->
+     
+</head>
+<body id="blog" style="height: 100%; color: rgb(0, 0, 0); ">
+
+<!-- <div class=" touming" th:include="common/topfix :: daoFixTop"></div> -->
+ <div th:include="common/daohang :: daoTop"></div>
+ 
+<div th:include="common/header :: headerTop"></div>
+
+<!-- <div th:include="common/daohang :: daoTop"></div> -->
+
+<div class=" container">  
+	<ul id="countInfo" >
+		<li><a href="javascript:;"><span>网站累计访问量</span><span class="br" >2167</span></a><li>
+		<li><a href="javascript:;"><span>网站当日访问量</span><span class="br" >89</span></a><li>
+		<li><a href="javascript:;"><span>同时在线人数</span><span class="br" th:text="${count}">67</span></a><li>
+		<li><a href="javascript:;"><span>文章数量</span><span class="br" >54</span></a><li>
+		<li><a href="javascript:;"><span>评论数量</span><span class="br" >123</span></a><li>
+		<li><a href="javascript:;"><span>标签数量</span><span class="br"  >12</span></a><li>
+	</ul>
+</div>		
+
+<div class="  container">
+<!-- banner start -->
+<!-- 
+<div  class="am-g am-g-fixed blog-fixed am-u-sm-centered blog-article-margin bannerTop">
+    <div  data-am-widget="slider" class="am-slider am-slider-b1" data-am-slider='{&quot;controlNav&quot;:false}' >
+    <ul class="am-slides">
+      <li>
+            <img src="stage/bg/bg_sb_1.jpg">
+            <div class="blog-slider-desc am-slider-desc ">
+                <div class="blog-text-center blog-slider-con">
+                    <span><a href="" class="blog-color">Article &nbsp;</a></span>               
+                    <h3 class="blog-h-margin"><a href="">总在思考一句积极的话</a></h3>
+                    <p>那时候刚好下着雨，柏油路面湿冷冷的，还闪烁着青、黄、红颜色的灯火。
+                    </p>
+                    <span class="blog-bor">2015/10/9</span>
+                    <br><br><br><br><br><br><br>                
+                </div>
+            </div>
+      </li>
+      <li>
+            <img src="stage/bg/bg_sb_2.jpg">
+            <div class="am-slider-desc blog-slider-desc">
+                <div class="blog-text-center blog-slider-con">
+                    <span><a href="" class="blog-color">Article &nbsp;</a></span>               
+                    <h1 class="blog-h-margin"><a href="">总在思考一句积极的话</a></h1>
+                    <p>那时候刚好下着雨，柏油路面湿冷冷的，还闪烁着青、黄、红颜色的灯火。
+                    </p>
+                    <span>2015/10/9</span>                
+                </div>
+            </div>
+      </li>
+      <li>
+            <img src="stage/bg/bg_sb_3.jpg">
+            <div class="am-slider-desc blog-slider-desc">
+                <div class="blog-text-center blog-slider-con">
+                    <span><a href="" class="blog-color">Article &nbsp;</a></span>               
+                    <h1 class="blog-h-margin"><a href="">总在思考一句积极的话</a></h1>
+                    <p>那时候刚好下着雨，柏油路面湿冷冷的，还闪烁着青、黄、红颜色的灯火。
+                    </p>
+                    <span>2015/10/9</span>                
+                </div>
+            </div>
+      </li>
+      <li>
+            <img src="stage/assets/i/b2.jpg">
+            <div class="am-slider-desc blog-slider-desc">
+                <div class="blog-text-center blog-slider-con">
+                    <span><a href="" class="blog-color">Article &nbsp;</a></span>               
+                    <h1 class="blog-h-margin"><a href="">总在思考一句积极的话</a></h1>
+                    <p>那时候刚好下着雨，柏油路面湿冷冷的，还闪烁着青、黄、红颜色的灯火。
+                    </p>
+                    <span>2015/10/9</span>                
+                </div>
+            </div>
+      </li>
+    </ul>
+    </div>
+</div>
+ -->
+<!-- banner end -->
+
+<!-- content srart -->
+<div class="am-g am-g-fixed blog-fixed">
+ 	
+	<input type="hidden" id="pageSize" th:value="${pageNum}">
+    <div  class="am-u-md-8 am-u-sm-12 blog-sidebar list-article   ">
+    	<!-- 
+    	<div id="bestList" class="blog-sidebar-widget blog-bor ">
+            <h3 class="blog-text-center blog-title"><span>精选推荐</span></h3>
+            <ul>
+			<li class="am-u-lg-3 am-u-md-6 am-u-sm-12 best-div1 " th:each="btart, artStat : ${btlist}" >
+			<div class="best-div">
+				<a href="" th:href="'view?id='+${btart.id}"><img src="stage/assets/i/f10.jpg" th:src="${btart.image.picLocalAddress + btart.image.picName}" width="180" height="180" alt="" ></a>
+			</div>
+			<h3><b><a href="" th:href="'view?'+${btart.id}" th:title="${btart.articleTitle}"><span th:text="${#strings.abbreviate(btart.articleTitle,8)}"></span></a></b></h3>
+			<p th:text="${#strings.abbreviate(btart.articleTabloid,30)}">那时候刚好下着雨，柏油路面湿冷冷的，还闪烁着青、黄、红颜色的灯火。
+            </p>
+            </li>
+          </ul>
+            <div style="clear:both"></div>
+        </div>
+         -->
+      	
+    	<div id="artlist" class="blog-sidebar-widget blog-bor ">
+    	<h3 class="blog-text-center blog-title"><span>最近文章</span></h3>
+    	<!--  
+    	<div  data-am-widget="slider" class="am-slider am-slider-b1" data-am-slider='{&quot;controlNav&quot;:false}' >
+		    <ul class="am-slides">
+		      <li>
+		            <img src="stage/bg/bg_sb_1.jpg">
+		            <div class="blog-slider-desc am-slider-desc ">
+		                <div class="blog-text-center blog-slider-con">
+		                    <span><a href="" class="blog-color">Article &nbsp;</a></span>               
+		                    <h3 class="blog-h-margin"><a href="">总在思考一句积极的话</a></h3>
+		                    <p>那时候刚好下着雨，柏油路面湿冷冷的，还闪烁着青、黄、红颜色的灯火。
+		                    </p>
+		                    <span class="blog-bor">2015/10/9</span>
+		                    <br><br><br><br><br><br><br>                
+		                </div>
+		            </div>
+		      </li>
+		      <li>
+		            <img src="stage/bg/bg_sb_2.jpg">
+		            <div class="am-slider-desc blog-slider-desc">
+		                <div class="blog-text-center blog-slider-con">
+		                    <span><a href="" class="blog-color">Article &nbsp;</a></span>               
+		                    <h3 class="blog-h-margin"><a href="">总在思考一句积极的话</a></h3>
+		                    <p>那时候刚好下着雨，柏油路面湿冷冷的，还闪烁着青、黄、红颜色的灯火。 </p>
+		                    <span>2015/10/9</span>                
+		                </div>
+		            </div>
+		      </li>
+		      <li>
+		            <img src="stage/bg/bg_sb_3.jpg">
+		            <div class="am-slider-desc blog-slider-desc">
+		                <div class="blog-text-center blog-slider-con">
+		                    <span><a href="" class="blog-color">Article &nbsp;</a></span>               
+		                    <h3 class="blog-h-margin"><a href="">总在思考一句积极的话</a></h3>
+		                    <p>那时候刚好下着雨，柏油路面湿冷冷的，还闪烁着青、黄、红颜色的灯火。
+		                    </p>
+		                    <span>2015/10/9</span>                
+		                </div>
+		            </div>
+		      </li>
+		      <li>
+		            <img src="stage/assets/i/b2.jpg">
+		            <div class="am-slider-desc blog-slider-desc">
+		                <div class="blog-text-center blog-slider-con">
+		                    <span><a href="" class="blog-color">Article &nbsp;</a></span>               
+		                    <h3 class="blog-h-margin"><a href="">总在思考一句积极的话</a></h3>
+		                    <p>那时候刚好下着雨，柏油路面湿冷冷的，还闪烁着青、黄、红颜色的灯火。
+		                    </p>
+		                    <span>2015/10/9</span>                
+		                </div>
+		            </div>
+		      </li>
+		    </ul>
+		 </div>
+		 <br/>
+		 -->
+		<!-- <hr/> -->
+		<article class="am-g blog-entry-article blog-entry-article-border article-li " th:each="newart, artStat : ${newlist}">
+            <div class="am-u-lg-5 am-u-md-12 am-u-sm-12 blog-entry-img leftImg">
+            	<!-- newart.image.picLocalAddress + newart.image.picName -->
+            	<img th:if="${newart.image} !=null " th:id="'img-test'+${newart.id}" th:src="${newart.image.picLocalAddress + newart.image.picName}" class="am-u-sm-12">
+                <img th:if="${newart.image} ==null " th:id="'img-test'+${newart.id}" src="stage/assets/i/f10.jpg" alt="" class="am-u-sm-12">
+            </div>
+            <div class="am-u-lg-7 am-u-md-12 am-u-sm-12 blog-entry-text wenziLeft">
+                <!-- <span><a href="" class="blog-color"><i class="am-icon am-icon-user author-color"></i><span th:text="${ newart.articleAuthor }"></span> &nbsp;</a></span> -->
+                
+                <h3><span class="keyWorld">原创</span><a th:href="'view?id='+${newart.id}"  title="点击阅读详细内容" th:text="${#strings.abbreviate(newart.articleTitle,18) }"></a></h3>
+                <div class="articleTabloid">
+                <p  th:text="${#strings.abbreviate(newart.articleTabloid,84)}">这里是简述
+                </p>
+                </div>
+                <div class="view-art">
+                <span class="font-yahei" ><i class="am-icon am-icon-flag type-color"></i><span th:text="${ newart.type.typeName }"></span>&nbsp;</span>
+                <span class="font-yahei" ><i class="am-icon am-icon-calendar rili-color"></i><span th:text="${ #strings.substring(newart.publishDate,0,10) }"></span></span>
+                
+                <span class="font-yahei f_r"><i class="am-icon am-icon-thumbs-up thumbs-up-color" ></i>点赞 (<span th:text="${ newart.likeYes }"></span>) </span>
+                <span class="font-yahei f_r"><i class="am-icon am-icon-eye author-color"></i>浏览 (<span th:text="${ newart.articleHits }"></span>)</span>
+                <span class="font-yahei f_r"><a th:href="'view?id='+${newart.id}+'#commentShow'"><i class="am-icon am-icon-comment author-color"></i>评论 (<span th:text="${ newart.commentNum }"></span>)</a></span>
+                
+                <!-- <span class="font-yahei f_r"><i class="am-icon am-icon-thumbs-down thumbs-down-color" ></i>[<span th:text="${ newart.likeNo }"></span>] </span> -->
+                </div>
+            </div>
+        </article>
+        
+        </div>
+        <ul id="loadPag" class="am-pagination">
+		  <!-- <li id="prev-page" class="am-pagination-prev"><a href="javascript:void(0);">&laquo; Prev</a></li> -->
+		  
+		  <li id="next-page" class="am-pagination-next"><a href="javascript:void(0);" target="_self">加载更多</a></li>
+		</ul> 
+    </div>
+	
+    <div id="ceiBianLan" class="am-u-md-4 am-u-sm-12 blog-sidebar">
+   		<div class="blog-sidebar-widget blog-bor aboutMe">
+            <h3 class="blog-text-center blog-title"><span>关于我</span></h3>
+            <img src="stage/assets/i/f14.jpg" th:src="${blogUser.localImgUrl}" alt="about me" class="blog-entry-img" >
+            <h4><b><span th:text="${blogUser.realName}"></span></b></h4>
+            <p id="about-me" class="blog-entry-article" th:text="${blogUser.personalBrief}"></p>
+        </div>
+
+        <div class="blog-clear-margin blog-sidebar-widget blog-bor am-g ">
+            <h3 class="blog-text-center blog-title"><span>联系方式</span></h3>
+            <!-- <img alt="" src=""> -->
+            <ul  class="  lianxi">
+                <li><a th:href="${blogUser.qqAcct}" th:title="${blogUser.qqAcct}" target="_blank"><span class="am-icon-qq am-icon-fw am-primary blog-icon"></span>QQ:<span th:text="${blogUser.qqAcct}"></span> </a></li>
+                <li><a th:href="${blogUser.gitBlogUrl}" th:title="Git" target="_blank"><span class="am-icon-github am-icon-fw blog-icon"></span> <span  >GitHub</span></a></li>
+                <li><a th:href="${blogUser.WbAcct}" th:title="微博" target="_blank"><span class="am-icon-weibo am-icon-fw blog-icon"></span> <span>微博</span></a></li>
+                <li><a th:href="${blogUser.WbAcct}"><span class="am-icon-reddit am-icon-fw blog-icon"></span> <span  >空间</span></a></li>
+                <li><a href="" th:title="微信公众号"><span class="am-icon-weixin am-icon-fw blog-icon"></span> <span >微信公众号</span></a> </li>
+            </ul>
+        </div>
+        
+        <div class="blog-clear-margin blog-sidebar-widget blog-bor am-g  am-show-lg-only">
+            <h3 class="blog-title"><span>标签云</span></h3>
+            <div class="am-u-sm-12 blog-clear-padding cloud">
+            	<ul >
+            		<li th:each="tag,tagStat : ${tagList}"><a href=""  ><span th:text="${tag.tagName}"></span></a></li>
+            	</ul>
+            </div>
+        </div>
+        <!-- 
+        <div class="blog-clear-margin blog-sidebar-widget blog-bor am-g ">
+            <h3 class="blog-title"><span>标签云</span></h3>
+            <div class="am-u-sm-12 blog-clear-padding ">
+            	<a href="" class="blog-tag" th:each="tag,tagStat : ${tagList}"><span th:text="${tag.tagName}"></span></a>
+            	<ul class="cloud">
+            		<li th:each="tag,tagStat : ${tagList}"><a href="" class="blog-tag" ><span th:text="${tag.tagName}"></span></a></li>
+            	</ul>
+            </div>
+        </div>
+        -->
+        <div class="blog-sidebar-widget blog-bor  am-show-lg-only" >
+            <h3 class="blog-title"><span>心情</span></h3>
+            <ul class="am-list">
+            	<li th:each="mood,modStat : ${moodList}">
+            		<a href="mood"><span th:utext="${mood.moodContent}"></span></a>
+            	</li> 
+            </ul>
+        </div>
+        <div class="blog-sidebar-widget blog-bor  am-show-lg-only">
+            <h3 class="blog-title"><span>友情链接</span></h3>
+            <ul class="am-list" id="youQingLink">
+            	<li><a href="#">更多...</a></li> 
+            	<li th:each="link, oStat : ${linkList}">
+            		<a href="#"><span th:utext="${link.linkName}"></span></a>
+            	</li>
+            	
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- content end -->
+ </div> 
+
+<footer id="footer" class="blog-footer" >
+     <div th:include="common/footer :: copy"></div>
+</footer>
+
+
+<!--[if (gte IE 9)|!(IE)]><!-->
+<script src="plug-in/html5shiv.js"></script>
+<script src="stage/assets/js/jquery.min.js"></script>
+<script src="plug-in/jquery.lazyload.js"></script>
+<!-- <script src="http://libs.baidu.com/jquery/1.11.3/jquery.min.js"></script> -->
+<script src="plug-in/mCustomScrollbar3.1.5/js/minified/jquery.mousewheel-3.0.6.min.js"></script>
+<!--<![endif]-->
+<!--[if lte IE 8 ]>
+<script src="http://libs.baidu.com/jquery/1.11.3/jquery.min.js"></script>
+<script src="http://cdn.staticfile.org/modernizr/2.8.3/modernizr.js"></script>
+<script src="stage/assets/js/amazeui.ie8polyfill.min.js"></script>
+<![endif]-->
+<script src="stage/assets/js/amazeui.min.js"></script>
+<!-- <script src="stage/assets/js/app.js"></script> -->
+<script src="plug-in/mCustomScrollbar3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
+
+<div th:include="common/message :: msg"></div> 
+<script src="moudle/js/main.js"></script>
+<script src="moudle/js/index.js"></script>
+ <script type="text/javascript">
+ $("img").lazyload({ threshold :20, effect: "fadeIn"});
+ </script>
+
+</body>
+</html>

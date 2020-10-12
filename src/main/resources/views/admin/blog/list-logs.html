@@ -1,0 +1,339 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>ZH-BLOG | 日志</title>
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-siteapp"/>
+  <link rel="icon" type="image/png" href="stage/assets/i/favicon.jpg">
+  <meta name="mobile-web-app-capable" content="yes">
+  <link rel="icon" sizes="192x192" th:href="@{${basePath}+'stage/assets/i/favicon.jpg'}" href="stage/assets/i/favicon.jpg">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="Amaze UI"/>
+  <link rel="apple-touch-icon-precomposed" th:href="@{${basePath}+'stage/assets/i/favicon.jpg'}" href="stage/assets/i/favicon.jpg">
+  <meta name="msapplication-TileImage" th:content="@{${basePath}+'stage/assets/i/favicon.jpg'}" content="stage/assets/i/favicon.jpg">
+  <meta name="msapplication-TileColor" content="#0e90d2">
+  <link rel="stylesheet" th:href="@{${basePath}+'stage/assets/css/amazeui.min.css'}" href="stage/assets/css/amazeui.min.css">
+  <link rel="stylesheet" th:href="@{${basePath}+'stage/assets/css/app.css'}" href="stage/assets/css/app.css">
+  <link rel="stylesheet" th:href="@{${basePath}+'plug-in/bootstrap3.3.7/fonts/glyphicons-halflings-regular.woff'}" href="plug-in/bootstrap3.3.7/fonts/glyphicons-halflings-regular.woff" />
+  <link rel="stylesheet" th:href="@{${basePath}+'plug-in/bootstrap3.3.7/css/bootstrap.min.css'}" href="plug-in/bootstrap3.3.7/css/bootstrap.min.css" />
+  <link rel="stylesheet" th:href="@{${basePath}+'plug-in/bootstrap3.3.7/css/bootstrap-theme.min.css'}" href="plug-in/bootstrap3.3.7/css/bootstrap-theme.min.css" />
+  <link rel="stylesheet" th:href="@{${basePath}+'plug-in/editor.md-master/css/editormd.min.css'}" href="plug-in/editor.md-master/css/editormd.min.css" />
+  <link rel="stylesheet" th:href="@{${basePath}+'plug-in/bootstrap3.3.7/buttons.css'}" href="plug-in/bootstrap3.3.7/buttons.css">
+  <link rel="stylesheet" th:href="@{${basePath}+'moudle/admin.css'}" href="moudle/admin.css">
+  <link rel="stylesheet" th:href="@{${basePath}+'plug-in/bootstrap-table/bootstrap-table.css'}" href="plug-in/bootstrap-table/bootstrap-table.css"/>
+</head>
+<body id="blog" style="height: 100%; color: rgb(0, 0, 0); ">
+<!-- <header class="am-g am-g-fixed blog-fixed blog-text-center blog-header">
+	
+    <div class="am-u-sm-8 am-u-sm-centered">
+        <img width="200" src="https://www.aroad.xyz/source/img/favicon.png" alt="Amaze UI Logo"/>
+        <h2 class="am-hide-sm-only">我似江潮来又去，君如鸥鹭逐波还</h2>
+    </div>
+</header>
+<hr> -->
+<!-- <div th:include="common/admin :: daoTop"></div> -->
+<!-- <hr> -->
+<div class="am-g am-g-fixed blog-fixed blog-content">
+<div class="container">
+		<!-- 标题 -->
+		<div class="row">
+		  <div class="col-md-12" style="height: 25px;margin-top: 10px;">
+		  	<strong>日志相关 </strong>&nbsp; / &nbsp; <span >日志查询 </span>
+		  </div>
+		</div>
+		<!-- 按钮 -->
+		<div  class="panel panel-default  panel-info " style="margin-top: 5px">
+
+		<div class="row">
+			<div class="col-md-12">
+				<form class="form-inline" id="queryForm">
+					  <div class="form-group input-group-sm">
+					    <label for="queryTagName">标签名称</label>
+					    <input type="text" name="queryTagName" class="form-control" id="queryTagName" placeholder="">
+					  </div>
+					  <!-- <div class="form-group input-group-sm">
+					    <label for="queryTagCode">标签代码</label>
+					    <input type="text" name="queryTagCode"  class="form-control" id="queryTagCode" placeholder="">
+					  </div> -->
+					  <div class="form-group " >
+					    <label class="control-label">是否显示</label>
+						    <select class="form-control" name="queryisShow" id="queryisShow">
+						    	<option value="">请选择</option>
+						    	<option value="1">已显示</option>
+						    	<option value="0">未显示</option>
+							</select>
+					  </div>
+					   <button type="button" class="btn btn-primary btn-sm" id="query_handle"><span class="glyphicon glyphicon-search"></span>查询</button>
+						 <button type="button" class="btn btn-primary btn-sm" id="query_delete_all"><span class="glyphicon glyphicon-remove"></span>清空条件</button>
+					</form>
+					
+			</div>
+		     <div id="toolbar" ><!-- class="col-md-3 col-md-offset-9" style="padding-top: 4px; padding-bottom: 4px" -->
+		    	<button type="button" class="btn btn-danger btn-sm" id="log_delete_all"><span class="glyphicon glyphicon-trash"></span>批量删除</button>
+				<button type="button" class="btn btn-success btn-sm" id="log_refresh"><span class="glyphicon glyphicon-refresh"></span>刷新</button>
+				 
+		    </div>
+		</div>
+		
+		<!-- 表格数据 -->
+		<div class="row  ">
+			    <div class="col-md-12">
+			    	<table id="data_table" class="table table-bordered table-hover" >
+			    		<!-- <thead>
+			    		<tr>
+			    			<th><input type="checkbox" id="check_all"/></th>
+			    			<th>编号</th>
+			    			<th>请求URL</th>
+			    			<th>远程设备</th>
+			    			<th>远程系统</th>
+			    			<th>浏览器</th>
+			    			<th>请求方法</th>
+			    			<th>请求描述</th>
+			    			<th>开始时间</th>
+			    			<th>结束时间</th>
+			    			<th>原始请求参数</th>
+			    			<th>请求参数</th>
+			    			<th>远程IP</th>
+			    			<th>远程端口</th>
+			    			<th>响应</th>
+			    			<th>操作</th>
+			    		</tr>
+			    		</thead>
+			    		<tbody>
+			    		</tbody> -->
+			    	</table>
+			    </div>
+		</div>
+		<!-- 分页 -->
+		<div class="row">
+			    <div class="col-md-6" id="page_info">
+			    </div>
+			    <div class="col-md-6" id="page_navi">
+			    </div>
+		</div>
+
+		</div>
+	</div>
+</div>
+<hr>
+<footer class="blog-footer">
+    <!--  <div th:include="common/footer :: copy"></div> -->
+    <!-- <div class="blog-text-center">© 2015 AllMobilize, Inc. Licensed under MIT license. Made with love By LWXYFER</div>     -->
+</footer>
+
+<script  th:src="@{${basePath}+'plug-in/fileinput/js/jquery-2.0.3.min.js'}" src="plug-in/fileinput/js/jquery-2.0.3.min.js"></script>
+<script th:src="@{${basePath}+'stage/assets/js/amazeui.min.js'}"  src="/stage/assets/js/amazeui.min.js"></script> 
+<script th:src="@{${basePath}+'plug-in/bootstrap3.3.7/js/bootstrap.min.js'}"  src="plug-in/bootstrap3.3.7/js/bootstrap.min.js"></script>
+<script th:src="@{${basePath}+'plug-in/bootstrap-table/bootstrap-table.js'}" src="plug-in/bootstrap-table/bootstrap-table.js"></script>
+<script th:src="@{${basePath}+'plug-in/bootstrap-table/locale/bootstrap-table-zh-CN.js'}" src="plug-in/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
+
+<script type="text/javascript">
+var $table = $('#data_table');
+$(function(){
+	  //1.初始化Table
+    var oTable = new TableInit();
+    oTable.Init();
+
+    //2.初始化Button的点击事件
+    var oButtonInit = new ButtonInit();
+    oButtonInit.Init();
+    
+});
+
+var TableInit = function () {
+    var oTableInit = new Object();
+    //初始化Table
+    oTableInit.Init = function () {
+    	$table.bootstrapTable({
+            url: 'logDatagrid',         //请求后台的URL（*）
+            method: 'get',                      //请求方式（*）
+            toolbar: '#toolbar',                //工具按钮用哪个容器
+            striped: true,                      //是否显示行间隔色
+            cache: false,                       //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+            pagination: true,                   //是否显示分页（*）
+            sortable: false,                     //是否启用排序
+            sortOrder: "asc",                   //排序方式
+            queryParams: oTableInit.queryParams,//传递参数（*）
+            sidePagination: "server",           //分页方式：client客户端分页，server服务端分页（*）
+            pageNumber:1,                       //初始化加载第一页，默认第一页
+            pageSize: 10,                       //每页的记录行数（*）
+            pageList: [10, 25, 50, 100],        //可供选择的每页的行数（*）
+            search: true,                       //是否显示表格搜索，此搜索是客户端搜索，不会进服务端，所以，个人感觉意义不大
+            strictSearch: true,
+            showColumns: false,                  //是否显示所有的列
+            showRefresh: true,                  //是否显示刷新按钮
+            locale: "zh-CN",
+            striped: true,
+            minimumCountColumns: 2,             //最少允许的列数
+            clickToSelect: false,                //是否启用点击选中行
+            //height: 500,                        //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
+            uniqueId: "id",                     //每一行的唯一标识，一般为主键列
+            showToggle:false,                    //是否显示详细视图和列表视图的切换按钮
+            cardView: false,                    //是否显示详细视图
+            detailView: false,                   //是否显示父子表
+            columns: [
+            	{checkbox: true },
+            	{field: 'opt', title: '操作', formatter: function (value, row, index) {
+                    var opt = '&nbsp;<button type="button" class="btn btn-success btn-xs del_model_btn" view-id="'+row.id+'"><span class="glyphicon glyphicon-eye-open"></span>查看</button>';
+                    return opt;
+                  }, },
+            	{field: 'id',title: '编号'}, 
+            	{field: 'logUrl',title: '请求url', 'width': '6%'}, 
+            	{field: 'logRemoteDevice',title: '远程设备', 'width': '6%'}, 
+            	{field: 'logOsinfo',title: '系统信息', 'width': '6%'}, 
+            	{field: 'logBroswer',title: '浏览器信息', 'width': '6%'}, 
+            	{field: 'logMethod',title: '请求方法', 'width': '6%'}, 
+            	{field: 'logOptnote',title: '操作信息', 'width': '6%'}, 
+            	{field: 'logProtocol',title: '协议', 'width': '6%'}, 
+            	{field: 'logRemoteIp',title: '远程IP', 'width': '6%'}, 
+            	{field: 'logRemotePort',title: '远程端口'}, 
+            	{field: 'logRemoteRemoteuser',title: '远程用户'}, 
+            	{field: 'logStarTime',title: '开始时间', 'width': '6%'}, 
+            	{field: 'logEndTime',title: '结束时间', 'width': '6%'}, 
+            	{field: 'logParamOrg',title: '请求原始参数', 'width': '6%'}, 
+            	{field: 'logParam',title: '请求参数', 'width': '6%'}, 
+            	{field: 'logRespBody',title: '响应', 'width': '6%'} 
+                
+            ],
+            onLoadSuccess: function(data) {
+                
+            },
+    		onLoadError: function () {
+    		        showTips("数据加载失败！");
+    		},
+    		onDblClickRow: function (row, $element) {
+    		   		 var id = row.ID;
+    			     logViewById(id, 'view');
+    		},
+        });
+    };
+
+    //得到查询的参数
+    oTableInit.queryParams = function (params) {
+        var temp = {   //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
+            limit: params.limit,   //页面大小
+            offset: (params.offset / params.limit) + 1,  //页码
+            sort: params.sort,      //排序列名  
+            sortOrder: params.order, //排位命令（desc，asc）
+            menuName: $("#queryMenuName").val(),
+            isShow: $("#queryisShow").val()
+        };
+        return temp;
+    };
+    return oTableInit;
+};
+
+var ButtonInit = function () {
+    var oInit = new Object();
+    var postdata = {};
+
+    oInit.Init = function () {
+        //初始化页面上面的按钮事件
+        $(".edit_model_btn").click(function(){
+        	//$(this).arrt();
+        	update(id, row);
+        });
+    };
+
+    return oInit;
+};
+
+$("#log_refresh").click(function(){
+	window.location.reload(true);
+});
+
+$("#query_handle").click(function(){
+	
+});
+
+$("#log_delete_all").click(function(){
+	var selects = $table.bootstrapTable('getSelections');
+	var ids = "";
+	$.each(selects, function(index, item){
+		ids += item.id +",";
+	});
+	alert(ids);
+	clearModel();
+	//弹出模态框
+	$("#addModal").modal({
+		backdrop:"static"
+	});
+});
+
+$("#deleteAll_btn").click(function(){
+	var ids = $("input_logId").val();
+	var pass = $("input_delPass").val();
+	if(confirm("确认删除全部选中项吗?")){
+		del_handle(ids, pass);
+	}
+});
+
+function del_handle(ids, pass){
+	$.ajax({
+		url:"delLog/"+ids,
+		//data:"ids="+ids,
+		type:"DELETE",
+		success:function(result){
+			if(result.success){
+				AlertModal("success",result.msg);
+			}else{
+				AlertModal("error",result.msg);
+			}
+			$table.bootstrapTable('refresh');
+		}
+	});
+}
+
+function clearModel(){
+	$("#input_logId").val("");
+	$("#input_delPass").val("");
+	$("#input_delPass2").val("");
+}
+
+function logViewById(id){
+	
+}
+</script>
+<!-- 新增模态框 -->
+<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+  <div class="modal-dialog " role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="addModalLabel">删除验证</h4>
+      </div>
+      <div class="modal-body">
+       <form class="form-horizontal" onsubmit="return false">
+       		<input type="hidden" name="delIds" class="form-control" id="input_logId">
+		  <div class="form-group">
+		    <label for="inputpageNo" class="col-sm-2 control-label">删除密码</label>
+		    <div class="col-sm-10">
+		      <input type="text"name="delPass" class="form-control" id="input_delPass" placeholder="删除密码" data-toggle="tooltip" title="删除密码" >
+		      <span id="pageNo_block" class="help-block"></span>
+		    </div>
+		  </div>
+		   <div class="form-group">
+		    <label for="inputlinkTag" class="col-sm-2 control-label">删除密码确认</label>
+		    <div class="col-sm-10">
+		      <input type="text" name="delPass2" class="form-control" id="input_delPass2" placeholder="删除密码确认" data-toggle="tooltip" title="删除密码确认" value="">
+		      <span id="linkTag_block" class="help-block"></span>
+		    </div>
+		  </div>
+		</form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+        <button type="button" class="btn btn-primary" id="deleteAll_btn">保存</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div th:include="common/message :: msg"></div> 
+</body>
+</html>

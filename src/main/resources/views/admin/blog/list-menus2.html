@@ -1,0 +1,493 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>Z-BLOG</title>
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-siteapp"/>
+  <link rel="icon" type="image/png" th:href="@{${basePath}+'stage/assets/i/favicon.jpg'}" href="stage/assets/i/favicon.jpg">
+  <meta name="mobile-web-app-capable" content="yes">
+  <link rel="icon" sizes="192x192" th:href="@{${basePath}+'stage/assets/i/favicon.jpg'}" href="stage/assets/i/favicon.jpg">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="Amaze UI"/>
+  <link rel="apple-touch-icon-precomposed" th:href="@{${basePath}+'stage/assets/i/favicon.jpg'}" href="stage/assets/i/favicon.jpg">
+  <meta name="msapplication-TileImage" th:content="@{${basePath}+'stage/assets/i/favicon.jpg'}" content="stage/assets/i/favicon.jpg">
+  <meta name="msapplication-TileColor" content="#0e90d2">
+  <link rel="stylesheet" th:href="@{${basePath}+'stage/assets/css/amazeui.min.css'}" href="stage/assets/css/amazeui.min.css">
+  <link rel="stylesheet" th:href="@{${basePath}+'stage/assets/css/app.css'}" href="stage/assets/css/app.css">
+  <link rel="stylesheet" th:href="@{${basePath}+'plug-in/bootstrap3.3.7/fonts/glyphicons-halflings-regular.woff'}" href="plug-in/bootstrap3.3.7/fonts/glyphicons-halflings-regular.woff" />
+  <link rel="stylesheet" th:href="@{${basePath}+'plug-in/bootstrap3.3.7/css/bootstrap.min.css'}" href="plug-in/bootstrap3.3.7/css/bootstrap.min.css" />
+  <!-- <link rel="stylesheet" href="plug-in/bootstrap3.3.7/css/bootstrap-theme.min.css" /> -->
+  <link rel="stylesheet" th:href="@{${basePath}+'plug-in/bootstrap3.3.7/buttons.css'}" href="plug-in/bootstrap3.3.7/buttons.css">
+  <link rel="stylesheet" th:href="@{${basePath}+'moudle/admin.css'}" href="moudle/admin.css"/>
+<link rel="stylesheet" th:href="@{${basePath}+'plug-in/bootstrap-table/bootstrap-table.css'}" href="plug-in/bootstrap-table/bootstrap-table.css"/>
+
+</head>
+<body id="blog" style="height: 100%; color: rgb(0, 0, 0); ">
+<!-- <header class="am-g am-g-fixed blog-fixed blog-text-center blog-header">
+	
+    <div class="am-u-sm-8 am-u-sm-centered">
+        <img width="200" src="https://www.aroad.xyz/source/img/favicon.png" alt="Amaze UI Logo"/>
+        <h2 class="am-hide-sm-only">我似江潮来又去，君如鸥鹭逐波还</h2>
+    </div>
+</header>
+<hr> -->
+<!-- <div th:include="common/admin :: daoTop"></div> -->
+<!-- <hr> -->
+<div class="am-g am-g-fixed blog-fixed blog-content">
+<div class="container">
+		<!-- 标题 -->
+		<div class="row">
+		  <div class="col-md-12" style="height: 25px;margin-top: 10px;">
+		  	<strong>博客配置 </strong>&nbsp; / &nbsp; <span >首页菜单 </span>
+		  </div>
+		</div>
+		
+		<div  class="panel panel-default  panel-info " style="margin-top: 5px">
+			<div class="panel-heading ">
+				<h5 class="panel-title">菜单列表
+                <a  data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+	                <button type="button" class="btn btn-primary btn-sm ">
+	            	<span class="glyphicon glyphicon-chevron-down"></span>展开/收起
+	           		 </button></a>
+           		 </h5>
+			</div>
+			<div id="collapseOne" class="panel-collapse collapse in">
+  			<div class="panel-body">
+		<!-- 按钮 -->
+		<div class="row">
+			<div class="col-md-12">
+				<form class="form-inline" id="queryForm">
+					  <div class="form-group input-group-sm">
+					    <label for="queryMenuName">菜单名称</label>
+					    <input type="text" name="queryMenuName" class="form-control" id="queryMenuName" placeholder="">
+					  </div>
+					 <!--  <div class="form-group input-group-sm">
+					    <label for="exampleInputEmail2"></label>
+					    <input type="text" name="linkName"  class="form-control" id="querylinkName" placeholder="">
+					  </div> -->
+					  <div class="form-group " >
+					    <label class="control-label">是否显示</label>
+						    <select class="form-control" name="queryisShow" id="queryisShow">
+						    	<option value="">请选择</option>
+						    	<option value="1">已显示</option>
+						    	<option value="0">未显示</option>
+							</select>
+					  </div>
+					   <button type="button" class="btn btn-primary btn-sm" id="query_handle"><span class="glyphicon glyphicon-search"></span>查询</button>
+						 <button type="button" class="btn btn-primary btn-sm" id="query_delete_all"><span class="glyphicon glyphicon-remove"></span>清空条件</button>
+					</form>
+					
+			</div>
+		     <div id="toolbar" > <!-- style="padding-top: 4px; padding-bottom: 4px" -->
+		     	<button type="button" class="btn btn-primary btn-sm" id="add_model_btn"><span class="glyphicon glyphicon-plus"></span> 新增</button>
+		    	<button type="button" class="btn btn-danger btn-sm" id="menu_delete_all"><span class="glyphicon glyphicon-trash"></span>批量删除</button>
+				<button type="button" class="btn btn-success btn-sm" id="menu_refresh"><span class="glyphicon glyphicon-refresh"></span>刷新</button>
+		    </div>
+		</div>
+		
+		<!-- 表格数据 -->
+		<div class="row  ">
+			    <div class="col-md-12">
+			    	<table id="tree_table" class="table table-bordered table-hover" >
+			    		<!-- <thead>
+			    		<tr>
+			    			<th><input type="checkbox" id="check_all"/></th>
+			    			<th>编号</th>
+			    			<th>菜单名称</th>
+			    			<th>菜单代码</th>
+			    			<th>菜单URL</th>
+			    			<th>菜单描述</th>
+			    			<th align="center">是否显示</th>
+			    			<th>新增时间</th>
+			    			<th>最后修改时间</th>
+			    			<th>操作</th>
+			    		</tr>
+			    		</thead>
+			    		<tbody>
+			    		</tbody> -->
+			    	</table>
+			    </div>
+			
+			
+			
+			</div>
+			<!-- 分页 -->
+			<div class="row">
+			    <div class="col-md-6" id="page_info">
+			    </div>
+			    <div class="col-md-6" id="page_navi">
+			    </div>
+			</div>
+			</div><!-- #collapseOne  end-->
+		</div>
+		</div>
+	</div>
+</div>
+<hr>
+<footer class="blog-footer">
+     <!-- <div th:include="common/footer :: copy"></div> -->
+    <!-- <div class="blog-text-center">© 2015 AllMobilize, Inc. Licensed under MIT license. Made with love By LWXYFER</div>     -->
+</footer>
+  <script th:src="@{${basePath}+'plug-in/fileinput/js/jquery-2.0.3.min.js'}" src="plug-in/fileinput/js/jquery-2.0.3.min.js"></script>
+  <script th:src="@{${basePath}+'plug-in/bootstrap3.3.7/js/bootstrap.min.js'}" src="plug-in/bootstrap3.3.7/js/bootstrap.min.js"></script>
+  <script th:src="@{${basePath}+'plug-in/bootstrap-table/bootstrap-table.js'}" src="plug-in/bootstrap-table/bootstrap-table.js"></script>
+  <script th:src="@{${basePath}+'plug-in/bootstrap-table/extensions/treegrid/bootstrap-table-treegrid.js'}" src="plug-in/bootstrap-table/extensions/treegrid/bootstrap-table-treegrid.js"></script>
+<!--   <script src="https://cdn.bootcss.com/jquery-treegrid/0.2.0/js/jquery.treegrid.min.js"></script> -->
+  <script th:src="@{${basePath}+'plug-in/jquery-treetable/jquery.treegrid.min.js'}" src="plug-in/jquery-treetable/jquery.treegrid.min.js"></script>
+  <script th:src="@{${basePath}+'plug-in/bootstrap-table/locale/bootstrap-table-zh-CN.js'}" src="plug-in/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
+<script type="text/javascript">
+    var $table = $('#tree_table');
+    $(function(){
+    	  //1.初始化Table
+        var oTable = new TableInit();
+        oTable.Init();
+
+        //2.初始化Button的点击事件
+        var oButtonInit = new ButtonInit();
+        oButtonInit.Init();
+        
+    });
+    
+    var TableInit = function () {
+        var oTableInit = new Object();
+        //初始化Table
+        oTableInit.Init = function () {
+        	$table.bootstrapTable({
+                url: 'menusTree2',         //请求后台的URL（*）
+                method: 'get',                      //请求方式（*）
+                toolbar: '#toolbar',                //工具按钮用哪个容器
+                striped: true,                      //是否显示行间隔色
+                cache: false,                       //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+                pagination: true,                   //是否显示分页（*）
+                sortable: false,                     //是否启用排序
+                sortOrder: "asc",                   //排序方式
+                queryParams: oTableInit.queryParams,//传递参数（*）
+                sidePagination: "server",           //分页方式：client客户端分页，server服务端分页（*）
+                pageNumber:1,                       //初始化加载第一页，默认第一页
+                pageSize: 50,                       //每页的记录行数（*）
+                pageList: [10, 25, 50, 100],        //可供选择的每页的行数（*）
+                search: true,                       //是否显示表格搜索，此搜索是客户端搜索，不会进服务端，所以，个人感觉意义不大
+                strictSearch: true,
+                showColumns: false,                  //是否显示所有的列
+                showRefresh: true,                  //是否显示刷新按钮
+                locale: "zh-CN",
+                striped: true,
+                minimumCountColumns: 2,             //最少允许的列数
+                clickToSelect: false,                //是否启用点击选中行
+                //height: 500,                        //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
+                uniqueId: "id",                     //每一行的唯一标识，一般为主键列
+                showToggle:false,                    //是否显示详细视图和列表视图的切换按钮
+                cardView: false,                    //是否显示详细视图
+                detailView: false,                   //是否显示父子表
+                columns: [
+                	{ checkbox: true }, 
+                	{ field: 'menuName',title: '菜单名称'}, 
+                	{field: 'menuCode',title: '菜单代码'}, 
+                	{field: 'menuUrl',title: '菜单链接'}, 
+                	{field: 'id',title: '编号'}, 
+                	{field: 'parentId',title: '父编号'}, 
+                	{field: 'menuLevel',title: '级别'}, 
+                    {field: 'opt', title: '操作', formatter: function (value, row, index) {
+                        var opt = '<button type="button" class="btn btn-warning btn-xs edit_model_btn" edit-id="'+row.id+'" ><span class="glyphicon glyphicon-edit"></span>编辑</button>';
+                        opt += '&nbsp;<button type="button" class="btn btn-danger btn-xs del_model_btn" del-id="'+row.id+'"><span class="glyphicon glyphicon-remove"></span>删除</button>';
+                        return opt;
+                      }, }
+                    ],
+	            treeShowField: 'menuName',
+	            idField: 'id',
+	            parentIdField: 'parentId',
+	            onLoadSuccess: function(data) {
+                    $table.treegrid({
+                        //initialState: 'collapsed',//收缩
+                        initialState: 'expanded',//收缩
+                        treeColumn: 1,//指明第几列数据改为树形
+                        expanderExpandedClass: 'glyphicon glyphicon-triangle-bottom',
+                        expanderCollapsedClass: 'glyphicon glyphicon-triangle-right',
+                        onChange: function() {
+                            $table.bootstrapTable('resetWidth');
+                        }
+                    });
+                },
+        		onLoadError: function () {
+        		        showTips("数据加载失败！");
+        		},
+        		onDblClickRow: function (row, $element) {
+        		   		 var id = row.ID;
+        			     EditViewById(id, 'view');
+        		},
+            });
+        };
+
+        //得到查询的参数
+        oTableInit.queryParams = function (params) {
+            var temp = {   //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
+                limit: params.limit,   //页面大小
+                offset: (params.offset / params.limit) + 1,  //页码
+                sort: params.sort,      //排序列名  
+                sortOrder: params.order, //排位命令（desc，asc）
+                menuName: $("#queryMenuName").val(),
+                isShow: $("#queryisShow").val()
+            };
+            return temp;
+        };
+        return oTableInit;
+    };
+    
+    var ButtonInit = function () {
+        var oInit = new Object();
+        var postdata = {};
+
+        oInit.Init = function () {
+            //初始化页面上面的按钮事件
+            $(".edit_model_btn").click(function(){
+            	$(this).arrt();
+            	update(id, row);
+            });
+        };
+
+        return oInit;
+    };
+    
+    function getDataFrom(query){
+    	$.ajax({
+			url:"menusTree" ,
+			data:"?1=1"+query,
+			type:"post",
+			async: false,
+			dataType:'jsonp',
+			success:function(result){
+				console.log(result);
+				//data = JSON.stringify(result);
+				console.log('\''+ data+'\'');
+			}
+		});
+    }
+
+    function update(id, row) {
+        //alert("update 方法 , id = " + id);
+        getparents();
+        $.ajax({
+			url:"editMenu/"+id,
+			data:"id="+id,
+			type:"POST",
+			success:function(result){
+				clear_model();
+				
+				init_add_model(result,"edit");
+				
+				$("#addModal").modal({
+					backdrop:"static"
+				});
+			}
+		});
+    }
+
+    function initblindFunc(){
+    	//绑定单击保存
+		$("#save_btn").click(function(){
+			//1.将模态框的内容提交后台保存到数据库
+			//alert($("#addModal form").serialize());
+			//2.发送ajax请求保存
+	 		$.ajax({
+				url:"savemenu",
+				type:"post",
+				//contentType:'application/json;charset=utf-8',
+				data:$("#addModal form").serializeArray(),
+				cache : false,
+				success:function(result){
+					if(result.success){
+						AlertModal("success",result.msg);
+						//员工保存成功1.要关闭模态框，2来到最后一页
+						$('#addModal').modal('hide');
+						to_page(currPageNum);
+					}else{
+						AlertModal("error",result.msg);
+					}
+				},
+				error:function(data,type, err){
+			         console.log("ajax错误类型："+type);
+			         console.log(err);
+					 AlertModal("error",err);
+				}
+			});  
+		});
+    	
+		  
+	    //点击新增，弹出模态框
+		$("#add_model_btn").click(function(){
+			//alert("add_model_btn click ");
+			clear_model();
+			getparents();
+			$("#addModalLabel").text("新增菜单信息");
+			//弹出模态框
+			$("#addModal").modal({
+				backdrop:"static"
+			});
+		});
+	    
+		$(document).on("click","#menu_refresh",function (){
+			//alert(11111);
+			$table.bootstrapTable('refresh',{url: 'menusTree2' ,queryParams : TableInit.queryParams});
+		}); 
+		
+		$(document).on("click","#query_handle",function (){
+			$table.bootstrapTable('refresh',{url: 'menusTree2' ,queryParams : TableInit.queryParams});
+		});
+    }
+	function clear_model(){
+		$("#input_menuId").val("");
+		$("#input_menuName").val("");
+		$("#input_menuCode").val("");
+		$("#input_menuUrl").val("");
+		$("#input_menuNote").val("");
+		$("#addModal input").removeAttr("readonly");
+		$("#addModal select").removeAttr("disabled");
+		$("#addModal input:checkbox").removeAttr("disabled");
+		$("#save_btn").show();
+	}
+	
+	function init_add_model(result,type){
+		var object = result.extend.object;
+		$("#input_menuId").val(object.id);
+		
+		$("#input_menuName").val(object.menuName);
+		$("#input_menuCode").val(object.menuCode);
+		$("#input_menuUrl").val(object.menuUrl);
+		$("#input_menuNote").val(object.menuNote);
+		$("#input_parent_id").val(object.parentId);
+		//$("#input_parent_id").find("option[value="+object.parentId+"]").attr("selected",true);
+		$("#input_hasParent").val(object.hasParent);
+		$("#input_hasParent").prop("checked", object.hasParent);
+		
+		$("#input_level").val(object.menuLevel);
+				$("#input_order").val(object.order);
+		if(type=="edit"){
+			$("#addModalLabel").text("编辑菜单信息");
+		}
+		$("#addModal input").removeAttr("readonly");
+		$("#addModal select").removeAttr("disabled");
+		$("#addModal input:checkbox").removeAttr("disabled");
+		$("#save_btn").show();
+		if(type=="view"){
+			$("#addModalLabel").text("查看菜单信息");
+			$("#addModal input").attr("readonly","readonly");
+			$("#addModal select").attr("disabled","disabled");
+			$("#addModal input:checkbox").attr("disabled","disabled");
+			$("#save_btn").hide();
+		}
+	}
+	
+    function getparents(){
+		$.ajax({
+			url:"menuList",
+			data:JSON.stringify({}),
+			type:"post",
+			async: false,
+			contentType: "application/json;charset=UTF-8",
+			success:function(result){
+				//console.log(result);
+				
+				$("#input_parent_id").empty();
+				$("#input_parent_id").append($("<option value=\"\">请选择父级类型</option>)"));
+				$.each(result.extend.list,function(){
+
+					var optionEl = $("<option ></option>").append(this.menuName+" - ").attr("value",this.id);
+					$("#input_parent_id").append(optionEl);
+				});
+				 //$("#input_type_id option[value="+typeId+"]").attr("selected", true); 
+			},
+			error:function(responseText,status,error){
+				console.log(status);
+				console.log(responseText);
+				console.log(error);
+				alert("失败！");
+			}
+		});
+	}
+</script>
+<!-- 新增模态框 -->
+<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+  <div class="modal-dialog " role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="addModalLabel">新增菜单地址</h4>
+      </div>
+      <div class="modal-body">
+       <form class="form-horizontal" onsubmit="return false">
+       		<input type="hidden" name="id" class="form-control" id="input_menuId">
+		  <div class="form-group input-group-sm">
+		    <label for="input_menuName" class="col-sm-2 control-label">菜单名称</label>
+		    <div class="col-sm-8">
+		      <input type="text" name="menuName" class="form-control" id="input_menuName" placeholder="菜单名称" data-toggle="tooltip" title="菜单名称" >
+		      <span id="menuName_block" class="help-block"></span>
+		    </div>
+		  </div>
+		  <div class="form-group input-group-sm">
+		    <label for="input_menuCode" class="col-sm-2 control-label">菜单代码</label>
+		    <div class="col-sm-8">
+		      <input type="text"name="menuCode" class="form-control" id="input_menuCode" placeholder="菜单代码" data-toggle="tooltip" title="菜单代码" >
+		      <span id="menuCode_block" class="help-block"></span>
+		    </div>
+		  </div>
+		  <div class="form-group input-group-sm">
+		    <label for="input_menuUrl" class="col-sm-2 control-label">菜单URL</label>
+		    <div class="col-sm-8">
+		      <input type="text" name="menuUrl" class="form-control" id="input_menuUrl " placeholder="菜单URL" data-toggle="tooltip" title="菜单URL" value="">
+		      <span id="menuUrl_block" class="help-block"></span>
+		    </div>
+		  </div>
+		   <div class="form-group input-group-sm">
+		    <label for="inpput_menuNote" class="col-sm-2 control-label">菜单描述</label>
+		    <div class="col-sm-8">
+		      <input type="text" name="menuNote" class="form-control" id="input_menuNote" placeholder="菜单描述" data-toggle="tooltip" title="菜单描述" value="">
+		      <span id="menuNote_block" class="help-block"></span>
+		    </div>
+		  </div>
+		  <div class="form-group input-group-sm">
+		    <label for="inpput_menuNote" class="col-sm-2 control-label">是否子级</label>
+		    <div class="col-sm-2">
+		      <input type="checkbox" name="hasParent" class="form-control" id="input_hasParent" placeholder="菜单描述" data-toggle="tooltip" title="菜单描述" value="0">
+		      <span id="menuNote_block" class="help-block"></span>
+		    </div>
+		     <label for="input_parent_id" class="col-sm-2 control-label">父级菜单</label>
+		    <div class="col-sm-4">
+		      <select type="text"name="parentId" class="form-control" id="input_parent_id" >
+		      </select>
+		      <span id="menuCode_block" class="help-block"></span>
+		    </div>
+		  </div>
+		  <div class="form-group input-group-sm">
+		  </div>
+		  <div class="form-group input-group-sm">
+		    <label for="input_level" class="col-sm-2 control-label">菜单级别</label>
+		    <div class="col-sm-2">
+		      <input type="text"name="menuLevel" class="form-control" id="input_level" placeholder="菜单级别[0,1,2,3]" data-toggle="tooltip" title="菜单级别," value="0"/>
+		      <span id="menuCode_block" class="help-block"></span>
+		    </div>
+		 <!--  </div>
+		  <div class="form-group input-group-sm"> -->
+		    <label for="input_order" class="col-sm-2 control-label">排序序号</label>
+		    <div class="col-sm-4">
+		      <input type="text"name="order" class="form-control" id="input_order" placeholder="排序序号[0,1,2,3]" data-toggle="tooltip" title="排序序号，越小越靠前" value="0">
+		      <span id="menuCode_block" class="help-block"></span>
+		    </div>
+		  </div>
+		</form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+        <button type="button" class="btn btn-primary" id="save_btn">保存</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div th:include="common/message :: msg"></div> 
+</body>
+</html>

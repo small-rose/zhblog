@@ -1,0 +1,410 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zzy.blog.web.mapper.CommentMapper">
+  <resultMap id="BaseResultMap" type="com.zzy.blog.web.pojo.Comment">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="parent_id" jdbcType="BIGINT" property="parentId" />
+    <result column="article_Id" jdbcType="BIGINT" property="articleId" />
+    <result column="cmt_utx" jdbcType="VARCHAR" property="cmtUtx" />
+    <result column="cmt_uname" jdbcType="VARCHAR" property="cmtUname" />
+    <result column="cmt_uemail" jdbcType="VARCHAR" property="cmtUemail" />
+    <result column="cmt_web_url" jdbcType="VARCHAR" property="cmtWebUrl" />
+    <result column="cmt_appr" jdbcType="INTEGER" property="cmtAppr" />
+    <result column="cmt_Date" jdbcType="VARCHAR" property="cmtDate" />
+    <result column="like_yes" jdbcType="INTEGER" property="likeYes" />
+    <result column="like_no" jdbcType="INTEGER" property="likeNo" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.zzy.blog.web.pojo.Comment">
+    <result column="cmt_Content" jdbcType="LONGVARCHAR" property="cmtContent" />
+  </resultMap>
+  
+   <resultMap extends="ResultMapWithBLOBs" id="ResultMapWithRelation" type="com.zzy.blog.web.pojo.CommentCustom">
+   		 <association property="article" column="article_Id"                       
+            select="com.zzy.blog.web.mapper.ArticleMapper.selectByPrimaryKey" />
+         <collection property="children" ofType="com.zzy.blog.web.pojo.CommentCustom" javaType="java.util.ArrayList"
+         select="com.zzy.blog.web.mapper.CommentMapper.selectchildrenById" column="id">
+		</collection>   
+  </resultMap>
+  
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, parent_id, article_Id, cmt_utx, cmt_uname, cmt_uemail, cmt_web_url, cmt_appr, 
+    cmt_Date, like_yes, like_no
+  </sql>
+  <sql id="Blob_Column_List">
+    cmt_Content
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.zzy.blog.web.pojo.CommentQuery" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from bk_comment
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.zzy.blog.web.pojo.CommentQuery" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from bk_comment
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from bk_comment
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from bk_comment
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.zzy.blog.web.pojo.CommentQuery">
+    delete from bk_comment
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.zzy.blog.web.pojo.Comment">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into bk_comment (parent_id, article_Id, cmt_utx, 
+      cmt_uname, cmt_uemail, cmt_web_url, 
+      cmt_appr, cmt_Date, like_yes, 
+      like_no, cmt_Content)
+    values (#{parentId,jdbcType=BIGINT}, #{articleId,jdbcType=BIGINT}, #{cmtUtx,jdbcType=VARCHAR}, 
+      #{cmtUname,jdbcType=VARCHAR}, #{cmtUemail,jdbcType=VARCHAR}, #{cmtWebUrl,jdbcType=VARCHAR}, 
+      #{cmtAppr,jdbcType=INTEGER}, #{cmtDate,jdbcType=VARCHAR}, #{likeYes,jdbcType=INTEGER}, 
+      #{likeNo,jdbcType=INTEGER}, #{cmtContent,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zzy.blog.web.pojo.Comment">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into bk_comment
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="parentId != null">
+        parent_id,
+      </if>
+      <if test="articleId != null">
+        article_Id,
+      </if>
+      <if test="cmtUtx != null">
+        cmt_utx,
+      </if>
+      <if test="cmtUname != null">
+        cmt_uname,
+      </if>
+      <if test="cmtUemail != null">
+        cmt_uemail,
+      </if>
+      <if test="cmtWebUrl != null">
+        cmt_web_url,
+      </if>
+      <if test="cmtAppr != null">
+        cmt_appr,
+      </if>
+      <if test="cmtDate != null">
+        cmt_Date,
+      </if>
+      <if test="likeYes != null">
+        like_yes,
+      </if>
+      <if test="likeNo != null">
+        like_no,
+      </if>
+      <if test="cmtContent != null">
+        cmt_Content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="parentId != null">
+        #{parentId,jdbcType=BIGINT},
+      </if>
+      <if test="articleId != null">
+        #{articleId,jdbcType=BIGINT},
+      </if>
+      <if test="cmtUtx != null">
+        #{cmtUtx,jdbcType=VARCHAR},
+      </if>
+      <if test="cmtUname != null">
+        #{cmtUname,jdbcType=VARCHAR},
+      </if>
+      <if test="cmtUemail != null">
+        #{cmtUemail,jdbcType=VARCHAR},
+      </if>
+      <if test="cmtWebUrl != null">
+        #{cmtWebUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="cmtAppr != null">
+        #{cmtAppr,jdbcType=INTEGER},
+      </if>
+      <if test="cmtDate != null">
+        #{cmtDate,jdbcType=VARCHAR},
+      </if>
+      <if test="likeYes != null">
+        #{likeYes,jdbcType=INTEGER},
+      </if>
+      <if test="likeNo != null">
+        #{likeNo,jdbcType=INTEGER},
+      </if>
+      <if test="cmtContent != null">
+        #{cmtContent,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.zzy.blog.web.pojo.CommentQuery" resultType="java.lang.Long">
+    select count(*) from bk_comment
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update bk_comment
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.parentId != null">
+        parent_id = #{record.parentId,jdbcType=BIGINT},
+      </if>
+      <if test="record.articleId != null">
+        article_Id = #{record.articleId,jdbcType=BIGINT},
+      </if>
+      <if test="record.cmtUtx != null">
+        cmt_utx = #{record.cmtUtx,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cmtUname != null">
+        cmt_uname = #{record.cmtUname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cmtUemail != null">
+        cmt_uemail = #{record.cmtUemail,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cmtWebUrl != null">
+        cmt_web_url = #{record.cmtWebUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cmtAppr != null">
+        cmt_appr = #{record.cmtAppr,jdbcType=INTEGER},
+      </if>
+      <if test="record.cmtDate != null">
+        cmt_Date = #{record.cmtDate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.likeYes != null">
+        like_yes = #{record.likeYes,jdbcType=INTEGER},
+      </if>
+      <if test="record.likeNo != null">
+        like_no = #{record.likeNo,jdbcType=INTEGER},
+      </if>
+      <if test="record.cmtContent != null">
+        cmt_Content = #{record.cmtContent,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update bk_comment
+    set id = #{record.id,jdbcType=BIGINT},
+      parent_id = #{record.parentId,jdbcType=BIGINT},
+      article_Id = #{record.articleId,jdbcType=BIGINT},
+      cmt_utx = #{record.cmtUtx,jdbcType=VARCHAR},
+      cmt_uname = #{record.cmtUname,jdbcType=VARCHAR},
+      cmt_uemail = #{record.cmtUemail,jdbcType=VARCHAR},
+      cmt_web_url = #{record.cmtWebUrl,jdbcType=VARCHAR},
+      cmt_appr = #{record.cmtAppr,jdbcType=INTEGER},
+      cmt_Date = #{record.cmtDate,jdbcType=VARCHAR},
+      like_yes = #{record.likeYes,jdbcType=INTEGER},
+      like_no = #{record.likeNo,jdbcType=INTEGER},
+      cmt_Content = #{record.cmtContent,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update bk_comment
+    set id = #{record.id,jdbcType=BIGINT},
+      parent_id = #{record.parentId,jdbcType=BIGINT},
+      article_Id = #{record.articleId,jdbcType=BIGINT},
+      cmt_utx = #{record.cmtUtx,jdbcType=VARCHAR},
+      cmt_uname = #{record.cmtUname,jdbcType=VARCHAR},
+      cmt_uemail = #{record.cmtUemail,jdbcType=VARCHAR},
+      cmt_web_url = #{record.cmtWebUrl,jdbcType=VARCHAR},
+      cmt_appr = #{record.cmtAppr,jdbcType=INTEGER},
+      cmt_Date = #{record.cmtDate,jdbcType=VARCHAR},
+      like_yes = #{record.likeYes,jdbcType=INTEGER},
+      like_no = #{record.likeNo,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zzy.blog.web.pojo.Comment">
+    update bk_comment
+    <set>
+      <if test="parentId != null">
+        parent_id = #{parentId,jdbcType=BIGINT},
+      </if>
+      <if test="articleId != null">
+        article_Id = #{articleId,jdbcType=BIGINT},
+      </if>
+      <if test="cmtUtx != null">
+        cmt_utx = #{cmtUtx,jdbcType=VARCHAR},
+      </if>
+      <if test="cmtUname != null">
+        cmt_uname = #{cmtUname,jdbcType=VARCHAR},
+      </if>
+      <if test="cmtUemail != null">
+        cmt_uemail = #{cmtUemail,jdbcType=VARCHAR},
+      </if>
+      <if test="cmtWebUrl != null">
+        cmt_web_url = #{cmtWebUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="cmtAppr != null">
+        cmt_appr = #{cmtAppr,jdbcType=INTEGER},
+      </if>
+      <if test="cmtDate != null">
+        cmt_Date = #{cmtDate,jdbcType=VARCHAR},
+      </if>
+      <if test="likeYes != null">
+        like_yes = #{likeYes,jdbcType=INTEGER},
+      </if>
+      <if test="likeNo != null">
+        like_no = #{likeNo,jdbcType=INTEGER},
+      </if>
+      <if test="cmtContent != null">
+        cmt_Content = #{cmtContent,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.zzy.blog.web.pojo.Comment">
+    update bk_comment
+    set parent_id = #{parentId,jdbcType=BIGINT},
+      article_Id = #{articleId,jdbcType=BIGINT},
+      cmt_utx = #{cmtUtx,jdbcType=VARCHAR},
+      cmt_uname = #{cmtUname,jdbcType=VARCHAR},
+      cmt_uemail = #{cmtUemail,jdbcType=VARCHAR},
+      cmt_web_url = #{cmtWebUrl,jdbcType=VARCHAR},
+      cmt_appr = #{cmtAppr,jdbcType=INTEGER},
+      cmt_Date = #{cmtDate,jdbcType=VARCHAR},
+      like_yes = #{likeYes,jdbcType=INTEGER},
+      like_no = #{likeNo,jdbcType=INTEGER},
+      cmt_Content = #{cmtContent,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zzy.blog.web.pojo.Comment">
+    update bk_comment
+    set parent_id = #{parentId,jdbcType=BIGINT},
+      article_Id = #{articleId,jdbcType=BIGINT},
+      cmt_utx = #{cmtUtx,jdbcType=VARCHAR},
+      cmt_uname = #{cmtUname,jdbcType=VARCHAR},
+      cmt_uemail = #{cmtUemail,jdbcType=VARCHAR},
+      cmt_web_url = #{cmtWebUrl,jdbcType=VARCHAR},
+      cmt_appr = #{cmtAppr,jdbcType=INTEGER},
+      cmt_Date = #{cmtDate,jdbcType=VARCHAR},
+      like_yes = #{likeYes,jdbcType=INTEGER},
+      like_no = #{likeNo,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  
+  <select id="selectCommentCustom" resultMap="ResultMapWithRelation">
+  	select * from bk_comment where cmt_appr=1 
+  	 and ( parent_id is null or parent_id=0 or parent_id='' )  
+  	 and article_Id = #{articleId,jdbcType=BIGINT}
+  	order by cmt_Date desc
+  </select>
+  
+  <select id="selectchildrenById" resultMap="ResultMapWithRelation" >
+  		select * from bk_comment where parent_id = #{id,jdbcType=BIGINT} order by cmt_Date desc
+  </select>
+  
+  <select id="selectCommentListByArtId" parameterType="java.lang.Long" resultMap="ResultMapWithRelation">
+  	select * from bk_comment where cmt_appr=1 and
+  	( parent_id is null or parent_id=0 or parent_id='' )
+  	and 
+  	article_Id = #{id,jdbcType=BIGINT}
+  	order by cmt_Date desc
+  </select>
+  
+    <select id="selectCommentListByArticleId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+  	select id from bk_comment where cmt_appr=1 and
+  	article_Id = #{id,jdbcType=BIGINT}
+  </select>
+</mapper>

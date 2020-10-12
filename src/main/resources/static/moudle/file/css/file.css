@@ -1,0 +1,187 @@
+@CHARSET "UTF-8";
+/*= Reset =*/
+.zitiTest{
+	font-family:STLiti; 
+	font-size: 20px;
+}
+.clearfix:after {
+visibility: hidden;
+display: block;
+font-size: 0;
+content: " ";
+clear: both;
+height: 0;
+}
+
+.box { 
+/* width:940px; */
+margin:18px auto 0 auto; 
+}
+
+.event_year { 
+	width:60px;
+	border-bottom:2px solid #DDD;
+	text-align:center;
+	float:left;
+	margin-top:10px; 
+	padding: 0;
+	}
+.event_year li { 
+
+   list-style-type :none;
+	height:40px;
+	line-height:40px;
+	/* background:#FFF; */
+	margin-bottom:1px;
+	font-size:18px;
+	/* color:#828282; */
+	cursor:pointer; 
+}
+.event_year label{
+	font-family:Georgia ;
+}
+.event_year li :hover{ 
+
+   list-style-type :none;
+	height:40px;
+	line-height:40px;
+	/* background:#FFF; */
+	margin-bottom:1px;
+	font-size:21px;
+	/* color:#4cb0f9;  */
+	cursor:pointer; 
+}
+
+.event_year li.current { 
+	width:61px;
+	/* background:#0066ff url('../img/jian.png') 60px 0 no-repeat; */
+	background:#0080ff 60px 0 no-repeat;
+	color:#FFF;
+	text-align:left;
+	padding-left:9px; 
+}
+.event_list { 
+	/* width:850px; */
+	/* float:left; */
+	background:url('../img/dian3.png') 154px 0 repeat-y;
+	margin:15px 0 20px 0; 
+	
+	}
+.event_list h3 { 
+	margin:0 0 10px 132px;font-size:24px;font-family:Georgia;
+	color:#0066ff;padding-left:25px;background:url('../img/jian.png') 0 -45px no-repeat;
+	height:38px;line-height:30px;/* font-style:italic; */ }
+.event_list li { 
+	list-style-type :none;
+	padding:5px;
+	background:url('../img/jian.png') 136px -80px no-repeat; 
+	/* height: 70px; */
+	/* display:block; */
+	display:inline-block;
+}
+.event_list li span { 
+	width: 110px;
+	text-align:right;
+	display:block;
+	float:left;
+	margin-top:5px; 
+	font-family:Georgia ;
+	font-size: 14px;
+	/* font-family: Microsoft YaHei;  */
+ 	/* font-style:italic; */
+}
+.event_list li p { 
+	/* width: 500px; */
+	width: 100%;
+	/* margin-left:24px; */
+	margin-left: 144px;
+	margin-top: -38px;
+	display:inline-block;
+	padding-left:10px;
+	/* background:url('../img/jian.png') -21px 0 no-repeat; */
+	line-height:25px;_float:left; 
+	
+}
+.event_list li p span { 
+	width:400px;
+	text-align:left;
+	border-top:1px solid #DDD;
+	border-bottom:1px solid #DDD;
+	border-left:1px solid #DDD;
+	border-right:1px solid #DDD;
+	padding: 3px 8px;
+	background:#FFF;
+    margin: 0 0 0px 3px;
+    font-size: 12px/20px;
+    font-family:STLiti; 
+ 	/* font-family:STLiti;  */
+ 	font-family: Microsoft YaHei;
+ 	border-radius:5px 5px 5px 5px;
+ 	/* font-style:italic; */
+ 	transition: all 1.8s;
+ }
+.event_list li p span:hover{
+	/* box-shadow: #666 0px 0px 10px; */
+	box-shadow: #45acef 1px 1px 5px;
+	font-size: 14px;
+	color:black;
+	/* font-weight: bold; */
+	border-color: transparent;
+	border-radius:5px 5px 5px 5px;
+	
+	transition: all 1.8s;
+	transform:translateY(-5px);
+	transform:translateY(5px);
+	transform:translateY(-3px);
+
+}
+
+.titlelist{line-height:24px;color: #8C8C8C;padding-bottom:20px;}
+.titlelist dt { font-weight: bold;color:#666;white-space: nowrap;margin:10px;}
+.titlelist dd {padding-left: 13px;}
+h1 {
+    background: url("http://ww.chinaz.com/about/images/h1-bg.gif") no-repeat scroll left bottom rgba(0, 0, 0, 0);
+    font-family: Tahoma,Arial,sans-serif;
+    font-size: 14px;
+    margin-bottom: 15px;
+    padding-bottom: 12px;
+}
+.hr {
+    border-top: 1px solid #CCD5DE;
+    font-size: 0;
+    height: 0;
+    line-height: 0;
+    margin: 15px 0;
+}
+.red {
+    color: #0065CB;
+	font-size:15px;
+}
+
+.left-array{
+    width: 8px;
+    height: 18px;
+    border: 14px solid transparent;
+    border-right: 14px solid #0080ff; 
+   /*  border-right: 16px solid #DDD;  */
+    padding-left: 130px;
+    margin-top: 4px;
+ }
+ 
+.right-array{
+	width: 0px;
+    height: 0px;
+    border: 15px solid transparent;
+  /*   border-left: 14px solid #0080ff; */
+    margin-top:  -45px;
+    margin-left: 52px;
+    background-color: transparent;
+}  
+
+.right-array.current{
+	/* border-left: 16px solid #0080ff; */
+	border-left: 16px solid #DDD; 
+}
+.event_list.mulu{
+	width: 100%;
+}

@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>文章预览</title>
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-siteapp"/>
+  <link rel="icon" type="image/png" th:href="@{${basePath}+'stage/assets/i/favicon.jpg'}" href="stage/assets/i/favicon.jpg">
+  <meta name="mobile-web-app-capable" content="yes">
+  <link rel="icon" sizes="192x192" href="stage/assets/i/favicon.jpg">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="Amaze UI"/>
+  <link rel="apple-touch-icon-precomposed" href="stage/assets/i/favicon.jpg">
+  <meta name="msapplication-TileImage" content="stage/assets/i/favicon.jpg">
+  <meta name="msapplication-TileColor" content="#0e90d2">
+  <link rel="stylesheet" th:href="@{${basePath}+'plug-in/bootstrap3.3.7/fonts/glyphicons-halflings-regular.woff'}" href="plug-in/bootstrap3.3.7/fonts/glyphicons-halflings-regular.woff" />
+  <link rel="stylesheet" th:href="@{${basePath}+'plug-in/bootstrap3.3.7/css/bootstrap.min.css'}" href="plug-in/bootstrap3.3.7/css/bootstrap.min.css" />
+
+ <!--   <link rel="stylesheet" th:href="@{${basePath}+'plug-in/bootstrap3.3.7/css/bootstrap-theme.min.css'}" href="plug-in/bootstrap3.3.7/css/bootstrap-theme.min.css" />
+ -->  
+  <link type="text/css" rel="stylesheet" th:href="@{${basePath}+'moudle/zan/animate.css'}"/>
+  <link type="text/css" rel="stylesheet" th:href="@{${basePath}+'moudle/zan/iconfont.css'}"/>
+  <link type="text/css" rel="stylesheet" th:href="@{${basePath}+'moudle/zan/index.css'}"/>
+  
+  <link type="text/css" rel="stylesheet" th:href="@{${basePath}+'stage/assets/css/amazeui.css'}" href="stage/assets/css/amazeui.css">
+  <link type="text/css" rel="stylesheet" th:href="@{${basePath}+'stage/assets/css/app.css'}" href="stage/assets/css/app.css">
+  <link type="text/css" rel="stylesheet" th:href="@{${basePath}+'plug-in/bootstrap3.3.7/css/bootstrap.min.css'}" href="plug-in/bootstrap3.3.7/css/bootstrap.min.css" />
+  <link type="text/css" rel="stylesheet" th:href="@{${basePath}+'plug-in/mCustomScrollbar3.1.5/jquery.mCustomScrollbar.css'}" href="plug-in/mCustomScrollbar3.1.5/jquery.mCustomScrollbar.css" />
+  <link type="text/css" rel="stylesheet" th:href="@{${basePath}+'moudle/home.css'}" href="moudle/home.css" />
+   <link type="text/css" rel="stylesheet" th:href="@{${basePath}+'plug-in/bootstrap3.3.7/buttons.css'}" href="plug-in/bootstrap3.3.7/buttons.css"/>
+</head>
+
+<body id="blog-article-sidebar">
+
+<!-- <div class=" touming" th:include="common/topfix :: daoFixTop"></div> -->
+ <div th:include="common/daohang :: daoTop"></div>
+ 
+<div th:include="common/header :: headerTop"></div>
+
+<!-- <div th:include="common/daohang :: daoTop"></div> -->
+<div class="container divLine"> 
+</div>
+
+<!-- content srart -->
+<div class="am-g am-g-fixed blog-fixed blog-content">
+	<form action="">
+		<input type="hidden" id="aid" th:value="${article.id}"/>
+	</form>
+	<div class="am-u-sm-1 am-u-md-1 am-u-lg-12">
+	&nbsp;
+	</div>
+    <div class="am-u-sm-10 am-u-md-8 am-u-lg-12">
+      <article class="am-article blog-article-p">
+        <div class="am-article-hd">
+          <h1 class="am-article-title blog-text-center"><b><span th:text="${article.articleTitle}"></span></b></h1>
+          <p class="am-article-meta blog-text-center">
+              <span><a href="#" class="blog-color"><span th:text="${article.articleAuthor}"></span> &nbsp;</a></span>-
+              <span><a th:href="@{'/?t='+${article.type.id}}"><span th:text="${article.typeName}"></span>&nbsp;</a></span>-
+              <span><span th:text="${article.publishDate}"></span></span>
+          </p>
+        </div>        
+        <div class="am-article-bd" >
+        <!-- <img th:src="${basePath + article.image.picLocalAddress + article.image.picName}" src="" alt="" class="blog-entry-img blog-article-margin"> -->          
+        <p class="am-article-lead">
+		    文 <br>
+		／张小菜<br>
+		<span>
+		<span th:utext="${article.articleContent}"></span></span>
+        </p>
+        </div>
+      </article>
+         <div class="am-g blog-article-widget blog-article-margin">
+         <div class="am-u-lg-4 am-u-md-4 am-u-sm-4 am-u-sm-centered blog-text-center">
+          	 <button id="likeBtn" type="button"  class="btn button-primary" ><span class="glyphicon glyphicon-thumbs-up" ></span>(<span id="likeYes" th:text="${article.likeYes}"></span>)&nbsp; 了不得啊</button>  
+			 <button id="NolikeBtn" type="button"  class="btn button-caution " ><span class="glyphicon glyphicon-thumbs-down" ></span>(<span id="likeNo" th:text="${article.likeNo}"></span>)&nbsp; 甩鞋一只</button> 
+         </div>
+         </div>
+        <div class="am-g blog-article-widget blog-article-margin">
+          <div class="am-u-lg-4 am-u-md-5 am-u-sm-7 am-u-sm-centered blog-text-center">
+            <span class="am-icon-tags"> &nbsp;</span>
+            <span th:each="lm ,iterStat : ${article.tagList}">
+				<a th:each="entry:${lm}" th:text="${entry.tagName}" th:href="@{/product/tag(tagId=${entry.id})}" ></a> <span th:if=${!iterStat.last}>,</span> 
+			</span>
+            <!-- <a href="#">标签</a> , <a href="#">TAG</a> , <a href="#">啦啦</a> -->
+            <hr>
+            <a href=""><span class="am-icon-qq am-icon-fw am-primary blog-icon"></span></a>
+            <a href=""><span class="am-icon-wechat am-icon-fw blog-icon"></span></a>
+            <a href=""><span class="am-icon-weibo am-icon-fw blog-icon"></span></a>
+          </div>
+        </div>
+
+        <hr>
+        <div class="am-g blog-author blog-article-margin">
+          <div class="am-u-sm-3 am-u-md-3 am-u-lg-2">
+            <img th:src="${blogUser.localImgUrl}" src="../stage/assets/i/f15.jpg" alt="" class="blog-author-img am-circle">
+          </div>
+          <div class="am-u-sm-9 am-u-md-9 am-u-lg-10">
+          <h3><span>作者 &nbsp;: &nbsp;</span><span class="blog-color"><span th:text="${blogUser.realName}"></span></span></h3>
+            <p th:text="${blogUser.personalBrief}"></p>
+          </div>
+        </div>
+        <hr>
+        <ul class="am-pagination blog-article-margin">
+          <li class="am-pagination-prev">
+          <a th:if="${before==null}">&laquo; 没有了</a>
+          <a th:if="${before!=null}" th:href="'view?id='+${before.id}" >&laquo; <span th:text="${before.articleTitle}"></span></a></li>
+          <li class="am-pagination-next">
+          <a th:if="${after==null}">  没有了  &raquo;</a>
+          <a th:if="${after!=null}" th:href="'view?id='+${after.id}"><span th:text="${before.articleTitle}"></span> &raquo;</a></li>
+        </ul>
+        
+        <hr>
+		<div class="am-u-sm-12">
+        <form class="am-form am-g">
+            <h3 class="blog-comment">评论</h3>
+          <fieldset>
+            <div class="am-form-group am-u-sm-4 blog-clear-left">
+              <input type="text" class="" placeholder="名字">
+            </div>
+            <div class="am-form-group am-u-sm-4">
+              <input type="email" class="" placeholder="邮箱">
+            </div>
+
+            <div class="am-form-group am-u-sm-4 blog-clear-right">
+              <input type="password" class="" placeholder="网站">
+            </div>
+        
+            <div class="am-form-group">
+              <textarea class="" rows="5" placeholder="来都来了，不说几句吗？"></textarea>
+            </div>
+        
+            <p><button type="submit" class="am-btn am-btn-default">发表评论</button></p>
+          </fieldset>
+        </form>
+		</div>
+        <hr>
+    </div>
+    <div class="am-u-md-4 am-u-sm-12 blog-sidebar">
+   		<div class="blog-sidebar-widget blog-bor">
+            <h3 class="blog-text-center blog-title"><span>关于我</span></h3>
+            <img src="stage/assets/i/f14.jpg" th:src="${blogUser.localImgUrl}" alt="about me" class="blog-entry-img" >
+            <h4><b><span th:text="${blogUser.realName}"></span></b></h4>
+            <p id="about-me" class="blog-entry-article" th:text="${blogUser.personalBrief}"></p>
+        </div>
+
+        <div class="blog-sidebar-widget blog-bor">
+            <h3 class="blog-text-center blog-title"><span>联系方式</span></h3>
+            <p>
+                <a href="" th:title="${blogUser.qqAcct}"><span class="am-icon-qq am-icon-fw am-primary blog-icon"></span></a>
+                <a href="" th:title="${blogUser.ext1Acct}" th:href="${blogUser.ext1Acct}"><span class="am-icon-github am-icon-fw blog-icon"></span></a>
+                <a href="https://weibo.com/u/2647727137" th:title="${blogUser.WbAcct}"><span class="am-icon-weibo am-icon-fw blog-icon"></span></a>
+                <a href=""><span class="am-icon-reddit am-icon-fw blog-icon"></span></a>
+                <a href="" th:title="${blogUser.wxPublic}"><span class="am-icon-weixin am-icon-fw blog-icon"></span></a> 
+            </p>
+        </div>
+        <div class="blog-clear-margin blog-sidebar-widget blog-bor am-g ">
+            <h3 class="blog-title"><span>标签云</span></h3>
+            <div class="am-u-sm-12 blog-clear-padding cloud">
+            	<ul >
+            		<li th:each="tag,tagStat : ${tagList}"><a href=""  ><span th:text="${tag.tagName}"></span></a></li>
+            	</ul>
+            </div>
+        </div>
+        <div class="blog-sidebar-widget blog-bor">
+            <h3 class="blog-title"><span>心情</span></h3>
+            <ul class="am-list">
+            	<li th:each="mood,modStat : ${moodList}">
+            		<a href="mood"><span th:utext="${mood.moodContent}"></span></a>
+            	</li>
+            </ul>
+        </div>
+        <div class="blog-sidebar-widget blog-bor">
+            <h3 class="blog-title"><span>友情链接</span></h3>
+            <ul class="am-list">
+            	<li th:each="mood,modStat : ${moodList}">
+            		<a href="#"><span th:text="${mood.moodContent}"></span></a>
+            	</li> 
+            </ul>
+        </div>
+    </div>
+    <div class="am-u-sm-1 am-u-md-1 am-u-lg-12">
+	&nbsp;
+	</div>
+</div>
+<!-- content end -->
+	
+  <footer class="blog-footer">
+     <div th:include="common/footer :: copy"></div>
+    <!-- <div class="blog-text-center">© 2015 AllMobilize, Inc. Licensed under MIT license. Made with love By LWXYFER</div>     -->
+  </footer>
+
+
+
+<!--[if (gte IE 9)|!(IE)]><!-->
+<script src="../stage/assets/js/jquery.min.js"></script>
+<script th:src="@{/stage/assets/js/jquery.min.js}" src="/stage/assets/js/jquery.min.js"></script>
+<!--<![endif]-->
+<!--[if lte IE 8 ]>
+<script src="http://libs.baidu.com/jquery/1.11.3/jquery.min.js"></script>
+<script src="http://cdn.staticfile.org/modernizr/2.8.3/modernizr.js"></script>
+<script src="assets/js/amazeui.ie8polyfill.min.js"></script>
+<![endif]-->
+<!-- <script src="assets/js/amazeui.min.js"></script> -->
+<script th:src="@{/stage/assets/js/amazeui.min.js}"></script>
+<script th:src="@{/moudle/js/view.js}"></script>
+<!-- <script src="assets/js/app.js"></script> -->
+<script type="text/javascript">
+
+</script>
+</body>
+</html>

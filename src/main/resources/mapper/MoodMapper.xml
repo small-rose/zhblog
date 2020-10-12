@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zzy.blog.web.mapper.MoodMapper">
+  <resultMap id="BaseResultMap" type="com.zzy.blog.web.pojo.Mood">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="mood_date" jdbcType="VARCHAR" property="moodDate" />
+    <result column="mood_title" jdbcType="VARCHAR" property="moodTitle" />
+    <result column="mood_content" jdbcType="VARCHAR" property="moodContent" />
+    <result column="mood_pic" jdbcType="VARCHAR" property="moodPic" />
+    <result column="mood_like" jdbcType="INTEGER" property="moodLike" />
+    
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, mood_date, mood_title, mood_content, mood_pic, mood_like
+  </sql>
+  <select id="selectByExample" parameterType="com.zzy.blog.web.pojo.MoodQuery" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from bk_mood
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from bk_mood
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from bk_mood
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.zzy.blog.web.pojo.MoodQuery">
+    delete from bk_mood
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.zzy.blog.web.pojo.Mood">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into bk_mood (mood_date, mood_title, mood_content, 
+      mood_pic,mood_like)
+    values (#{moodDate,jdbcType=VARCHAR}, #{moodTitle,jdbcType=VARCHAR}, #{moodContent,jdbcType=VARCHAR}, 
+      #{moodPic,jdbcType=VARCHAR}, #{moodLike,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zzy.blog.web.pojo.Mood">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into bk_mood
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="moodDate != null">
+        mood_date,
+      </if>
+      <if test="moodTitle != null">
+        mood_title,
+      </if>
+      <if test="moodContent != null">
+        mood_content,
+      </if>
+      <if test="moodPic != null">
+        mood_pic,
+      </if>
+      <if test="moodLike != null">
+        mood_like,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="moodDate != null">
+        #{moodDate,jdbcType=VARCHAR},
+      </if>
+      <if test="moodTitle != null">
+        #{moodTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="moodContent != null">
+        #{moodContent,jdbcType=VARCHAR},
+      </if>
+      <if test="moodPic != null">
+        #{moodPic,jdbcType=VARCHAR},
+      </if>
+      <if test="moodLike != null">
+        #{moodLike,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.zzy.blog.web.pojo.MoodQuery" resultType="java.lang.Long">
+    select count(*) from bk_mood
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update bk_mood
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.moodDate != null">
+        mood_date = #{record.moodDate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.moodTitle != null">
+        mood_title = #{record.moodTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.moodContent != null">
+        mood_content = #{record.moodContent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.moodPic != null">
+        mood_pic = #{record.moodPic,jdbcType=VARCHAR},
+      </if>
+      <if test="record.moodLike != null">
+        mood_like = #{record.moodLike,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update bk_mood
+    set id = #{record.id,jdbcType=BIGINT},
+      mood_date = #{record.moodDate,jdbcType=VARCHAR},
+      mood_title = #{record.moodTitle,jdbcType=VARCHAR},
+      mood_content = #{record.moodContent,jdbcType=VARCHAR},
+      mood_pic = #{record.moodPic,jdbcType=VARCHAR},
+      mood_like = #{record.moodLike,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zzy.blog.web.pojo.Mood">
+    update bk_mood
+    <set>
+      <if test="moodDate != null">
+        mood_date = #{moodDate,jdbcType=VARCHAR},
+      </if>
+      <if test="moodTitle != null">
+        mood_title = #{moodTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="moodContent != null">
+        mood_content = #{moodContent,jdbcType=VARCHAR},
+      </if>
+      <if test="moodPic != null">
+        mood_pic = #{moodPic,jdbcType=VARCHAR},
+      </if>
+      <if test="moodLike != null">
+        mood_like = #{moodLike,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zzy.blog.web.pojo.Mood">
+    update bk_mood
+    set mood_date = #{moodDate,jdbcType=VARCHAR},
+      mood_title = #{moodTitle,jdbcType=VARCHAR},
+      mood_content = #{moodContent,jdbcType=VARCHAR},
+      mood_pic = #{moodPic,jdbcType=VARCHAR},
+      mood_like = #{moodLike,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
